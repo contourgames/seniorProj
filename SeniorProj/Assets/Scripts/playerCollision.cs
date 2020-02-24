@@ -10,17 +10,19 @@ public class playerCollision : MonoBehaviour
     // Start is called before the first frame update
     [Header("Layers")]
     public LayerMask groundLayer;
+    public LayerMask wallLayer;
 
     [Space]
     public bool onGround;
     public bool onWall;
     public bool onRightWall;
     public bool onLeftWall;
+    public bool onTopGround;
     public int wallSlide;
 
 
     public float radius = 0.25f;
-    public Vector2 bottomOffSet, rightOffSet, LeftOffSet;
+    public Vector2 bottomOffSet, rightOffSet, LeftOffSet, TopOffSet;
     private Color debugColor = Color.red;
     void Start()
     {
@@ -37,7 +39,7 @@ public class playerCollision : MonoBehaviour
 
         onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffSet, radius, groundLayer);
         onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + LeftOffSet, radius, groundLayer);
-
+        onTopGround = Physics2D.OverlapCircle((Vector2)transform.position + TopOffSet, radius, groundLayer);
         wallSlide = onRightWall ? -1 : 1;
     }
 
@@ -45,10 +47,12 @@ public class playerCollision : MonoBehaviour
     {
         Gizmos.color = Color.green;
 
-        var positions = new Vector2[] { bottomOffSet, rightOffSet, LeftOffSet };
+        var positions = new Vector2[] { bottomOffSet, rightOffSet, LeftOffSet, TopOffSet };
 
         Gizmos.DrawWireSphere((Vector2)transform.position + bottomOffSet, radius);
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffSet, radius);
         Gizmos.DrawWireSphere((Vector2)transform.position + LeftOffSet, radius);
+        Gizmos.DrawWireSphere((Vector2)transform.position + TopOffSet, radius);
+
     }
 }
