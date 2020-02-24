@@ -6,6 +6,13 @@ using Rewired;
 public class PlayerMovement : MonoBehaviour
 {
 
+    //variables for dashing
+    public bool facingRight;
+    public int dashVelocity;
+    public bool dashing;
+    public int dashTimer;
+    public bool canDash;
+
     /// <summary>
     ///    Reference for Jumping mechanics: https://www.youtube.com/watch?v=7KiK0Aqtmzc
     /// </summary>
@@ -40,9 +47,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private int numWallJumps = 1;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
+        //dashing variables set do default values
+        facingRight = true;
+        dashing = false;
+        dashTimer = 0;
+        canDash = true;
+
         _rb = GetComponent<Rigidbody2D>();
         _collScript = GetComponent<playerCollision>();
         maxVel = 9;
@@ -72,6 +87,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(dashing);
+        Dash();
         if (_collScript.onWall && !_playerGrounded && player.GetButtonDown("A/X"))
         {
             WallJump();
@@ -90,6 +107,50 @@ public class PlayerMovement : MonoBehaviour
 
             Move(walkDir);
         }
+
+        //Dash
+        //detects player's direction
+       if (walkDir.x > 0)
+        {
+            facingRight = true;
+        }
+       if (walkDir.x < 0)
+        {
+            facingRight = false;
+        }
+       //sets dash to be left or right based on player direction
+        if (facingRight)
+        {
+            //speed of dash
+            dashVelocity = 20;
+        }
+        else
+        {
+            dashVelocity = -20;
+        }
+
+        //pressing the dash button activates this booleon, which causes a timer to go up
+        if (dashing && canDash)
+        {
+            dashTimer++;
+            //this time is the duration of the dash
+            if (dashTimer <= 10)
+            {
+                _rb.velocity = new Vector2(dashVelocity, 0);
+            }
+            else
+            {
+                _rb.velocity = new Vector2(_rb.velocity.x * .7f, 0);
+            }
+            //this time is how long the cooldown is between dashes
+            if (dashTimer >= 20)
+            {
+                dashTimer = 0;
+                dashing = false;
+                canDash = false;
+            }
+        }
+
 
         //Jump
         if (player.GetButton("A/X"))
@@ -243,7 +304,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (player.GetButtonDown("B/Circle"))
         {
-
+            Debug.Log("Presse");
+            dashing = true;
         }
     }
 
@@ -257,7 +319,8 @@ public class PlayerMovement : MonoBehaviour
         if (_collScript.onGround && collision.gameObject.tag == "Ground")
         {
             _playerGrounded = true;
-            Debug.Log("Player grounded");
+            canDash = true;
+           // Debug.Log("Player grounded");
         }
         else
         {
