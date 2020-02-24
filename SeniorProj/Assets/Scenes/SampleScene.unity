@@ -3338,7 +3338,7 @@ PrefabInstance:
     - target: {fileID: 7298959544746511386, guid: 19b70ab793c7928408e9131a83033cdb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.79
+      value: -5.58
       objectReference: {fileID: 0}
     - target: {fileID: 7298959544746511386, guid: 19b70ab793c7928408e9131a83033cdb,
         type: 3}
@@ -3394,6 +3394,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7298959544746511390, guid: 19b70ab793c7928408e9131a83033cdb,
+        type: 3}
+      propertyPath: wallJumpVelocity
+      value: 550
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19b70ab793c7928408e9131a83033cdb, type: 3}

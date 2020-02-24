@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool _playerGrounded = false;
     public bool isWallSliding = false;
     public bool canWallJump;
+    public bool canMove;
 
     [Space]
     [Header("Floats")]
@@ -102,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         joyStickX = player.GetAxis("Horizontal");
         joyStickY = player.GetAxis("Vertical");
         Vector2 walkDir = new Vector2(joyStickX, joyStickY);
-        if (!isWallSliding)
+        if (!isWallSliding && canMove)
         {
 
             Move(walkDir);
@@ -291,10 +292,34 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 wallDirection;
 
-        wallDirection = _collScript.onRightWall ? Vector2.left : Vector2.right; //Determines which direction player will jump off the wall
-        _rb.AddForce(wallDirection * wallJumpVelocity); //Add force to the side
-        _rb.AddForce(Vector3.up * wallJumpVelocity); // Add force upwards
-        StartCoroutine("WSMoveDelay");
+        if (joyStickX == 0)
+        {
+            Debug.Log("Wall Jump: No Input");
+            wallDirection = _collScript.onRightWall ? Vector2.left : Vector2.right; //Determines which direction player will jump off the wall
+            _rb.AddForce(wallDirection * wallJumpVelocity);
+        }
+        else {
+
+            wallDirection = _collScript.onRightWall ? Vector2.left : Vector2.right; //Determines which direction player will jump off the wall
+
+            _rb.AddForce(Vector3.up * wallJumpVelocity); // Add force upwards
+
+            if (joyStickX == wallDirection.x)
+            {
+                _rb.AddForce(wallDirection * wallJumpVelocity); //Add force to the side
+                
+                Debug.Log("Joystick against the wall");
+            }
+            else if (joyStickX != wallDirection.x) 
+            {
+                _rb.AddForce(wallDirection * (wallJumpVelocity * .5f)); //Add force to the side
+                Debug.Log("Joystick with the wall");
+            }
+
+            StartCoroutine("WSMoveDelay");
+            canMove = false;
+        }
+
     }
 
     void Dash()
@@ -317,6 +342,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _playerGrounded = true;
             canDash = true;
+            canMove = true;
            // Debug.Log("Player grounded");
         }
         else
@@ -333,6 +359,11 @@ public class PlayerMovement : MonoBehaviour
         {
             _playerGrounded = false;
         }
+    }
+    IEnumerator canMoveDelay() {
+        canMove = false;
+        yield return new WaitForSeconds(.5f);
+        canMove = true;
     }
 
     IEnumerator WSMoveDelay()
