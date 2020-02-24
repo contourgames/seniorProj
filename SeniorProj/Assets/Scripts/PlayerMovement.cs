@@ -289,15 +289,12 @@ public class PlayerMovement : MonoBehaviour
 
     void WallJump()
     {
-
-        //if (canWallJump) {
         Vector2 wallDirection;
 
         wallDirection = _collScript.onRightWall ? Vector2.left : Vector2.right; //Determines which direction player will jump off the wall
         _rb.AddForce(wallDirection * wallJumpVelocity); //Add force to the side
         _rb.AddForce(Vector3.up * wallJumpVelocity); // Add force upwards
         StartCoroutine("WSMoveDelay");
-        // }
     }
 
     void Dash()
