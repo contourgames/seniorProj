@@ -3139,7 +3139,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1467656620}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: bc6d9e8ed87694d458c02970b6d44f6e, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -3389,6 +3389,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7298959544746511387, guid: 19b70ab793c7928408e9131a83033cdb,
+        type: 3}
+      propertyPath: GBOffset.y
+      value: -1.2
       objectReference: {fileID: 0}
     - target: {fileID: 7298959544746511389, guid: 19b70ab793c7928408e9131a83033cdb,
         type: 3}

@@ -88,13 +88,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(dashing);
+        //Debug.Log(dashing);
         Dash();
         if (_collScript.onWall && !_playerGrounded && player.GetButtonDown("A/X"))
         {
             WallJump();
 
         }
+
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -123,11 +124,11 @@ public class PlayerMovement : MonoBehaviour
         if (facingRight)
         {
             //speed of dash
-            dashVelocity = 20;
+            dashVelocity = 15;
         }
         else
         {
-            dashVelocity = -20;
+            dashVelocity = -15;
         }
 
         //pressing the dash button activates this booleon, which causes a timer to go up
@@ -262,7 +263,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void CheckForWallSlide()
     {
-        if (_collScript.onWall && !_playerGrounded)
+        if (_collScript.onWall && !_playerGrounded && _collScript.onGroundBelow == false)
         {
             isWallSliding = true;
         }
@@ -328,6 +329,12 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Presse");
             dashing = true;
+        }
+    }
+
+    void Throw() {
+        if (player.GetButtonDown("X/Square")) { 
+        
         }
     }
 
