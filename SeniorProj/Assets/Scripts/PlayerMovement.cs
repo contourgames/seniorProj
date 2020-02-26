@@ -74,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
         acceleration = 1.1f;
         canWallJump = true;
 
+        transform.GetComponent<TrailRenderer>().enabled = false;
+
         //Assigns each player to a different controller by object name
         if (this.gameObject.name == "Player")
         {
@@ -103,6 +105,15 @@ public class PlayerMovement : MonoBehaviour
         if (_collScript.onWall && !_playerGrounded && player.GetButtonDown("A/X"))
         {
             WallJump();
+
+        }
+
+        if(dashing == true)
+        {
+            transform.GetComponent<TrailRenderer>().enabled = true;
+        } else
+        {
+            transform.GetComponent<TrailRenderer>().enabled = false;
 
         }
 
