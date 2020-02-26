@@ -21,7 +21,7 @@ public class PlayQuit : MonoBehaviour
     {
         if(gameObject.name == "PlayCollider")
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("ReadyUp");
          Debug.Log("PlayGame");
 		}
 
@@ -31,5 +31,10 @@ public class PlayQuit : MonoBehaviour
          Debug.Log("QuitGame"); 
 
 		}
+
+        if(gameObject.name == "ReturnToMM")
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
 	}
 }
