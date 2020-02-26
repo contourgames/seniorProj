@@ -12,7 +12,11 @@ public class PlayerMovement : MonoBehaviour
     public bool dashing;
     public int dashTimer;
     public bool canDash;
-
+    //variables for holding
+    public bool nearObject;
+    public bool holding;
+    public GameObject heldObject;
+    
     /// <summary>
     ///    Reference for Jumping mechanics: https://www.youtube.com/watch?v=7KiK0Aqtmzc
     /// </summary>
@@ -59,6 +63,10 @@ public class PlayerMovement : MonoBehaviour
         dashTimer = 0;
         canDash = true;
 
+        //holding object variables set to default values
+        holding = false;
+        heldObject = GameObject.Find("FakeObject");
+        
         _rb = GetComponent<Rigidbody2D>();
         _collScript = GetComponent<playerCollision>();
         maxVel = 9;
@@ -88,8 +96,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log(dashing);
+        
         Dash();
+        Throw();
         if (_collScript.onWall && !_playerGrounded && player.GetButtonDown("A/X"))
         {
             WallJump();
@@ -295,7 +304,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (joyStickX == 0)
         {
-            Debug.Log("Wall Jump: No Input");
+           // Debug.Log("Wall Jump: No Input");
             wallDirection = _collScript.onRightWall ? Vector2.left : Vector2.right; //Determines which direction player will jump off the wall
             _rb.AddForce(wallDirection * wallJumpVelocity);
         }
@@ -309,12 +318,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 _rb.AddForce(wallDirection * wallJumpVelocity); //Add force to the side
                 
-                Debug.Log("Joystick against the wall");
+               // Debug.Log("Joystick against the wall");
             }
             else if (joyStickX != wallDirection.x) 
             {
                 _rb.AddForce(wallDirection * (wallJumpVelocity * .5f)); //Add force to the side
-                Debug.Log("Joystick with the wall");
+             //   Debug.Log("Joystick with the wall");
             }
 
             StartCoroutine("WSMoveDelay");
@@ -327,14 +336,33 @@ public class PlayerMovement : MonoBehaviour
     {
         if (player.GetButtonDown("B/Circle"))
         {
-            Debug.Log("Presse");
+           //Debug.Log("Presse");
             dashing = true;
         }
     }
 
     void Throw() {
-        if (player.GetButtonDown("X/Square")) { 
-        
+        if (nearObject) {
+            if (player.GetButtonDown("X/Square"))
+            {
+              //  Debug.Log(holding);
+                if (!holding)
+                {
+                    holding = true;
+                  
+                }
+                else
+                {
+                    
+                    holding = false;
+                    heldObject.GetComponent<Objects>().beingThrown = true;
+
+                }
+
+            }
+        } else
+        {
+            holding = false;
         }
     }
 
