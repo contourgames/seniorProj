@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isWallSliding = false;
     public bool canWallJump;
     public bool canMove;
-
+    public bool canSlide;
     [Space]
     [Header("Floats")]
     public float maxVel;
@@ -46,7 +46,8 @@ public class PlayerMovement : MonoBehaviour
     public float wallSlidingSpeed;
     public float wallJumpVelocity;
     public float jumpVelocity = 15f;
-
+    float prevYVel = 0;
+    float currVel = 0;
     [Space]
     [Header("Ints")]
     [SerializeField]
@@ -78,16 +79,16 @@ public class PlayerMovement : MonoBehaviour
         {
             player = ReInput.players.GetPlayer(0);
         }
-        else if (this.gameObject.name == "Player2")
+        else if (this.gameObject.name == "Player 2")
         {
             player = ReInput.players.GetPlayer(1);
 
         }
-        else if (this.gameObject.name == "Player3")
+        else if (this.gameObject.name == "Player 3")
         {
             player = ReInput.players.GetPlayer(2);
         }
-        else if (this.gameObject.name == "Player4")
+        else if (this.gameObject.name == "Player 4")
         {
             player = ReInput.players.GetPlayer(3);
 
@@ -118,18 +119,21 @@ public class PlayerMovement : MonoBehaviour
 
             Move(walkDir);
         }
+        prevYVel = currVel;
+        currVel = _rb.velocity.y;
 
+        #region Dashing
         //Dash
         //detects player's direction
-       if (walkDir.x > 0)
+        if (walkDir.x > 0)
         {
             facingRight = true;
         }
-       if (walkDir.x < 0)
+        if (walkDir.x < 0)
         {
             facingRight = false;
         }
-       //sets dash to be left or right based on player direction
+        //sets dash to be left or right based on player direction
         if (facingRight)
         {
             //speed of dash
@@ -161,9 +165,9 @@ public class PlayerMovement : MonoBehaviour
                 canDash = false;
             }
         }
+        #endregion
 
-
-        //Jump
+     //Jump
         if (player.GetButton("A/X"))
         {
             if (_playerGrounded == true)
@@ -173,6 +177,8 @@ public class PlayerMovement : MonoBehaviour
 
 
         }
+
+
 
         //High jump vs lowJump gravity multiplier
         if (!isWallSliding)
@@ -272,13 +278,22 @@ public class PlayerMovement : MonoBehaviour
     }
     void CheckForWallSlide()
     {
-        if (_collScript.onWall && !_playerGrounded && _collScript.onGroundBelow == false)
+        if (_collScript.onWall && !_playerGrounded)
         {
-            isWallSliding = true;
+            Debug.Log("Prev: " + prevYVel + " Curr: " + currVel);
+
+            if (prevYVel > currVel)
+            {
+                isWallSliding = true;
+
+            }
         }
         else
         {
+            
             isWallSliding = false;
+
+
         }
 
         if (_collScript.onLeftWall)
@@ -407,4 +422,5 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(.4f);
         canWallJump = true;
     }
+
 }
