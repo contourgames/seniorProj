@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Wall
+  - Player 2
+  - Player 3
+  - Player 4
   layers:
   - Default
   - TransparentFX
@@ -17,9 +20,9 @@ TagManager:
   - 
   - Ground
   - Player
-  - 
-  - 
-  - 
+  - Player 2
+  - Player 3
+  - Player 4
   - 
   - 
   - 
