@@ -210,16 +210,17 @@ public class PlayerMovement : MonoBehaviour
         //Set the wallsliding force
         if (isWallSliding)
         {
-            if (joyStickX == 0)
+            
+            if (joyStickX == 0 && _rb.velocity.y <= 0)
             {
                 if (_rb.velocity.y < -wallSlidingSpeed)
                 {
                     _rb.velocity = new Vector2(_rb.velocity.x, -wallSlidingSpeed);
                 }
             }
-            else if (joyStickX != 0)
+            else if (joyStickX != 0 && _rb.velocity.y <= 0)
             {
-                _rb.velocity = new Vector2(_rb.velocity.x, -wallSlidingSpeed * .15f);
+                _rb.velocity = new Vector2(_rb.velocity.x, -wallSlidingSpeed * .095f);
             }
 
         }
