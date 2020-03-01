@@ -16,7 +16,9 @@ public class PlayerMovement : MonoBehaviour
     public bool nearObject;
     public bool holding;
     public GameObject heldObject;
-    
+    public float throwX;
+    public float throwY;
+
     /// <summary>
     ///    Reference for Jumping mechanics: https://www.youtube.com/watch?v=7KiK0Aqtmzc
     /// </summary>
@@ -67,8 +69,11 @@ public class PlayerMovement : MonoBehaviour
         //holding object variables set to default values
         holding = false;
         heldObject = GameObject.Find("FakeObject");
-        
-        _rb = GetComponent<Rigidbody2D>();
+        throwX = 5.0f;
+        throwY = 7.0f;
+        nearObject = false;
+
+    _rb = GetComponent<Rigidbody2D>();
         _collScript = GetComponent<playerCollision>();
         maxVel = 9;
         acceleration = 1.1f;
@@ -99,7 +104,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
+
+       // Debug.Log(holding);
         Dash();
         Throw();
         if (_collScript.onWall && !_playerGrounded && player.GetButtonDown("A/X"))
@@ -292,11 +298,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_collScript.onWall && !_playerGrounded)
         {
-            Debug.Log("Prev: " + prevYVel + " Curr: " + currVel);
+          //  Debug.Log("Prev: " + prevYVel + " Curr: " + currVel);
 
             if (_rb.velocity.y <= 0)
             {
-                Debug.Log("slide");
+               // Debug.Log("slide");
                 isWallSliding = true;
 
             }
@@ -373,27 +379,36 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Throw() {
-        if (nearObject) {
-            if (player.GetButtonDown("X/Square"))
+
+        if (holding == false)
+        {
+            if (nearObject)
             {
-              //  Debug.Log(holding);
-                if (!holding)
+                if (player.GetButtonUp("X/Square"))
                 {
-                    holding = true;
-                  
+                        holding = true;
                 }
-                else
-                {
-                    
-                    holding = false;
-                    heldObject.GetComponent<Objects>().beingThrown = true;
-
-                }
-
             }
         } else
         {
-            holding = false;
+            
+            if (player.GetButton("X/Square"))   //longer the player holds button, shot will transition from lob to fastball
+            {
+                            //maximum throw power
+                if (throwX <= 20.0f) { throwX += .05f; }
+                            //minimum throw height
+                if (throwY >= 1.0f) { throwY -= .05f; }
+                
+                
+            }
+            if (player.GetButtonUp("X/Square"))
+            {
+             //  Debug.Log("Y: " + throwY);
+             //  Debug.Log("X: " + throwX);
+                holding = false;
+                heldObject.GetComponent<Objects>().beingThrown = true;
+           
+            }
         }
     }
 

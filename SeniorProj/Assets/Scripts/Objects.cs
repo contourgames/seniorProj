@@ -29,9 +29,10 @@ public class Objects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      
        // Debug.Log(held);
         DetectPlayer();
-        Debug.Log("X vel: " + _rb.velocity.x + " Y Vel " + _rb.velocity.y);
+       // Debug.Log("X vel: " + _rb.velocity.x + " Y Vel " + _rb.velocity.y);
         if (_rb.velocity.x == 0 && _rb.velocity.y == 0 && _grounded)
         {
             _ignoreColl = true;
@@ -57,18 +58,20 @@ public class Objects : MonoBehaviour
             throwTimer++;
             if (nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
             {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(10, 5);
+                GetComponent<Rigidbody2D>().velocity = new Vector2(owner.GetComponent<PlayerMovement>().throwX, owner.GetComponent<PlayerMovement>().throwY);
             } else
             {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(-10, 5);
+                GetComponent<Rigidbody2D>().velocity = new Vector2(-owner.GetComponent<PlayerMovement>().throwX, owner.GetComponent<PlayerMovement>().throwY);
             }
         }
        
-        if (throwTimer > 10)
+        if (throwTimer > 5)
         {
             Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), nearbyPlayer.GetComponent<BoxCollider2D>(), false);
             throwTimer = 0;
             beingThrown = false;
+            owner.GetComponent<PlayerMovement>().throwX = 5;
+            owner.GetComponent<PlayerMovement>().throwY = 10;
         }
     }
 
@@ -94,11 +97,15 @@ public class Objects : MonoBehaviour
                 nearbyPlayer.GetComponent<PlayerMovement>().heldObject = gameObject;
             } else
             {
+
                 nearbyPlayer.GetComponent<PlayerMovement>().heldObject = GameObject.Find("FakeObject");
                 held = false;
             }
-        } else
+        } else 
         {
+            
+            nearbyPlayer.GetComponent<PlayerMovement>().nearObject = false;
+            nearbyPlayer = GameObject.Find("FakeObject");
             nearPlayer = false;
         }
       
@@ -120,11 +127,12 @@ public class Objects : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
+      
+  
         if ( _grounded == true && collision.gameObject.layer == 9)
         {
             Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
-
+            
         }
     }
 }
