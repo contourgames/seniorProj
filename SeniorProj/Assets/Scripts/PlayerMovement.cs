@@ -294,10 +294,14 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Prev: " + prevYVel + " Curr: " + currVel);
 
-            if (prevYVel > currVel)
+            if (_rb.velocity.y <= 0)
             {
+                Debug.Log("slide");
                 isWallSliding = true;
 
+            }
+            else {
+                isWallSliding = false;
             }
         }
         else
@@ -361,7 +365,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Dash()
     {
-        if (player.GetButtonDown("B/Circle"))
+        if (player.GetButtonDown("LT/L2") || player.GetButtonDown("RT/R2"))
         {
            //Debug.Log("Presse");
             dashing = true;

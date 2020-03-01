@@ -12,6 +12,10 @@ public class Objects : MonoBehaviour
     public GameObject nearbyPlayer;
     public Collider2D myCollider;
     public Collider2D ownerCollider;
+    public bool _grounded;
+    bool _ignoreColl;
+    Rigidbody2D _rb;
+    LayerMask _layerMask;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +23,7 @@ public class Objects : MonoBehaviour
         held = false;
         nearPlayer = false;
         nearbyPlayer = GameObject.Find("FakeObject");
-      
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -27,7 +31,14 @@ public class Objects : MonoBehaviour
     {
        // Debug.Log(held);
         DetectPlayer();
-
+        Debug.Log("X vel: " + _rb.velocity.x + " Y Vel " + _rb.velocity.y);
+        if (_rb.velocity.x == 0 && _rb.velocity.y == 0 && _grounded)
+        {
+            _ignoreColl = true;
+        }
+        else {
+            _ignoreColl = false;
+        }
         if (held)
         {
            
@@ -61,7 +72,7 @@ public class Objects : MonoBehaviour
         }
     }
 
-
+    
     public void DetectPlayer()
     {
         RaycastHit2D hit2D;
@@ -92,5 +103,28 @@ public class Objects : MonoBehaviour
         }
       
         
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            _grounded = true;
+
+        }
+        else
+        {
+            _grounded = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if ( _grounded == true && collision.gameObject.layer == 9)
+        {
+            Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
+
+        }
     }
 }
