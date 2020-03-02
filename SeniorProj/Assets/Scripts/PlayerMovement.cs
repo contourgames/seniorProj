@@ -32,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     int whichSide;
     float xSpeed;
 
+    private Vector2 spawnPosition;
+
 
     [Space]
     [Header("Bools")]
@@ -100,6 +102,9 @@ public class PlayerMovement : MonoBehaviour
             player = ReInput.players.GetPlayer(3);
 
         }
+
+
+        spawnPosition = new Vector2(transform.position.x, transform.position.y);
     }
 
     void Update()
@@ -414,7 +419,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
+        if(collision.gameObject.tag == "Death")
+        {
+            transform.position = spawnPosition;
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)

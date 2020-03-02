@@ -27,7 +27,7 @@ public class PlayQuit : MonoBehaviour
 
         if(gameObject.name == "QuitCollider")
         {
-            //SceneManager.LoadScene("KOTR");
+            SceneManager.LoadScene("KOTR");
 
             //Application.Quit();
             Debug.Log("KOTR"); 
