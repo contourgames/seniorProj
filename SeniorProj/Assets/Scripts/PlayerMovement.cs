@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Space]
     [Header("Bools")]
-    [SerializeField] private bool _playerGrounded = false;
+    [SerializeField] private bool _playerGrounded;
     public bool isWallSliding = false;
     public bool canWallJump;
     public bool canMove;
@@ -200,8 +200,6 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-
-
         //High jump vs lowJump gravity multiplier
         if (!isWallSliding)
         {
@@ -305,7 +303,7 @@ public class PlayerMovement : MonoBehaviour
         {
           //  Debug.Log("Prev: " + prevYVel + " Curr: " + currVel);
 
-            if (_rb.velocity.y <= 0)
+            if (_rb.velocity.y <= 0) //If player is starting to fall they can wall slide
             {
                // Debug.Log("slide");
                 isWallSliding = true;
@@ -323,7 +321,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (_collScript.onLeftWall)
+        if (_collScript.onLeftWall) // Determines which side player is on
         {
             whichSide = -1;
         }
@@ -344,7 +342,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 wallDirection;
 
-        if (joyStickX == 0)
+        if (joyStickX == 0) //If there's no input, player detach from the wall
         {
            // Debug.Log("Wall Jump: No Input");
             wallDirection = _collScript.onRightWall ? Vector2.left : Vector2.right; //Determines which direction player will jump off the wall
@@ -356,13 +354,13 @@ public class PlayerMovement : MonoBehaviour
 
             _rb.AddForce(Vector3.up * wallJumpVelocity); // Add force upwards
 
-            if (joyStickX == wallDirection.x)
+            if (joyStickX == wallDirection.x) //If joystick is against the wall jump farther
             {
                 _rb.AddForce(wallDirection * wallJumpVelocity); //Add force to the side
                 
                // Debug.Log("Joystick against the wall");
             }
-            else if (joyStickX != wallDirection.x) 
+            else if (joyStickX != wallDirection.x) //If joystick is with the wall jump shorter
             {
                 _rb.AddForce(wallDirection * (wallJumpVelocity * .5f)); //Add force to the side
              //   Debug.Log("Joystick with the wall");
@@ -419,7 +417,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Death")
+        if(collision.gameObject.tag == "Death") //Reset player position
         {
             transform.position = spawnPosition;
         }
@@ -427,17 +425,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (_collScript.onGround && collision.gameObject.tag == "Ground")
+        if (_collScript.onGround && collision.gameObject.tag == "Ground") //Tell if player's grounded
         {
             _playerGrounded = true;
             canDash = true;
             canMove = true;
            // Debug.Log("Player grounded");
-        }
-        else
-        {
-            _playerGrounded = false;
-
         }
 
     }
