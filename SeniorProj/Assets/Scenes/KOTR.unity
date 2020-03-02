@@ -1385,6 +1385,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7298959544746511384, guid: d6e208b1d91fc5c4db2f03a81896ad66,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 64453850ff83c2849bfcc36fd548ec47, type: 2}
     - target: {fileID: 7298959544746511386, guid: d6e208b1d91fc5c4db2f03a81896ad66,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1445,11 +1450,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 4
       objectReference: {fileID: 0}
-    - target: {fileID: 7298959544746511389, guid: d6e208b1d91fc5c4db2f03a81896ad66,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6e208b1d91fc5c4db2f03a81896ad66, type: 3}
 --- !u!1001 &703439458
@@ -1459,6 +1459,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7298959544746511384, guid: 19b70ab793c7928408e9131a83033cdb,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 64453850ff83c2849bfcc36fd548ec47, type: 2}
     - target: {fileID: 7298959544746511386, guid: 19b70ab793c7928408e9131a83033cdb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5068,6 +5073,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7298959544746511384, guid: d026d025e8a59a24a9c4bec285bc7e2a,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 64453850ff83c2849bfcc36fd548ec47, type: 2}
     - target: {fileID: 7298959544746511386, guid: d026d025e8a59a24a9c4bec285bc7e2a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5128,11 +5138,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 2
       objectReference: {fileID: 0}
-    - target: {fileID: 7298959544746511389, guid: d026d025e8a59a24a9c4bec285bc7e2a,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d026d025e8a59a24a9c4bec285bc7e2a, type: 3}
 --- !u!1001 &1792617777
@@ -5142,6 +5147,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7298959544746511384, guid: 51032f9a388d183479d229aa9e39ba5e,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 64453850ff83c2849bfcc36fd548ec47, type: 2}
     - target: {fileID: 7298959544746511386, guid: 51032f9a388d183479d229aa9e39ba5e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5201,11 +5211,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7298959544746511389, guid: 51032f9a388d183479d229aa9e39ba5e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51032f9a388d183479d229aa9e39ba5e, type: 3}
