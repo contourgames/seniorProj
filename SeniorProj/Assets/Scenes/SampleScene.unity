@@ -3505,11 +3505,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6000527281953067543, guid: d588cd0251fbf264486625eef7ec83b0,
-        type: 3}
-      propertyPath: m_GravityScale
-      value: 2.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d588cd0251fbf264486625eef7ec83b0, type: 3}
 --- !u!1001 &7298959545525979868
@@ -3519,11 +3514,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6844769377556471145, guid: 19b70ab793c7928408e9131a83033cdb,
-        type: 3}
-      propertyPath: m_Time
-      value: 0.15
-      objectReference: {fileID: 0}
     - target: {fileID: 7298959544746511386, guid: 19b70ab793c7928408e9131a83033cdb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3579,25 +3569,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7298959544746511387, guid: 19b70ab793c7928408e9131a83033cdb,
-        type: 3}
-      propertyPath: GBOffset.y
-      value: -1.2
-      objectReference: {fileID: 0}
     - target: {fileID: 7298959544746511389, guid: 19b70ab793c7928408e9131a83033cdb,
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7298959544746511389, guid: 19b70ab793c7928408e9131a83033cdb,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7298959544746511390, guid: 19b70ab793c7928408e9131a83033cdb,
-        type: 3}
-      propertyPath: wallJumpVelocity
-      value: 550
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19b70ab793c7928408e9131a83033cdb, type: 3}

@@ -152,6 +152,8 @@ MonoBehaviour:
   dashTimer: 0
   canDash: 0
   nearObject: 0
+  searching: 0
+  searchTime: 0
   holding: 0
   heldObject: {fileID: 0}
   throwX: 0
