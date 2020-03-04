@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public bool canDash;
     //variables for holding
     public bool nearObject;
+    public bool searching;
+    public int searchTime;
     public bool holding;
     public GameObject heldObject;
     public float throwX;
@@ -73,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
         heldObject = GameObject.Find("FakeObject");
         throwX = 5.0f;
         throwY = 7.0f;
+        searching = false;
+        searchTime = 0;
         nearObject = false;
 
     _rb = GetComponent<Rigidbody2D>();
@@ -382,23 +386,32 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Throw() {
+      //  Debug.Log(heldObject.transform.name);
+        if (searching)
+        {
+            searchTime++;
+        }
+        if (searchTime >= 5)
+        {
+            searching = false;
 
+        }
         if (holding == false)
         {
-            if (nearObject)
-            {
+            
                 if (player.GetButtonUp("X/Square"))
                 {
-                        holding = true;
+                    searching = true;
+                       
                 }
-            }
+            
         } else
         {
             
             if (player.GetButton("X/Square"))   //longer the player holds button, shot will transition from lob to fastball
             {
                             //maximum throw power
-                if (throwX <= 20.0f) { throwX += .05f; }
+                if (throwX <= 25.0f) { throwX += 1.0f; }
                             //minimum throw height
                 if (throwY >= 1.0f) { throwY -= .05f; }
                 
@@ -410,7 +423,8 @@ public class PlayerMovement : MonoBehaviour
              //  Debug.Log("X: " + throwX);
                 holding = false;
                 heldObject.GetComponent<Objects>().beingThrown = true;
-           
+              
+
             }
         }
     }

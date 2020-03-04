@@ -22,6 +22,7 @@ public class Objects : MonoBehaviour
         myCollider = GetComponent<Collider2D>();
         held = false;
         nearPlayer = false;
+        owner = GameObject.Find("FakeObject");
         nearbyPlayer = GameObject.Find("FakeObject");
         _rb = GetComponent<Rigidbody2D>();
     }
@@ -30,7 +31,7 @@ public class Objects : MonoBehaviour
     void Update()
     {
       
-       // Debug.Log(held);
+      Debug.Log(beingThrown);
         DetectPlayer();
        // Debug.Log("X vel: " + _rb.velocity.x + " Y Vel " + _rb.velocity.y);
         if (_rb.velocity.x == 0 && _rb.velocity.y == 0 && _grounded)
@@ -56,7 +57,7 @@ public class Objects : MonoBehaviour
         if (beingThrown)
         {
             throwTimer++;
-            if (nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
+            if (nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
             {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(owner.GetComponent<PlayerMovement>().throwX, owner.GetComponent<PlayerMovement>().throwY);
             } else
@@ -65,13 +66,15 @@ public class Objects : MonoBehaviour
             }
         }
        
-        if (throwTimer > 5)
+        if (throwTimer > 1)
         {
             Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), nearbyPlayer.GetComponent<BoxCollider2D>(), false);
             throwTimer = 0;
             beingThrown = false;
+            held = false;
             owner.GetComponent<PlayerMovement>().throwX = 5;
             owner.GetComponent<PlayerMovement>().throwY = 10;
+           
         }
     }
 
@@ -85,26 +88,23 @@ public class Objects : MonoBehaviour
         if (hit2D.collider != null)
         {
            nearbyPlayer = GameObject.Find(hit2D.transform.name);
-            nearbyPlayer.GetComponent<PlayerMovement>().nearObject = true;
+         
             nearPlayer = true;
            // Debug.Log(nearbyPlayer.transform.name);
 
-            if (nearbyPlayer.GetComponent<PlayerMovement>().holding == true)
+            if (nearbyPlayer.GetComponent<PlayerMovement>().searching == true)
             {
+                nearbyPlayer.GetComponent<PlayerMovement>().heldObject = gameObject;
+                nearbyPlayer.GetComponent<PlayerMovement>().holding = true;
                 held = true;
                 owner = nearbyPlayer;
                 ownerCollider = nearbyPlayer.GetComponent<Collider2D>();
-                nearbyPlayer.GetComponent<PlayerMovement>().heldObject = gameObject;
-            } else
-            {
-
-                nearbyPlayer.GetComponent<PlayerMovement>().heldObject = GameObject.Find("FakeObject");
-                held = false;
+                
             }
         } else 
         {
             
-            nearbyPlayer.GetComponent<PlayerMovement>().nearObject = false;
+          
             nearbyPlayer = GameObject.Find("FakeObject");
             nearPlayer = false;
         }
