@@ -11,6 +11,7 @@ TagManager:
   - Player 4
   - Death
   - Throwable
+  - Breakable
   layers:
   - Default
   - TransparentFX

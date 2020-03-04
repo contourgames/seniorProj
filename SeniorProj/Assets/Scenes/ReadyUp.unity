@@ -3576,15 +3576,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Object
       objectReference: {fileID: 0}
+    - target: {fileID: 6000527281953067538, guid: d588cd0251fbf264486625eef7ec83b0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Throwable
+      objectReference: {fileID: 0}
     - target: {fileID: 6000527281953067540, guid: d588cd0251fbf264486625eef7ec83b0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.15
+      value: -0.08
       objectReference: {fileID: 0}
     - target: {fileID: 6000527281953067540, guid: d588cd0251fbf264486625eef7ec83b0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.6
+      value: 3.4
       objectReference: {fileID: 0}
     - target: {fileID: 6000527281953067540, guid: d588cd0251fbf264486625eef7ec83b0,
         type: 3}
@@ -4283,9 +4288,10 @@ GameObject:
   - component: {fileID: 1437036816}
   - component: {fileID: 1437036815}
   - component: {fileID: 1437036814}
+  - component: {fileID: 1437036817}
   m_Layer: 0
   m_Name: Breakbale Wall
-  m_TagString: Untagged
+  m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4354,7 +4360,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 3f3af6be83a4b154e8e066f3d8b27c3b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4374,12 +4380,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1437036813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.05, y: 4.05, z: -12.635057}
+  m_LocalPosition: {x: 3.05, y: 4.05, z: 0}
   m_LocalScale: {x: 0.15, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1437036817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437036813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7221998344be04caf0888c5f4893ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitsNeeded: 1
 --- !u!1 &1441225335
 GameObject:
   m_ObjectHideFlags: 0
