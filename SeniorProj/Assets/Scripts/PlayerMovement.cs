@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     public float throwX;
     public float throwY;
 
+  
+   
     /// <summary>
     ///    Reference for Jumping mechanics: https://www.youtube.com/watch?v=7KiK0Aqtmzc
     /// </summary>
@@ -386,7 +388,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Throw() {
-      //  Debug.Log(heldObject.transform.name);
+   //  Debug.Log(heldObject.transform.name);
         if (searching)
         {
             searchTime++;
@@ -405,15 +407,15 @@ public class PlayerMovement : MonoBehaviour
                        
                 }
             
-        } else
+        } else if (holding == true && heldObject.transform.name != "Orb")
         {
             
             if (player.GetButton("X/Square"))   //longer the player holds button, shot will transition from lob to fastball
             {
                             //maximum throw power
-                if (throwX <= 25.0f) { throwX += 1.0f; }
+                if (throwX <= 20.0f) { throwX += 0.4f; }
                             //minimum throw height
-                if (throwY >= 1.0f) { throwY -= .05f; }
+                if (throwY >= 1.0f) { throwY -= 0.2f; }
                 
                 
             }
@@ -422,8 +424,18 @@ public class PlayerMovement : MonoBehaviour
              //  Debug.Log("Y: " + throwY);
              //  Debug.Log("X: " + throwX);
                 holding = false;
+                nearObject = false;
                 heldObject.GetComponent<Objects>().beingThrown = true;
               
+
+            }
+        } else
+        {
+           
+            if (player.GetButtonUp("X/Square"))
+            {
+                heldObject.GetComponent<theOrb>().pulsing = true;
+
 
             }
         }
