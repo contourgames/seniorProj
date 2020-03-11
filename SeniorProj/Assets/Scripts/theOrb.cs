@@ -32,6 +32,8 @@ public class theOrb : MonoBehaviour
     public bool pulsing;
     public int pulseTimer;
     public GameObject pulseAttack;
+    public GameObject currPulse;
+
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +52,7 @@ public class theOrb : MonoBehaviour
         owner = GameObject.Find("FakeObject");
         nearbyPlayer = GameObject.Find("FakeObject");
         _rb = GetComponent<Rigidbody2D>();
+        currPulse = GameObject.Find("FakeObject");
     }
 
     // Update is called once per frame
@@ -57,6 +60,7 @@ public class theOrb : MonoBehaviour
     {
         Debug.Log("pulsing: " + pulsing);
         DetectPlayer();
+        Pulse();
         if (_rb.velocity.x == 0 && _rb.velocity.y == 0 && _grounded)
         {
             _ignoreColl = true;
@@ -80,6 +84,35 @@ public class theOrb : MonoBehaviour
 
     }
 
+    public void Pulse()
+    {
+        if (pulsing)
+        {
+            pulseTimer++;
+        }
+        if (pulsing && pulseTimer <= 30)
+        {
+           
+                if (pulseTimer == 1)//creates pulse prefab
+            {
+                GameObject newPulse = Instantiate(pulseAttack);
+                newPulse.transform.position = gameObject.transform.position;
+                currPulse = newPulse; //assigning it to currPulse allows you to manipualte the newPulse outside of this one frame
+            }
+            currPulse.transform.position = gameObject.transform.position;   
+        }
+        if (pulseTimer == 30)
+        {
+           
+            Destroy(currPulse);
+            currPulse = GameObject.Find("FakeObject");
+        }
+        if (pulseTimer >= 100)
+        {
+            pulseTimer = 0;
+            pulsing = false;
+        }
+    }
     public void DetectPlayer()
     {
         RaycastHit2D hit2D;

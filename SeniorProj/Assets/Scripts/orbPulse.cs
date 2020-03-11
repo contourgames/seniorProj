@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class orbPulse : MonoBehaviour
 {
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -13,11 +14,12 @@ public class orbPulse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        transform.localScale = new Vector3(transform.localScale.x + 0.05f, transform.localScale.y + 0.05f, transform.localScale.z);
     }
 
-    private void OnTriggerEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
+
     }
 
 }

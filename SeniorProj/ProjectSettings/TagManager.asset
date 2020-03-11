@@ -12,6 +12,7 @@ TagManager:
   - Death
   - Throwable
   - Breakable
+  - Pulse
   layers:
   - Default
   - TransparentFX

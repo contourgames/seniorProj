@@ -3379,7 +3379,9 @@ MonoBehaviour:
   _grounded: 0
   pulsing: 0
   pulseTimer: 0
-  pulseAttack: {fileID: 0}
+  pulseAttack: {fileID: 2039624923142341169, guid: 8449d16362f7e69488b717a5916b12ef,
+    type: 3}
+  currPulse: {fileID: 0}
 --- !u!58 &1838781548
 CircleCollider2D:
   m_ObjectHideFlags: 0
