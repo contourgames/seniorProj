@@ -21,8 +21,6 @@ public class PlayerMovement : MonoBehaviour
     public float throwX;
     public float throwY;
 
-  
-   
     /// <summary>
     ///    Reference for Jumping mechanics: https://www.youtube.com/watch?v=7KiK0Aqtmzc
     /// </summary>
@@ -37,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     float xSpeed;
 
     private Vector2 spawnPosition;
-
+    private Vector2 forcePerFrame = Vector2.zero;
 
     [Space]
     [Header("Bools")]
@@ -46,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canWallJump;
     public bool canMove;
     public bool canSlide;
+    public bool canJump;
     [Space]
     [Header("Floats")]
     public float maxVel;
@@ -61,8 +60,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private int numWallJumps = 1;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -71,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         dashing = false;
         dashTimer = 0;
         canDash = true;
-
+        canJump = true;
         //holding object variables set to default values
         holding = false;
         heldObject = GameObject.Find("FakeObject");
@@ -81,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
         searchTime = 0;
         nearObject = false;
 
-    _rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
         _collScript = GetComponent<playerCollision>();
         maxVel = 9;
         acceleration = 1.1f;
@@ -109,7 +106,6 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-
         spawnPosition = new Vector2(transform.position.x, transform.position.y);
     }
 
@@ -119,10 +115,9 @@ public class PlayerMovement : MonoBehaviour
        // Debug.Log(holding);
         Dash();
         Throw();
-        if (_collScript.onWall && !_playerGrounded && player.GetButtonDown("A/X"))
+        if (_collScript.onWall && !_playerGrounded && player.GetButtonUp("A/X"))
         {
             WallJump();
-
         }
 
         if(dashing == true)
@@ -134,6 +129,29 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+        //Jump
+        if (player.GetButton("A/X") && canJump)
+        {
+            if (_playerGrounded == true)
+            {
+                Jump(Vector2.up);
+            }
+        }
+
+        if (player.GetButtonUp("A/X") && !canJump || _playerGrounded && !player.GetButton("A/X"))
+        {
+            canJump = true;
+        }
+
+
+        if (_collScript.onGround && _rb.velocity.y == 0)
+        {
+            _playerGrounded = true;
+        }
+        else
+        {
+            _playerGrounded = false;
+        }
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -144,7 +162,6 @@ public class PlayerMovement : MonoBehaviour
         Vector2 walkDir = new Vector2(joyStickX, joyStickY);
         if (!isWallSliding && canMove)
         {
-
             Move(walkDir);
         }
         prevYVel = currVel;
@@ -195,16 +212,6 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
 
-     //Jump
-        if (player.GetButton("A/X"))
-        {
-            if (_playerGrounded == true)
-            {
-                Jump(Vector2.up);
-            }
-
-
-        }
 
         //High jump vs lowJump gravity multiplier
         if (!isWallSliding)
@@ -212,11 +219,13 @@ public class PlayerMovement : MonoBehaviour
             if (_rb.velocity.y < 0)
             {
                 _rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1.5f) * Time.deltaTime;
+                canJump = false;
             }
             else
             if (_rb.velocity.y > 0 && !player.GetButton("A/X"))
             {
                 _rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+                canJump = false;
 
             }
         }
@@ -239,51 +248,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-
-        #region Drew Old WASD Controls
-        //moving left and right
-        //	if (Input.GetKey(KeyCode.D))
-        //	{
-        //		if (Mathf.Abs(RB.velocity.x) <= 5)
-        //		{
-        //			RB.velocity = new Vector2(maxVel, RB.velocity.y);
-        //		}
-        //	}
-
-
-
-        //	if (Input.GetKey(KeyCode.A))
-        //	{	
-        //			RB.velocity = new Vector2(maxVel * -1, RB.velocity.y);
-
-        //	}
-        //	//stopping
-        //	if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && RB.velocity.x != 0)
-        //	{
-        //		RB.velocity = new Vector2(RB.velocity.x - RB.velocity.x / 10, RB.velocity.y);
-        //	}
-
-
-        //	//Detecting Ground
-        //	RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x - 0.5f, transform.position.y - 1), new Vector2(1, 0), 1.5f, 1 << LayerMask.NameToLayer("Ground"));
-        //	if (hit.collider != null)
-        //	{
-        //		Debug.Log("Detecting Ground");
-        //		//Jumping
-        //		if (Input.GetKey(KeyCode.W))
-        //		{
-
-        //			RB.velocity = new Vector2(RB.velocity.x, 25);
-        //		}
-        //		else
-        //		{
-        //			RB.velocity = new Vector2(RB.velocity.x, RB.velocity.y);
-        //		}
-        //	}
-
-
-        //}
-        #endregion
+        _rb.AddForce(forcePerFrame);
+        forcePerFrame = Vector2.zero;
 
     }
     private void Move(Vector2 walkDir)
@@ -305,7 +271,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void CheckForWallSlide()
     {
-        if (_collScript.onWall && !_playerGrounded)
+        if (_collScript.onWall && !_playerGrounded && player.GetButton("A/X"))
         {
           //  Debug.Log("Prev: " + prevYVel + " Curr: " + currVel);
 
@@ -340,7 +306,7 @@ public class PlayerMovement : MonoBehaviour
     void Jump(Vector2 dir)
     {
 
-        _rb.AddForce(Vector3.up * jumpVelocity);
+        forcePerFrame = Vector2.up * jumpVelocity;
 
     }
 
@@ -352,23 +318,23 @@ public class PlayerMovement : MonoBehaviour
         {
            // Debug.Log("Wall Jump: No Input");
             wallDirection = _collScript.onRightWall ? Vector2.left : Vector2.right; //Determines which direction player will jump off the wall
-            _rb.AddForce(wallDirection * wallJumpVelocity);
+            forcePerFrame += wallDirection * wallJumpVelocity;
         }
         else {
 
             wallDirection = _collScript.onRightWall ? Vector2.left : Vector2.right; //Determines which direction player will jump off the wall
 
-            _rb.AddForce(Vector3.up * wallJumpVelocity); // Add force upwards
+            forcePerFrame +=  Vector2.up * wallJumpVelocity; // Add force upwards
 
             if (joyStickX == wallDirection.x) //If joystick is against the wall jump farther
             {
-                _rb.AddForce(wallDirection * wallJumpVelocity); //Add force to the side
+                forcePerFrame +=  wallDirection * wallJumpVelocity; //Add force to the side
                 
                // Debug.Log("Joystick against the wall");
             }
             else if (joyStickX != wallDirection.x) //If joystick is with the wall jump shorter
             {
-                _rb.AddForce(wallDirection * (wallJumpVelocity * .5f)); //Add force to the side
+                forcePerFrame += wallDirection * (wallJumpVelocity * .5f); //Add force to the side
              //   Debug.Log("Joystick with the wall");
             }
 
