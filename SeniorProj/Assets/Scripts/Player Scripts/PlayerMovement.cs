@@ -5,13 +5,17 @@ using Rewired;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    public gameManagerJuggernaut _juggernautGM;
+    [Space]
+    [Header("Dashing")]
     //variables for dashing
     public bool facingRight;
     public int dashVelocity;
     public bool dashing;
     public int dashTimer;
     public bool canDash;
+    [Space]
+    [Header("Object Holding")]
     //variables for holding
     public bool nearObject;
     public bool searching;
@@ -45,6 +49,12 @@ public class PlayerMovement : MonoBehaviour
     public bool canMove;
     public bool canSlide;
     public bool canJump;
+
+    [Space]
+    [Header("GameModes")]
+    public float score;
+    public bool enableHurt;
+
     [Space]
     [Header("Floats")]
     public float maxVel;
@@ -63,12 +73,20 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        score = 0;
+        #region Starting values
+
+        #region dashing vals
         //dashing variables set do default values
         facingRight = true;
         dashing = false;
         dashTimer = 0;
         canDash = true;
         canJump = true;
+
+        #endregion
+
+        #region throwing vals
         //holding object variables set to default values
         holding = false;
         heldObject = GameObject.Find("FakeObject");
@@ -77,6 +95,8 @@ public class PlayerMovement : MonoBehaviour
         searching = false;
         searchTime = 0;
         nearObject = false;
+        enableHurt = true;
+        #endregion
 
         _rb = GetComponent<Rigidbody2D>();
         _collScript = GetComponent<playerCollision>();
@@ -85,7 +105,9 @@ public class PlayerMovement : MonoBehaviour
         canWallJump = true;
 
         transform.GetComponent<TrailRenderer>().enabled = false;
+        #endregion
 
+        #region Reinput assignment
         //Assigns each player to a different controller by object name
         if (this.gameObject.name == "Player")
         {
@@ -105,6 +127,7 @@ public class PlayerMovement : MonoBehaviour
             player = ReInput.players.GetPlayer(3);
 
         }
+        #endregion
 
         spawnPosition = new Vector2(transform.position.x, transform.position.y);
     }
@@ -115,6 +138,14 @@ public class PlayerMovement : MonoBehaviour
        // Debug.Log(holding);
         Dash();
         Throw();
+
+        if (heldObject.tag == "Orb") { //Increase player score as long as they are holding orb
+
+            _juggernautGM.IncreasePlayerScore(gameObject.GetComponent<PlayerMovement>());
+            int temp = Mathf.RoundToInt(score);
+            Debug.Log(gameObject.transform.name + " Score: " + temp);
+        }
+
         if (_collScript.onWall && !_playerGrounded && player.GetButtonUp("A/X"))
         {
             WallJump();
@@ -128,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
             transform.GetComponent<TrailRenderer>().enabled = false;
 
         }
-
+        #region Player jumping anf player grounded
         //Jump
         if (player.GetButton("A/X") && canJump)
         {
@@ -152,6 +183,8 @@ public class PlayerMovement : MonoBehaviour
         {
             _playerGrounded = false;
         }
+        #endregion
+
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -212,7 +245,7 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
 
-
+        #region wallsliding & Gravity multiplier
         //High jump vs lowJump gravity multiplier
         if (!isWallSliding)
         {
@@ -234,7 +267,7 @@ public class PlayerMovement : MonoBehaviour
         //Set the wallsliding force
         if (isWallSliding)
         {
-            
+
             if (joyStickX == 0 && _rb.velocity.y <= 0)
             {
                 if (_rb.velocity.y < -wallSlidingSpeed)
@@ -248,6 +281,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+        #endregion
+
         _rb.AddForce(forcePerFrame);
         forcePerFrame = Vector2.zero;
 
@@ -277,20 +312,15 @@ public class PlayerMovement : MonoBehaviour
 
             if (_rb.velocity.y <= 0) //If player is starting to fall they can wall slide
             {
-               // Debug.Log("slide");
                 isWallSliding = true;
-
             }
             else {
                 isWallSliding = false;
             }
         }
         else
-        {
-            
+        {            
             isWallSliding = false;
-
-
         }
 
         if (_collScript.onLeftWall) // Determines which side player is on

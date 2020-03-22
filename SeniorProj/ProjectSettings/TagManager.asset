@@ -13,6 +13,7 @@ TagManager:
   - Throwable
   - Breakable
   - Pulse
+  - Orb
   layers:
   - Default
   - TransparentFX

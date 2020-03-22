@@ -58,7 +58,7 @@ public class theOrb : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("pulsing: " + pulsing);
+        //Debug.Log("pulsing: " + pulsing);
         DetectPlayer();
         Pulse();
         if (_rb.velocity.x == 0 && _rb.velocity.y == 0 && _grounded)
