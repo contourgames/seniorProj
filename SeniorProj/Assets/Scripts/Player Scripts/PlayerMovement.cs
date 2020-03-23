@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public bool dashing;
     public int dashTimer;
     public bool canDash;
+    public bool screenWrapping = false;
     [Space]
     [Header("Object Holding")]
     //variables for holding
@@ -151,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
             WallJump();
         }
 
-        if(dashing == true)
+        if(dashing == true && screenWrapping == false)
         {
             transform.GetComponent<TrailRenderer>().enabled = true;
         } else
