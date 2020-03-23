@@ -134,6 +134,7 @@ public class theOrb : MonoBehaviour
                 held = true;
                 owner = nearbyPlayer;
                 ownerCollider = nearbyPlayer.GetComponent<Collider2D>();
+                myCollider.enabled = false;
 
             }
         }

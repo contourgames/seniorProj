@@ -13,6 +13,7 @@ public class playerCollision : MonoBehaviour
     public LayerMask wallLayer;
 
     [Space]
+    public bool gotHit;
     public bool onGround;
     public bool onWall;
     public bool onRightWall;
@@ -25,9 +26,14 @@ public class playerCollision : MonoBehaviour
     public float radius = 0.25f;
     public Vector2 bottomOffSet, rightOffSet, LeftOffSet, TopOffSet, GBOffset;
     private Color debugColor = Color.red;
+
+    PlayerMovement _playerScript;
+    gameManagerJuggernaut _juggernautGM;
     void Start()
     {
-
+        gotHit = false;
+        _playerScript = GetComponent<PlayerMovement>();
+        _juggernautGM = GameObject.Find("GameManager").GetComponent<gameManagerJuggernaut>();
     }
 
     // Update is called once per frame
@@ -43,6 +49,7 @@ public class playerCollision : MonoBehaviour
         onTopGround = Physics2D.OverlapCircle((Vector2)transform.position + TopOffSet, radius, groundLayer);
         //onGroundBelow = Physics2D.OverlapCircle((Vector2)transform.position + GBOffset, radius, groundLayer);
         wallSlide = onRightWall ? -1 : 1;
+
     }
 
     private void OnDrawGizmos()
@@ -64,6 +71,20 @@ public class playerCollision : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Player 2" || collision.gameObject.tag == "Player 3" || collision.gameObject.tag == "Player 4") {
             Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
+        }
+
+        if (collision.gameObject.layer == 13) {
+
+            if (_playerScript.holding && _playerScript.heldObject.transform.name == "Orb") {
+                _playerScript.heldObject.transform.position = new Vector2(0, 0);
+                _playerScript.holding = false;
+                gotHit = true;
+
+            }
+            if (collision.gameObject.GetComponent<Objects>().isActive == true && _playerScript.enableHurt) {
+                Debug.Log("Kill");
+                gotHit = true;
+            }
         }
     }
 }

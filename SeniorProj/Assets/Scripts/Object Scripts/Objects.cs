@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class Objects : MonoBehaviour
 {
+    [Space]
+    [Header("Bools")]
+    public bool isActive;
     public bool held;
     public bool nearPlayer;
-    public GameObject owner;
     public bool beingThrown;
+    public bool _grounded;
+    bool _ignoreColl;
+    [Space]
+    [Header("Floats & Ints")]
+    public float offset;
     public int throwTimer;
+    [Space]
+    public GameObject owner;
     public GameObject nearbyPlayer;
     public Collider2D myCollider;
     public Collider2D ownerCollider;
-    public bool _grounded;
-    bool _ignoreColl;
+    Bomb _bombScript;
     Rigidbody2D _rb;
     LayerMask _layerMask;
     // Start is called before the first frame update
@@ -25,6 +33,7 @@ public class Objects : MonoBehaviour
         owner = GameObject.Find("FakeObject");
         nearbyPlayer = GameObject.Find("FakeObject");
         _rb = GetComponent<Rigidbody2D>();
+        _bombScript = GetComponent<Bomb>();
     }
 
     // Update is called once per frame
@@ -43,8 +52,14 @@ public class Objects : MonoBehaviour
         }
         if (held)
         {
-           
-            gameObject.transform.position = owner.transform.position;
+            if (nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
+            {
+                offset = .5f;
+            }
+            else {
+                offset = -.5f;
+            }
+            gameObject.transform.position = new Vector2(owner.transform.position.x + offset, owner.transform.position.y);
             Physics2D.IgnoreCollision(myCollider, ownerCollider, true);
             
         }
@@ -128,12 +143,22 @@ public class Objects : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-      
+
+        if (isActive && collision.gameObject.layer == 9) {
+            _bombScript.StartCoroutine("CollisionExplode");
+        }
   
-        if ( _grounded == true && collision.gameObject.layer == 9)
+        if (!isActive && _grounded == true && collision.gameObject.layer == 9)
         {
             Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
             
         }
+    }
+
+    public IEnumerator isActiveTimer() {
+        //Debug.Log("A");
+        yield return new WaitForSeconds(.2f);
+        isActive = true;
+        _bombScript.GetComponent<Animator>().SetBool("Active", true);
     }
 }

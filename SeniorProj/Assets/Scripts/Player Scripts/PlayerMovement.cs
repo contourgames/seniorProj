@@ -5,7 +5,7 @@ using Rewired;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public gameManagerJuggernaut _juggernautGM;
+    gameManagerJuggernaut _juggernautGM;
     [Space]
     [Header("Dashing")]
     //variables for dashing
@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _juggernautGM = GameObject.Find("GameManager").GetComponent<gameManagerJuggernaut>();
         score = 0;
         #region Starting values
 
@@ -139,11 +140,10 @@ public class PlayerMovement : MonoBehaviour
         Dash();
         Throw();
 
-        if (heldObject.tag == "Orb") { //Increase player score as long as they are holding orb
+        if (heldObject != null && heldObject.tag == "Orb") { //Increase player score as long as they are holding orb
 
-            _juggernautGM.IncreasePlayerScore(gameObject.GetComponent<PlayerMovement>());
-            int temp = Mathf.RoundToInt(score);
-            Debug.Log(gameObject.transform.name + " Score: " + temp);
+            _juggernautGM.IncreasePlayerScore(gameObject);
+
         }
 
         if (_collScript.onWall && !_playerGrounded && player.GetButtonUp("A/X"))
@@ -309,14 +309,7 @@ public class PlayerMovement : MonoBehaviour
         if (_collScript.onWall && !_playerGrounded && player.GetButton("A/X"))
         {
           //  Debug.Log("Prev: " + prevYVel + " Curr: " + currVel);
-
-            if (_rb.velocity.y <= 0) //If player is starting to fall they can wall slide
-            {
-                isWallSliding = true;
-            }
-            else {
-                isWallSliding = false;
-            }
+             isWallSliding = true;
         }
         else
         {            
@@ -403,7 +396,7 @@ public class PlayerMovement : MonoBehaviour
                        
                 }
             
-        } else if (holding == true && heldObject.transform.name != "Orb")
+        } else if (holding == true && heldObject.tag != "Orb")
         {
             
             if (player.GetButton("X/Square"))   //longer the player holds button, shot will transition from lob to fastball
@@ -417,11 +410,15 @@ public class PlayerMovement : MonoBehaviour
             }
             if (player.GetButtonUp("X/Square"))
             {
-             //  Debug.Log("Y: " + throwY);
-             //  Debug.Log("X: " + throwX);
+                //  Debug.Log("Y: " + throwY);
+                //  Debug.Log("X: " + throwX);
+                heldObject.GetComponent<Objects>().beingThrown = true;
+                heldObject.GetComponent<Objects>().StartCoroutine("isActiveTimer");
+                StartCoroutine(heldObject.GetComponent<Bomb>().Explode());
+                //held obj needs to be reset after being thrown
+                heldObject = null;
                 holding = false;
                 nearObject = false;
-                heldObject.GetComponent<Objects>().beingThrown = true;
               
 
             }
