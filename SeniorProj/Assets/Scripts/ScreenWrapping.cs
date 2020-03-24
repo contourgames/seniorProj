@@ -48,7 +48,7 @@ public class ScreenWrapping : MonoBehaviour
             }
         }
 
-        if(gameObject.layer == 13)
+        if(gameObject.layer == 13 || gameObject.tag == "Orb")
         {
             if (transform.position.y < -5.8)
             {

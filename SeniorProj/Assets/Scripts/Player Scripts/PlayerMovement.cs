@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     ///    Reference for Jumping mechanics: https://www.youtube.com/watch?v=7KiK0Aqtmzc
     /// </summary>
+    /// 
     private Player player;
     private Rigidbody2D _rb;
     private playerCollision _collScript;
@@ -39,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
     int whichSide;
     float xSpeed;
 
-    private Vector2 spawnPosition;
     private Vector2 forcePerFrame = Vector2.zero;
 
     [Space]
@@ -131,7 +131,6 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
 
-        spawnPosition = new Vector2(transform.position.x, transform.position.y);
     }
 
     void Update()
@@ -437,10 +436,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Death") //Reset player position
-        {
-            transform.position = spawnPosition;
-        }
+
     }
 
     private void OnCollisionStay2D(Collision2D collision)

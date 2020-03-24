@@ -11,20 +11,22 @@ public class gameManagerJuggernaut : MonoBehaviour
     public Player player2;
     public Player player3;
     public Player player4;
-    [Header("Game Scores")]
-    public float maxScore = 25f;
+    [Header("Game Scores & floats")]
+    public float startDelay = 3f;
+    public float maxScore;
     public float P1Score = 0f;
     public float P2Score = 0f;
     public float P3Score = 0f;
     public float P4Score = 0f;
     [Space]
     [Header ("Lists")]
-    List<float> _scoreList = new List<float>();
+    public List<float> _scoreList = new List<float>();
     public List<GameObject> playerList = new List<GameObject>();
     public List<Player> playerControls = new List<Player>();
     public GameObject orbPrefab;
     [Space]
     [Header("Bools")]
+    public bool gameStart;
     public bool gameOver;
 
     GameObject orb;
@@ -35,25 +37,54 @@ public class gameManagerJuggernaut : MonoBehaviour
         _scoreList.Add(P2Score);
         _scoreList.Add(P3Score);
         _scoreList.Add(P4Score);
+        gameStart = false;
         gameOver = false;
         orb = Instantiate(orbPrefab);
         orb.transform.position = new Vector2(0, 0);
+        orb.SetActive(false);
+    }
+
+    public void FixedUpdate()
+    {
+        //3 second countdown
+        startDelay -= Time.deltaTime;
+        if (startDelay <= 0) {
+            startDelay = 0;
+        }
+
+        if (startDelay <1)
+        {
+            gameStart = true;
+            orb.SetActive(true);
+        }
+        else {
+            gameStart = false;
+        }
+
+        Debug.Log((int)startDelay);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        _scoreList[0] = P1Score;
+        _scoreList[1] = P2Score;
+        _scoreList[2] = P3Score;
+        _scoreList[3] = P4Score;
+
         for (int i = 0; i < playerList.Count; i++) { // If a player gets hit by a bomb start respawn and Iframe coroutines
             GameObject _player = playerList[i];
             playerCollision _pc = playerList[i].GetComponent<playerCollision>();
             if (_pc.gotHit) {
-                StartCoroutine(Respawn(_player));
+                StartCoroutine(Respawn(_player, _pc.spawnPosition));
                 _pc.gotHit = false;
             }
         }
         for (int i = 0; i < _scoreList.Count; i++) {
             if (_scoreList[i] >= maxScore) {
-
+                _scoreList[i] = maxScore; //cap the player score;
+                Debug.Log("A");
                 GameOver();    
                 
             }
@@ -86,6 +117,26 @@ public class gameManagerJuggernaut : MonoBehaviour
     }
     public void GameOver() {
         gameOver = true;
+        Debug.Log("Game Over");
+
+        for (int i = 0; i < _scoreList.Count; i++) {
+
+            if (_scoreList[0] == maxScore) {
+                Debug.Log("Player 1 Wins");
+            }
+            else if (_scoreList[1] == maxScore)
+            {
+                Debug.Log("Player 2 Wins");
+            }
+            else if(_scoreList[2] == maxScore)
+            {
+                Debug.Log("Player 3 Wins");
+            }
+            else if(_scoreList[3] == maxScore)
+            {
+                Debug.Log("Player 4 Wins");
+            }
+        }
     }
 
     //Displaying rounded score numbers
@@ -94,13 +145,15 @@ public class gameManagerJuggernaut : MonoBehaviour
         Debug.Log(gameObject.transform.name + " Score: " + temp);
     */
 
-    public IEnumerator Respawn(GameObject playerObj) {
+    public IEnumerator Respawn(GameObject playerObj, Vector2 spawnPoint) {
+
         GameObject _playerObj = playerObj;
         PlayerMovement _movementSc = _playerObj.GetComponent<PlayerMovement>();
+
         _playerObj.SetActive(false);
-        Debug.Log("A");
+        _playerObj.transform.position = spawnPoint;
+
         yield return new WaitForSeconds(2f);
-        Debug.Log("B");
 
         _playerObj.SetActive(true);
         StartCoroutine(Iframes(_movementSc));

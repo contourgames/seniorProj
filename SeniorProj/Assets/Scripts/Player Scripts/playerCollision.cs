@@ -13,6 +13,8 @@ public class playerCollision : MonoBehaviour
     public LayerMask wallLayer;
 
     [Space]
+    public Vector2 spawnPosition;
+
     public bool gotHit;
     public bool onGround;
     public bool onWall;
@@ -31,6 +33,8 @@ public class playerCollision : MonoBehaviour
     gameManagerJuggernaut _juggernautGM;
     void Start()
     {
+        spawnPosition = new Vector2(transform.position.x, transform.position.y);
+
         gotHit = false;
         _playerScript = GetComponent<PlayerMovement>();
         _juggernautGM = GameObject.Find("GameManager").GetComponent<gameManagerJuggernaut>();
@@ -76,7 +80,7 @@ public class playerCollision : MonoBehaviour
         if (collision.gameObject.layer == 13) {
 
             if (_playerScript.holding && _playerScript.heldObject.transform.name == "Orb") {
-                _playerScript.heldObject.transform.position = new Vector2(0, 0);
+               // _playerScript.heldObject = null;
                 _playerScript.holding = false;
                 gotHit = true;
 
