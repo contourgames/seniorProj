@@ -29,6 +29,12 @@ public class gameManagerJuggernaut : MonoBehaviour
     public bool gameStart;
     public bool gameOver;
 
+
+    public Text P1ScoreText;
+    public Text P2ScoreText;
+    public Text P3ScoreText;
+    public Text P4ScoreText;
+
     GameObject orb;
     // Start is called before the first frame update
     void Start()
@@ -67,6 +73,12 @@ public class gameManagerJuggernaut : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Score Text UI
+        P1ScoreText.text = "Player 1: " + P1Score.ToString("F0");
+        P2ScoreText.text = "Player 2: " + P2Score;
+        P3ScoreText.text = "Player 3: " + P3Score;
+        P4ScoreText.text = "Player 4: " + P4Score;
+        #endregion
 
         _scoreList[0] = P1Score;
         _scoreList[1] = P2Score;
