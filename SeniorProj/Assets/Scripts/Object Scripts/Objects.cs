@@ -79,10 +79,10 @@ public class Objects : MonoBehaviour
         {
             throwTimer++;
             wasThrown = true;
-            if (nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
+            if (nearbyPlayer.tag == "Player" && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
             {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(owner.GetComponent<PlayerMovement>().throwX, owner.GetComponent<PlayerMovement>().throwY);
-            } else
+            } else if (nearbyPlayer.tag == "Player" && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight == false)
             {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(-owner.GetComponent<PlayerMovement>().throwX, owner.GetComponent<PlayerMovement>().throwY);
             }

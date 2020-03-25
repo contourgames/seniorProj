@@ -29,6 +29,7 @@ public class gameManagerJuggernaut : MonoBehaviour
     public bool gameStart;
     public bool gameOver;
 
+    public bool orbRespawn;
 
     public Text P1ScoreText;
     public Text P2ScoreText;
@@ -48,6 +49,8 @@ public class gameManagerJuggernaut : MonoBehaviour
         orb = Instantiate(orbPrefab);
         orb.transform.position = new Vector2(0, 0);
         orb.SetActive(false);
+
+        orbRespawn = false;
     }
 
     public void FixedUpdate()
@@ -163,6 +166,12 @@ public class gameManagerJuggernaut : MonoBehaviour
         Debug.Log(gameObject.transform.name + " Score: " + temp);
     */
 
+    public void RespawnOrb()
+    {
+        Destroy(orb.gameObject);
+        GameObject neworb = Instantiate(orbPrefab);
+        neworb.transform.position = new Vector2(0, 0);
+    }
     public IEnumerator Respawn(GameObject playerObj, Vector2 spawnPoint) {
 
         GameObject _playerObj = playerObj;
@@ -181,6 +190,6 @@ public class gameManagerJuggernaut : MonoBehaviour
         _playerController.enableHurt = false;
         yield return new WaitForSeconds(3f);
         _playerController.enableHurt = true;
-
     }
+
 }

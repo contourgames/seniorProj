@@ -83,9 +83,9 @@ public class playerCollision : MonoBehaviour
 
             if (_playerScript.holding && _playerScript.heldObject.transform.name == "Orb") {
                 // _playerScript.heldObject = null;
-               
-                _playerScript.holding = false;
-                collision.gameObject.GetComponent<Objects>().held = false;
+                
+                //_playerScript.holding = false;
+                //collision.gameObject.GetComponent<Objects>().held = false;
 
                 if (GetComponent<PlayerMovement>().holding = true && GetComponent<PlayerMovement>().heldObject.tag == "Orb")
                 {
@@ -93,7 +93,11 @@ public class playerCollision : MonoBehaviour
                 }
                 gotHit = true;
 
+                _juggernautGM.RespawnOrb();
 
+                _playerScript.heldObject = null;
+                _playerScript.holding = false;
+                _playerScript.nearObject = false;
             }
             if (collision.gameObject.GetComponent<Objects>().isActive == true && _playerScript.enableHurt) {
                 Debug.Log("Kill");
