@@ -46,7 +46,7 @@ public class Objects : MonoBehaviour
     void Update()
     {
       
-      Debug.Log(owner.transform.name);
+      //Debug.Log(owner.transform.name);
         DetectPlayer();
        // Debug.Log("X vel: " + _rb.velocity.x + " Y Vel " + _rb.velocity.y);
         if (_rb.velocity.x == 0 && _rb.velocity.y == 0 && _grounded)
@@ -58,11 +58,11 @@ public class Objects : MonoBehaviour
         }
         if (held)
         {
-            if (nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
+            if (nearbyPlayer.tag == "Player" && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
             {
                 offset = .5f;
             }
-            else {
+            else if(nearbyPlayer.tag == "Player" && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight == false) {
                 offset = -.5f;
             }
             gameObject.transform.position = new Vector2(owner.transform.position.x + offset, owner.transform.position.y);
@@ -164,7 +164,7 @@ public class Objects : MonoBehaviour
 
     public IEnumerator isActiveTimer() {
         //Debug.Log("A");
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(.1f);
         isActive = true;
         _bombScript.GetComponent<Animator>().SetBool("Active", true);
     }

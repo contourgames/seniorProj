@@ -111,6 +111,8 @@ MonoBehaviour:
   nearbyPlayer: {fileID: 0}
   myCollider: {fileID: 0}
   ownerCollider: {fileID: 0}
+  audioSource: {fileID: 0}
+  pickUpClip: {fileID: 0}
 --- !u!58 &1305896899669993519
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -179,9 +181,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95966fb5450c6c47b7cf72663bb8496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _anim: {fileID: 0}
+  _anim: {fileID: 4708897736344246078}
   hasDetonated: 0
-  _objSpScript: {fileID: 0}
+  hasSpawned: 0
 --- !u!114 &1305896899669993512
 MonoBehaviour:
   m_ObjectHideFlags: 0

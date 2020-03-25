@@ -78,9 +78,9 @@ public class gameManagerJuggernaut : MonoBehaviour
         {
 
         P1ScoreText.text = "Player 1: " + P1Score.ToString("F0");
-        P2ScoreText.text = "Player 2: " + P2Score;
-        P3ScoreText.text = "Player 3: " + P3Score;
-        P4ScoreText.text = "Player 4: " + P4Score;
+        P2ScoreText.text = "Player 2: " + P2Score.ToString("F0");
+        P3ScoreText.text = "Player 3: " + P3Score.ToString("F0");
+        P4ScoreText.text = "Player 4: " + P4Score.ToString("F0");
         }
         #endregion
 
@@ -94,10 +94,6 @@ public class gameManagerJuggernaut : MonoBehaviour
             playerCollision _pc = playerList[i].GetComponent<playerCollision>();
             if (_pc.gotHit) {
                
-                if (_player.GetComponent<PlayerMovement>().holding = true && _player.GetComponent<PlayerMovement>().heldObject.tag == "Orb")
-                {
-                    _player.GetComponent<PlayerMovement>().heldObject.GetComponent<theOrb>().ownerDied = true;
-                }
                 StartCoroutine(Respawn(_player, _pc.spawnPosition));
                 _pc.gotHit = false;
              

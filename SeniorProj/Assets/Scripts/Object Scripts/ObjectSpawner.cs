@@ -30,10 +30,10 @@ public class ObjectSpawner : MonoBehaviour
             if (bombSpawner[i].gameObject.GetComponent<Bomb>().hasDetonated)
             {
                 GameObject newBomb = Instantiate(bombPrefab);
+                bombSpawner[i].GetComponent<Bomb>().hasSpawned = true;
                 bombSpawner.Insert(bombSpawner.IndexOf(bombSpawner[i]), newBomb);
                 bombSpawner.RemoveAt(bombSpawner.IndexOf(bombSpawner[i]) + 1);
                 newBomb.transform.position = new Vector3(spawnPos[i].x, spawnPos[i].y, spawnPos[i].z);
-                newBomb.GetComponent<Bomb>().hasSpawned = true;
               
             }
         }

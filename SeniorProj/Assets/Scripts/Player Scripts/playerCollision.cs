@@ -85,7 +85,14 @@ public class playerCollision : MonoBehaviour
                 // _playerScript.heldObject = null;
                
                 _playerScript.holding = false;
+                collision.gameObject.GetComponent<Objects>().held = false;
+
+                if (GetComponent<PlayerMovement>().holding = true && GetComponent<PlayerMovement>().heldObject.tag == "Orb")
+                {
+                    GetComponent<PlayerMovement>().heldObject.GetComponent<theOrb>().ownerDied = true;
+                }
                 gotHit = true;
+
 
             }
             if (collision.gameObject.GetComponent<Objects>().isActive == true && _playerScript.enableHurt) {
