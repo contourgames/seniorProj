@@ -6,12 +6,13 @@ public class Bomb : MonoBehaviour
 {
     public Animator _anim;
     public bool hasDetonated = false;
-    public ObjectSpawner _objSpScript;
+    public bool hasSpawned;
+   
     // Start is called before the first frame update
     void Start()
     {
         _anim = GetComponent<Animator>();
-        _objSpScript = GameObject.Find("GameManager").GetComponent<ObjectSpawner>();
+       
         StartCoroutine(bombSpawnDel());
     }
 
@@ -22,19 +23,20 @@ public class Bomb : MonoBehaviour
     }
 
     public IEnumerator Explode() {
-        
+       
         yield return new WaitForSeconds(2f);
         _anim.Play("Explosion");
         yield return new WaitForSeconds(.1f);
-        hasDetonated = true;
-        yield return new WaitUntil(() => _objSpScript.hasSpawned == true);
-        Destroy(gameObject);
+        hasDetonated = true; Destroy(gameObject);
+
+        yield return new WaitUntil(() => hasSpawned == true);
+        
     }
     public IEnumerator CollisionExplode() {
         _anim.Play("Explosion");
         yield return new WaitForSeconds(.1f);
         hasDetonated = true;
-        yield return new WaitUntil(() =>_objSpScript.hasSpawned == true);
+        yield return new WaitUntil(() =>hasSpawned == true);
         Destroy(gameObject);
 
     }
@@ -42,6 +44,6 @@ public class Bomb : MonoBehaviour
     public IEnumerator bombSpawnDel()
     {
         yield return new WaitForSeconds(0.05f);
-        _objSpScript.hasSpawned = false;
+        hasSpawned = false;
     }
 }

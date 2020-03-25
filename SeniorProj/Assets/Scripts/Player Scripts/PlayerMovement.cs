@@ -25,7 +25,12 @@ public class PlayerMovement : MonoBehaviour
     public GameObject heldObject;
     public float throwX;
     public float throwY;
-
+    public AudioSource audioSource;
+    public AudioClip jump;
+    public AudioClip dashClip;
+    public AudioClip pulseClip;
+    public AudioClip throwClip;
+    public AudioClip pickUpClip;
     /// <summary>
     ///    Reference for Jumping mechanics: https://www.youtube.com/watch?v=7KiK0Aqtmzc
     /// </summary>
@@ -148,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (_collScript.onWall && !_playerGrounded && player.GetButtonUp("A/X"))
         {
+            audioSource.PlayOneShot(jump, 1.0f);
             WallJump();
         }
 
@@ -161,16 +167,23 @@ public class PlayerMovement : MonoBehaviour
         }
         #region Player jumping anf player grounded
         //Jump
-        if (player.GetButton("A/X") && canJump)
+        if (player.GetButtonDown("A/X") && canJump)
+             {   
+                 audioSource.PlayOneShot(jump, 1.0f);
+            }
+            if (player.GetButton("A/X") && canJump)
         {
+          
             if (_playerGrounded == true)
             {
+               
                 Jump(Vector2.up);
             }
         }
 
         if (player.GetButtonUp("A/X") && !canJump || _playerGrounded && !player.GetButton("A/X"))
         {
+            
             canJump = true;
         }
 
@@ -227,6 +240,10 @@ public class PlayerMovement : MonoBehaviour
         {
             dashTimer++;
             //this time is the duration of the dash
+            if (dashTimer == 1)
+            {
+                audioSource.PlayOneShot(dashClip, 1.0f);
+            }
             if (dashTimer <= 10)
             {
                 _rb.velocity = new Vector2(dashVelocity, 0);
@@ -373,6 +390,7 @@ public class PlayerMovement : MonoBehaviour
         {
            //Debug.Log("Presse");
             dashing = true;
+          
         }
     }
 
@@ -396,7 +414,7 @@ public class PlayerMovement : MonoBehaviour
                        
                 }
             
-        } else if (holding == true && heldObject.tag != "Orb")
+        } else if (holding == true && heldObject != null && heldObject.tag != "Orb")
         {
             
             if (player.GetButton("X/Square"))   //longer the player holds button, shot will transition from lob to fastball
@@ -410,6 +428,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (player.GetButtonUp("X/Square"))
             {
+                audioSource.PlayOneShot(throwClip, 1.0f);
                 //  Debug.Log("Y: " + throwY);
                 //  Debug.Log("X: " + throwX);
                 heldObject.GetComponent<Objects>().beingThrown = true;
@@ -427,8 +446,12 @@ public class PlayerMovement : MonoBehaviour
            
             if (player.GetButtonUp("X/Square"))
             {
+                if (heldObject.GetComponent<theOrb>().pulsing == false)
+                {
+                    audioSource.PlayOneShot(pulseClip, 1.0f);
+                }
                 heldObject.GetComponent<theOrb>().pulsing = true;
-
+               
 
             }
         }

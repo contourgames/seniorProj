@@ -15,6 +15,7 @@ TagManager:
   - Pulse
   - Orb
   - Bomb
+  - fakeObject
   layers:
   - Default
   - TransparentFX

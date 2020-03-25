@@ -25,6 +25,9 @@ public class Objects : MonoBehaviour
     Bomb _bombScript;
     Rigidbody2D _rb;
 
+    public AudioSource audioSource;
+    public AudioClip pickUpClip;
+
     LayerMask _layerMask;
     // Start is called before the first frame update
     void Start()
@@ -43,7 +46,7 @@ public class Objects : MonoBehaviour
     void Update()
     {
       
-      //Debug.Log(held);
+      Debug.Log(owner.transform.name);
         DetectPlayer();
        // Debug.Log("X vel: " + _rb.velocity.x + " Y Vel " + _rb.velocity.y);
         if (_rb.velocity.x == 0 && _rb.velocity.y == 0 && _grounded)
@@ -111,7 +114,7 @@ public class Objects : MonoBehaviour
             nearPlayer = true;
             // Debug.Log(nearbyPlayer.transform.name);
 
-            if (nearbyPlayer.GetComponent<PlayerMovement>().searching == true && nearbyPlayer.GetComponent<PlayerMovement>().nearObject == false)
+            if (nearbyPlayer.GetComponent<PlayerMovement>().searching == true && nearbyPlayer.GetComponent<PlayerMovement>().nearObject == false && held == false)
             {
                 nearbyPlayer.GetComponent<PlayerMovement>().heldObject = gameObject;
                 nearbyPlayer.GetComponent<PlayerMovement>().nearObject = true;
@@ -119,7 +122,7 @@ public class Objects : MonoBehaviour
                     held = true;
                 owner = nearbyPlayer;
                 ownerCollider = nearbyPlayer.GetComponent<Collider2D>();
-                
+                audioSource.PlayOneShot(pickUpClip, 1.0f);
             }
         } else 
         {
@@ -164,5 +167,16 @@ public class Objects : MonoBehaviour
         yield return new WaitForSeconds(.2f);
         isActive = true;
         _bombScript.GetComponent<Animator>().SetBool("Active", true);
+    }
+
+    public void OnTriggerEnter2D (Collider2D other)
+    {
+        
+        if (other.gameObject.tag == "Pulse")
+        {
+          
+             GetComponent<Rigidbody2D>().velocity = new Vector2( 4* (transform.position.x - other.gameObject.transform.position.x) , 4 * (transform.position.y - other.gameObject.transform.position.y));
+           // GetComponent<Rigidbody2D>().velocity = new Vector2(20,20);
+        }
     }
 }

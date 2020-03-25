@@ -34,11 +34,19 @@ public class theOrb : MonoBehaviour
     public GameObject pulseAttack;
     public GameObject currPulse;
 
+    //respawn variables
+    public Vector2 startPos;
+    public bool ownerDied;
+    public int ownerDeathTimer;
 
+    public AudioSource audioSource;
+    public AudioClip pickUpClip;
     // Start is called before the first frame update
     void Start()
     {
-       
+        ownerDied = false;
+        ownerDeathTimer = 0;
+        startPos = transform.position;
         player1Score = 0;
         player2Score = 0;
         player3Score = 0;
@@ -61,6 +69,7 @@ public class theOrb : MonoBehaviour
         //Debug.Log("pulsing: " + pulsing);
         DetectPlayer();
         Pulse();
+       
         if (_rb.velocity.x == 0 && _rb.velocity.y == 0 && _grounded)
         {
             _ignoreColl = true;
@@ -81,7 +90,30 @@ public class theOrb : MonoBehaviour
             gameObject.SetActive(true);
 
         }
-
+        //checks if player died
+        
+       if (ownerDied)
+        {
+            Debug.Log(ownerDeathTimer);
+            ownerDeathTimer++;
+        }
+        if (ownerDeathTimer == 1)
+        {
+      
+           // Debug.Log(owner.transform.name);
+            held = false;
+           
+            owner.GetComponent<PlayerMovement>().holding = false;
+            owner.GetComponent<PlayerMovement>().heldObject = GameObject.Find("FakeObject");
+          transform.position = startPos;
+           owner.GetComponent<PlayerMovement>().nearObject = false;
+            owner = GameObject.Find("FakeObject");
+            myCollider.enabled = true;
+        }
+        if (!ownerDied)
+        {
+            ownerDeathTimer = 0;
+        }
     }
 
     public void Pulse()
@@ -126,8 +158,11 @@ public class theOrb : MonoBehaviour
             nearPlayer = true;
             // Debug.Log(nearbyPlayer.transform.name);
 
-            if (nearbyPlayer.GetComponent<PlayerMovement>().searching == true && nearbyPlayer.GetComponent<PlayerMovement>().nearObject == false)
+            if (nearbyPlayer.GetComponent<PlayerMovement>().searching == true && nearbyPlayer.GetComponent<PlayerMovement>().nearObject == false && held == false)
+            
             {
+                audioSource.PlayOneShot(pickUpClip, 1.0f);
+                ownerDied = false;
                 nearbyPlayer.GetComponent<PlayerMovement>().heldObject = gameObject;
                 nearbyPlayer.GetComponent<PlayerMovement>().nearObject = true;
                 nearbyPlayer.GetComponent<PlayerMovement>().holding = true;

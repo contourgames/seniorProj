@@ -93,8 +93,14 @@ public class gameManagerJuggernaut : MonoBehaviour
             GameObject _player = playerList[i];
             playerCollision _pc = playerList[i].GetComponent<playerCollision>();
             if (_pc.gotHit) {
+               
+                if (_player.GetComponent<PlayerMovement>().holding = true && _player.GetComponent<PlayerMovement>().heldObject.tag == "Orb")
+                {
+                    _player.GetComponent<PlayerMovement>().heldObject.GetComponent<theOrb>().ownerDied = true;
+                }
                 StartCoroutine(Respawn(_player, _pc.spawnPosition));
                 _pc.gotHit = false;
+             
             }
         }
         for (int i = 0; i < _scoreList.Count; i++) {

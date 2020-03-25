@@ -24,6 +24,8 @@ public class playerCollision : MonoBehaviour
     public bool onGroundBelow;
     public int wallSlide;
 
+    public AudioSource audioSource;
+    public AudioClip deathClip;
 
     public float radius = 0.25f;
     public Vector2 bottomOffSet, rightOffSet, LeftOffSet, TopOffSet, GBOffset;
@@ -80,13 +82,15 @@ public class playerCollision : MonoBehaviour
         if (collision.gameObject.layer == 13) {
 
             if (_playerScript.holding && _playerScript.heldObject.transform.name == "Orb") {
-               // _playerScript.heldObject = null;
+                // _playerScript.heldObject = null;
+               
                 _playerScript.holding = false;
                 gotHit = true;
 
             }
             if (collision.gameObject.GetComponent<Objects>().isActive == true && _playerScript.enableHurt) {
                 Debug.Log("Kill");
+                audioSource.PlayOneShot(deathClip, 1.0f);
                 gotHit = true;
             }
         }
