@@ -103,6 +103,7 @@ MonoBehaviour:
   held: 0
   nearPlayer: 0
   beingThrown: 0
+  wasThrown: 0
   _grounded: 0
   offset: 0
   throwTimer: 0
@@ -179,6 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anim: {fileID: 0}
+  hasDetonated: 0
+  _objSpScript: {fileID: 0}
 --- !u!114 &1305896899669993512
 MonoBehaviour:
   m_ObjectHideFlags: 0

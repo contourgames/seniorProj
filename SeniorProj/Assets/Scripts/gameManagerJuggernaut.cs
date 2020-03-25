@@ -67,17 +67,21 @@ public class gameManagerJuggernaut : MonoBehaviour
             gameStart = false;
         }
 
-        Debug.Log((int)startDelay);
+        //Debug.Log((int)startDelay);
     }
 
     // Update is called once per frame
     void Update()
     {
         #region Score Text UI
+        if(SceneManager.GetActiveScene().name == "SampleScene - Copy")
+        {
+
         P1ScoreText.text = "Player 1: " + P1Score.ToString("F0");
         P2ScoreText.text = "Player 2: " + P2Score;
         P3ScoreText.text = "Player 3: " + P3Score;
         P4ScoreText.text = "Player 4: " + P4Score;
+        }
         #endregion
 
         _scoreList[0] = P1Score;

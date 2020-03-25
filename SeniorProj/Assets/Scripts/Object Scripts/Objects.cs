@@ -10,6 +10,7 @@ public class Objects : MonoBehaviour
     public bool held;
     public bool nearPlayer;
     public bool beingThrown;
+    public bool wasThrown;
     public bool _grounded;
     bool _ignoreColl;
     [Space]
@@ -23,6 +24,7 @@ public class Objects : MonoBehaviour
     public Collider2D ownerCollider;
     Bomb _bombScript;
     Rigidbody2D _rb;
+
     LayerMask _layerMask;
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,7 @@ public class Objects : MonoBehaviour
         nearbyPlayer = GameObject.Find("FakeObject");
         _rb = GetComponent<Rigidbody2D>();
         _bombScript = GetComponent<Bomb>();
+        wasThrown = false;
     }
 
     // Update is called once per frame
@@ -72,6 +75,7 @@ public class Objects : MonoBehaviour
         if (beingThrown)
         {
             throwTimer++;
+            wasThrown = true;
             if (nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
             {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(owner.GetComponent<PlayerMovement>().throwX, owner.GetComponent<PlayerMovement>().throwY);
