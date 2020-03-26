@@ -54,6 +54,7 @@ public class theOrb : MonoBehaviour
 
         player1 = GameObject.Find("Player");
 
+        
         myCollider = GetComponent<Collider2D>();
         held = false;
         nearPlayer = false;
@@ -105,8 +106,8 @@ public class theOrb : MonoBehaviour
            
             owner.GetComponent<PlayerMovement>().holding = false;
             owner.GetComponent<PlayerMovement>().heldObject = GameObject.Find("FakeObject");
-          transform.position = startPos;
-           owner.GetComponent<PlayerMovement>().nearObject = false;
+            transform.position = startPos;
+            owner.GetComponent<PlayerMovement>().nearObject = false;
             owner = GameObject.Find("FakeObject");
             myCollider.enabled = true;
         }
@@ -124,20 +125,24 @@ public class theOrb : MonoBehaviour
         }
         if (pulsing && pulseTimer <= 30)
         {
-           
-                if (pulseTimer == 1)//creates pulse prefab
-            {
-                GameObject newPulse = Instantiate(pulseAttack);
-                newPulse.transform.position = gameObject.transform.position;
-                currPulse = newPulse; //assigning it to currPulse allows you to manipualte the newPulse outside of this one frame
-            }
-            currPulse.transform.position = gameObject.transform.position;   
+            GetComponent<CircleCollider2D>().enabled = true;
+            GetComponent<Animator>().SetBool("Play", true);
+            //    if (pulseTimer == 1)//creates pulse prefab
+            //{
+            //    GameObject newPulse = Instantiate(pulseAttack);
+            //    newPulse.transform.position = gameObject.transform.position;
+            //    currPulse = newPulse; //assigning it to currPulse allows you to manipualte the newPulse outside of this one frame
+            //}
+            //currPulse.transform.position = gameObject.transform.position;   
         }
         if (pulseTimer == 30)
         {
-           
-            Destroy(currPulse);
-            currPulse = GameObject.Find("FakeObject");
+            GetComponent<CircleCollider2D>().enabled = false;
+
+            GetComponent<Animator>().SetBool("Play", false);
+
+            //Destroy(currPulse);
+            //currPulse = GameObject.Find("FakeObject");
         }
         if (pulseTimer >= 100)
         {
@@ -169,7 +174,7 @@ public class theOrb : MonoBehaviour
                 held = true;
                 owner = nearbyPlayer;
                 ownerCollider = nearbyPlayer.GetComponent<Collider2D>();
-                myCollider.enabled = false;
+                //myCollider.enabled = false;
 
             }
         }
@@ -201,7 +206,7 @@ public class theOrb : MonoBehaviour
     {
 
 
-        if (_grounded == true && collision.gameObject.layer == 9)
+        if (_grounded == true && !held && collision.gameObject.layer == 9)
         {
             Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
 

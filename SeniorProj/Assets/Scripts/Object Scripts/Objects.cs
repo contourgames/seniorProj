@@ -24,7 +24,7 @@ public class Objects : MonoBehaviour
     public Collider2D ownerCollider;
     Bomb _bombScript;
     Rigidbody2D _rb;
-
+    Vector2 forceAdded;
     public AudioSource audioSource;
     public AudioClip pickUpClip;
 
@@ -43,7 +43,7 @@ public class Objects : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
       
       //Debug.Log(owner.transform.name);
@@ -58,11 +58,11 @@ public class Objects : MonoBehaviour
         }
         if (held)
         {
-            if (nearbyPlayer.tag == "Player" && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
+            if (nearbyPlayer.layer == 9 && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
             {
                 offset = .5f;
             }
-            else if(nearbyPlayer.tag == "Player" && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight == false) {
+            else if(nearbyPlayer.layer == 9 && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight == false) {
                 offset = -.5f;
             }
             gameObject.transform.position = new Vector2(owner.transform.position.x + offset, owner.transform.position.y);
@@ -79,12 +79,21 @@ public class Objects : MonoBehaviour
         {
             throwTimer++;
             wasThrown = true;
-            if (nearbyPlayer.tag == "Player" && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
+            if (nearbyPlayer.layer == 9 && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
             {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(owner.GetComponent<PlayerMovement>().throwX, owner.GetComponent<PlayerMovement>().throwY);
-            } else if (nearbyPlayer.tag == "Player" && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight == false)
+                 //forceAdded = new Vector2(owner.GetComponent<PlayerMovement>().throwX, owner.GetComponent<PlayerMovement>().throwY);
+                 _rb.velocity = new Vector2(owner.GetComponent<PlayerMovement>().throwX, owner.GetComponent<PlayerMovement>().throwY);
+                //_rb.AddForce(forceAdded);
+
+
+            }
+            else if (nearbyPlayer.layer == 9 && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight == false)
             {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(-owner.GetComponent<PlayerMovement>().throwX, owner.GetComponent<PlayerMovement>().throwY);
+                //forceAdded = new Vector2(-owner.GetComponent<PlayerMovement>().throwX, owner.GetComponent<PlayerMovement>().throwY);
+
+                _rb.velocity = new Vector2(-owner.GetComponent<PlayerMovement>().throwX, owner.GetComponent<PlayerMovement>().throwY);
+                //_rb.AddForce(forceAdded);
+
             }
         }
        
@@ -98,6 +107,7 @@ public class Objects : MonoBehaviour
             owner.GetComponent<PlayerMovement>().throwY = 20;
            
         }
+
     }
 
     
@@ -119,15 +129,14 @@ public class Objects : MonoBehaviour
                 nearbyPlayer.GetComponent<PlayerMovement>().heldObject = gameObject;
                 nearbyPlayer.GetComponent<PlayerMovement>().nearObject = true;
                 nearbyPlayer.GetComponent<PlayerMovement>().holding = true;
-                    held = true;
+                held = true;
                 owner = nearbyPlayer;
                 ownerCollider = nearbyPlayer.GetComponent<Collider2D>();
                 audioSource.PlayOneShot(pickUpClip, 1.0f);
             }
         } else 
         {
-            
-          
+
             nearbyPlayer = GameObject.Find("FakeObject");
             nearPlayer = false;
         }
@@ -151,7 +160,7 @@ public class Objects : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (isActive && collision.gameObject.layer == 9) {
+        if (isActive && collision.gameObject.layer == 9) { //If bomb explodes close enough to another bomb
             _bombScript.StartCoroutine("CollisionExplode");
         }
   

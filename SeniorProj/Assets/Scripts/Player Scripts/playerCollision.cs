@@ -75,17 +75,17 @@ public class playerCollision : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Player 2" || collision.gameObject.tag == "Player 3" || collision.gameObject.tag == "Player 4") {
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Player 2" || collision.gameObject.tag == "Player 3" || collision.gameObject.tag == "Player 4") { //Ignore player collisions
             Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
         }
 
-        if (collision.gameObject.layer == 13) {
+        if (collision.gameObject.tag == "orb" && collision.gameObject.GetComponent<theOrb>().pulsing) {
+            //_playerScript.AddKnockBack();
+        }
 
-            if (_playerScript.holding && _playerScript.heldObject.transform.name == "Orb") {
-                // _playerScript.heldObject = null;
-                
-                //_playerScript.holding = false;
-                //collision.gameObject.GetComponent<Objects>().held = false;
+        if (collision.gameObject.layer == 13) { //player collides with throwable obj
+
+            if (_playerScript.holding && _playerScript.heldObject.transform.name == "Orb" && collision.gameObject.GetComponent<Objects>().isActive) { //if they're currently holding the orb
 
                 if (GetComponent<PlayerMovement>().holding = true && GetComponent<PlayerMovement>().heldObject.tag == "Orb")
                 {
@@ -94,7 +94,7 @@ public class playerCollision : MonoBehaviour
                 gotHit = true;
 
                 _juggernautGM.RespawnOrb();
-
+                _juggernautGM.DecreasePlayerScore(gameObject);
                 _playerScript.heldObject = null;
                 _playerScript.holding = false;
                 _playerScript.nearObject = false;

@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
     public float airDrag = 0.95f;
     public float wallSlidingSpeed;
     public float wallJumpVelocity;
-    public float jumpVelocity = 15f;
+    public float jumpVelocity = 30f;
     float prevYVel = 0;
     float currVel = 0;
     [Space]
@@ -165,13 +165,15 @@ public class PlayerMovement : MonoBehaviour
             transform.GetComponent<TrailRenderer>().enabled = false;
 
         }
+
         #region Player jumping anf player grounded
         //Jump
         if (player.GetButtonDown("A/X") && canJump)
-             {   
-                 audioSource.PlayOneShot(jump, 1.0f);
-            }
-            if (player.GetButton("A/X") && canJump)
+        {
+            audioSource.PlayOneShot(jump, 1.0f);
+            
+        }
+        if (player.GetButton("A/X") && canJump)
         {
           
             if (_playerGrounded == true)
@@ -179,6 +181,7 @@ public class PlayerMovement : MonoBehaviour
                
                 Jump(Vector2.up);
             }
+
         }
 
         if (player.GetButtonUp("A/X") && !canJump || _playerGrounded && !player.GetButton("A/X"))
@@ -345,43 +348,68 @@ public class PlayerMovement : MonoBehaviour
     //Dynamic Jumping
     void Jump(Vector2 dir)
     {
-
-        forcePerFrame = Vector2.up * jumpVelocity;
-
+        _rb.velocity = new Vector2(_rb.velocity.x, 0);
+        _rb.velocity += dir * jumpVelocity;
+        //forcePerFrame = Vector2.up * jumpVelocity;
+        Debug.Log("Jumping");
     }
 
     void WallJump()
     {
         Vector2 wallDirection;
+        #region OLD WallJumpCode
+        //if (joyStickX == 0) //If there's no input, player detach from the wall
+        //{
+        //    // Debug.Log("Wall Jump: No Input");
+        //    wallDirection = _collScript.onRightWall ? Vector2.left : Vector2.right; //Determines which direction player will jump off the wall
+        //    forcePerFrame += wallDirection * wallJumpVelocity;
+        //}
+        //else
+        //{
 
-        if (joyStickX == 0) //If there's no input, player detach from the wall
+        //    wallDirection = _collScript.onRightWall ? Vector2.left : Vector2.right; //Determines which direction player will jump off the wall
+
+        //    forcePerFrame += Vector2.up * wallJumpVelocity; // Add force upwards
+
+        //    if (joyStickX == wallDirection.x) //If joystick is against the wall jump farther
+        //    {
+        //        forcePerFrame += wallDirection * wallJumpVelocity; //Add force to the side
+
+        //        // Debug.Log("Joystick against the wall");
+        //    }
+        //    else if (joyStickX != wallDirection.x) //If joystick is with the wall jump shorter
+        //    {
+        //        forcePerFrame += wallDirection * (wallJumpVelocity * .5f); //Add force to the side
+        //                                                                   //   Debug.Log("Joystick with the wall");
+        //    }
+        //}
+        #endregion
+        #region NEW WalljumpCode
+        wallDirection = _collScript.onRightWall ? Vector2.left : Vector2.right;
+
+        if (joyStickX == 0) //If there is no input
         {
-           // Debug.Log("Wall Jump: No Input");
-            wallDirection = _collScript.onRightWall ? Vector2.left : Vector2.right; //Determines which direction player will jump off the wall
-            forcePerFrame += wallDirection * wallJumpVelocity;
+            //Jump((Vector2.up / 0.15f + wallDirection / 0.15f));
+            forcePerFrame += wallDirection * wallJumpVelocity / 2f;
         }
-        else {
-
-            wallDirection = _collScript.onRightWall ? Vector2.left : Vector2.right; //Determines which direction player will jump off the wall
-
-            forcePerFrame +=  Vector2.up * wallJumpVelocity; // Add force upwards
-
-            if (joyStickX == wallDirection.x) //If joystick is against the wall jump farther
+        else
+        {
+            if (joyStickX == wallDirection.x) //if Joystick is pressed ALONG wall they are sliding against
             {
-                forcePerFrame +=  wallDirection * wallJumpVelocity; //Add force to the side
-                
-               // Debug.Log("Joystick against the wall");
-            }
-            else if (joyStickX != wallDirection.x) //If joystick is with the wall jump shorter
-            {
-                forcePerFrame += wallDirection * (wallJumpVelocity * .5f); //Add force to the side
-             //   Debug.Log("Joystick with the wall");
-            }
+                Jump((Vector2.up / 1.15f + wallDirection / 1.15f));
 
-            StartCoroutine("WSMoveDelay");
-            canMove = false;
+            }
+            else if (joyStickX != wallDirection.x) //if Joystick is pressed AGAINST wall they are sliding against
+            {
+                Jump((Vector2.up / 1.95f + wallDirection / 1.95f));
+
+            }
         }
+        #endregion
 
+        Debug.Log("WallJump");
+        StartCoroutine("WSMoveDelay");
+        canMove = false;
     }
 
     void Dash()
@@ -455,6 +483,10 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
+    }
+
+    public void AddKnockBack() {
+        forcePerFrame = new Vector2(-_rb.velocity.x * 2f, _rb.velocity.y * 1.5f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

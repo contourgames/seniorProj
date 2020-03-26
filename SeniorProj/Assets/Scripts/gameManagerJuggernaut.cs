@@ -46,10 +46,10 @@ public class gameManagerJuggernaut : MonoBehaviour
         _scoreList.Add(P4Score);
         gameStart = false;
         gameOver = false;
-        orb = Instantiate(orbPrefab);
-        orb.transform.position = new Vector2(0, 0);
-        orb.SetActive(false);
-
+       // orb = Instantiate(orbPrefab);
+        //orb.transform.position = new Vector2(0, 0);
+        //orb.SetActive(false);
+        
         orbRespawn = false;
     }
 
@@ -64,7 +64,7 @@ public class gameManagerJuggernaut : MonoBehaviour
         if (startDelay <1)
         {
             gameStart = true;
-            orb.SetActive(true);
+            //orb.SetActive(true);
         }
         else {
             gameStart = false;
@@ -135,6 +135,27 @@ public class gameManagerJuggernaut : MonoBehaviour
             }
         }
 
+    }
+    public void DecreasePlayerScore(GameObject player) {
+        if (!gameOver)
+        {
+            if (player.name == "Player")
+            {
+                P1Score -= 1f * Time.deltaTime;
+            }
+            else if (player.name == "Player 2")
+            {
+                P2Score -= 1f * Time.deltaTime;
+            }
+            else if (player.name == "Player 3")
+            {
+                P3Score -= 1f * Time.deltaTime;
+            }
+            else if (player.name == "Player 4")
+            {
+                P4Score -= 1f * Time.deltaTime;
+            }
+        }
     }
     public void GameOver() {
         gameOver = true;
