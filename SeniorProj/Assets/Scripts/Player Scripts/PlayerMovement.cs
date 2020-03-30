@@ -351,7 +351,7 @@ public class PlayerMovement : MonoBehaviour
         _rb.velocity = new Vector2(_rb.velocity.x, 0);
         _rb.velocity += dir * jumpVelocity;
         //forcePerFrame = Vector2.up * jumpVelocity;
-        Debug.Log("Jumping");
+       // Debug.Log("Jumping");
     }
 
     void WallJump()
@@ -407,7 +407,7 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
 
-        Debug.Log("WallJump");
+        //Debug.Log("WallJump");
         StartCoroutine("WSMoveDelay");
         canMove = false;
     }
@@ -485,8 +485,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void AddKnockBack() {
-        forcePerFrame = new Vector2(-_rb.velocity.x * 2f, _rb.velocity.y * 1.5f);
+    public void AddKnockBack(GameObject collObj)
+    {
+        float thrust = 5f;
+        Vector2 difference = collObj.transform.position - transform.position;
+        if (facingRight)
+        {
+            _rb.AddForce(transform.up * 1000 + transform.right * 2000);
+
+        }
+        else {
+            _rb.AddForce(transform.up * 1000 + (transform.right * 2000) * -1);
+
+        }
+        difference = difference.normalized * thrust;
+        Debug.Log("B");
+
+        //forcePerFrame = new Vector2(-_rb.velocity.x * 2f, _rb.velocity.y * 1.5f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -105,7 +105,7 @@ public class gameManagerJuggernaut : MonoBehaviour
         for (int i = 0; i < _scoreList.Count; i++) {
             if (_scoreList[i] >= maxScore) {
                 _scoreList[i] = maxScore; //cap the player score;
-                Debug.Log("A");
+                //Debug.Log("A");
                 GameOver();    
                 
             }
