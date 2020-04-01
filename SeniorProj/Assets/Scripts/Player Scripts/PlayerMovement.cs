@@ -494,13 +494,15 @@ public class PlayerMovement : MonoBehaviour
         Vector2 difference = collObj.transform.position - transform.position;
         if (facingRight)
         {
-            _rb.AddForce(transform.up * 1000 + transform.right * 2000);
+            _rb.AddForce(transform.up * 500 + transform.right * 3000);
 
         }
-        else {
-            _rb.AddForce(transform.up * 1000 + (transform.right * 2000) * -1);
+        else
+        {
+            _rb.AddForce(transform.up * 500 + (transform.right * 3000) * -1);
 
         }
+
         difference = difference.normalized * thrust;
         Debug.Log("B");
 
