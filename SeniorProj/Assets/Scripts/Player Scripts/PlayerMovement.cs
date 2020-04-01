@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [Space]
     [Header("Dashing")]
     //variables for dashing
+    public bool isJuggernaut = false;
     public bool facingRight;
     public int dashVelocity;
     public bool dashing;
@@ -35,8 +36,10 @@ public class PlayerMovement : MonoBehaviour
     ///    Reference for Jumping mechanics: https://www.youtube.com/watch?v=7KiK0Aqtmzc
     /// </summary>
     /// 
+    [SerializeField]
     private Player player;
     private Rigidbody2D _rb;
+    [SerializeField]
     private playerCollision _collScript;
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 2f;
@@ -79,7 +82,29 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _juggernautGM = GameObject.Find("GameManager").GetComponent<gameManagerJuggernaut>();
+     
+        //Assigns each player to a different controller by object name
+        if (this.gameObject.name == "Player")
+        {
+            player = ReInput.players.GetPlayer(0);
+        }
+        else if (this.gameObject.name == "Player 2")
+        {
+            player = ReInput.players.GetPlayer(1);
+
+        }
+        else if (this.gameObject.name == "Player 3")
+        {
+            player = ReInput.players.GetPlayer(2);
+        }
+        else if (this.gameObject.name == "Player 4")
+        {
+            player = ReInput.players.GetPlayer(3);
+
+        }
+
+         _juggernautGM = GameObject.Find("GameManager").GetComponent<gameManagerJuggernaut>();
+
         score = 0;
         #region Starting values
 
@@ -112,28 +137,6 @@ public class PlayerMovement : MonoBehaviour
         canWallJump = true;
 
         transform.GetComponent<TrailRenderer>().enabled = false;
-        #endregion
-
-        #region Reinput assignment
-        //Assigns each player to a different controller by object name
-        if (this.gameObject.name == "Player")
-        {
-            player = ReInput.players.GetPlayer(0);
-        }
-        else if (this.gameObject.name == "Player 2")
-        {
-            player = ReInput.players.GetPlayer(1);
-
-        }
-        else if (this.gameObject.name == "Player 3")
-        {
-            player = ReInput.players.GetPlayer(2);
-        }
-        else if (this.gameObject.name == "Player 4")
-        {
-            player = ReInput.players.GetPlayer(3);
-
-        }
         #endregion
 
     }

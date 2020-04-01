@@ -15,6 +15,8 @@ public class playerCollision : MonoBehaviour
     [Space]
     public Vector2 spawnPosition;
 
+
+    public bool isJuggernaut = false;
     public bool gotHit;
     public bool onGround;
     public bool onWall;
@@ -39,7 +41,9 @@ public class playerCollision : MonoBehaviour
 
         gotHit = false;
         _playerScript = GetComponent<PlayerMovement>();
+
         _juggernautGM = GameObject.Find("GameManager").GetComponent<gameManagerJuggernaut>();
+
     }
 
     // Update is called once per frame
