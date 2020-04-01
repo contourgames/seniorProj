@@ -181,7 +181,7 @@ MonoBehaviour:
   airDrag: 0.65
   wallSlidingSpeed: 15
   wallJumpVelocity: 550
-  jumpVelocity: 350
+  jumpVelocity: 12
   numWallJumps: 1
 --- !u!114 &7298959544746511387
 MonoBehaviour:

@@ -396,12 +396,12 @@ public class PlayerMovement : MonoBehaviour
         {
             if (joyStickX == wallDirection.x) //if Joystick is pressed ALONG wall they are sliding against
             {
-                Jump((Vector2.up / 1.15f + wallDirection / 1.15f));
+                Jump((Vector2.up * 1.15f + wallDirection / 1.15f));
 
             }
             else if (joyStickX != wallDirection.x) //if Joystick is pressed AGAINST wall they are sliding against
             {
-                Jump((Vector2.up / 1.95f + wallDirection / 1.95f));
+                Jump((Vector2.up * 1.15f + wallDirection / 1.95f));
 
             }
         }
