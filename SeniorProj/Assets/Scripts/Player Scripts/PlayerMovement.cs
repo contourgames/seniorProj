@@ -212,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
         joyStickX = player.GetAxis("Horizontal");
         joyStickY = player.GetAxis("Vertical");
         Vector2 walkDir = new Vector2(joyStickX, joyStickY);
-        if (!isWallSliding && canMove)
+        if (!isWallSliding && canMove && _juggernautGM.playersCanMove)
         {
             Move(walkDir);
         }
@@ -494,12 +494,12 @@ public class PlayerMovement : MonoBehaviour
         Vector2 difference = collObj.transform.position - transform.position;
         if (facingRight)
         {
-            _rb.AddForce(transform.up * 500 + transform.right * 3000);
+            _rb.AddRelativeForce(transform.up * 500 + transform.right * 3000);
 
         }
         else
         {
-            _rb.AddForce(transform.up * 500 + (transform.right * 3000) * -1);
+            _rb.AddRelativeForce(transform.up * 500 + (transform.right * 3000) * -1);
 
         }
 

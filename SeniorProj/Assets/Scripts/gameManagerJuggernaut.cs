@@ -12,7 +12,7 @@ public class gameManagerJuggernaut : MonoBehaviour
     public Player player3;
     public Player player4;
     [Header("Game Scores & floats")]
-    public float startDelay = 3f;
+    public float startDelay = 4f;
     public float maxScore;
     public float P1Score = 0f;
     public float P2Score = 0f;
@@ -28,9 +28,10 @@ public class gameManagerJuggernaut : MonoBehaviour
     [Header("Bools")]
     public bool gameStart;
     public bool gameOver;
-
+    public bool playersCanMove;
     public bool orbRespawn;
 
+    public GameObject countDown;
     public Text P1ScoreText;
     public Text P2ScoreText;
     public Text P3ScoreText;
@@ -46,10 +47,12 @@ public class gameManagerJuggernaut : MonoBehaviour
         _scoreList.Add(P4Score);
         gameStart = false;
         gameOver = false;
-       // orb = Instantiate(orbPrefab);
-        //orb.transform.position = new Vector2(0, 0);
-        //orb.SetActive(false);
-        
+        playersCanMove = false;
+        orb = Instantiate(orbPrefab);
+        orb.transform.position = new Vector2(0, 0);
+
+        orb.SetActive(false);
+
         orbRespawn = false;
     }
 
@@ -57,14 +60,17 @@ public class gameManagerJuggernaut : MonoBehaviour
     {
         //3 second countdown
         startDelay -= Time.deltaTime;
+        countDown.GetComponent<Text>().text = "" +(int)startDelay;
         if (startDelay <= 0) {
             startDelay = 0;
         }
 
-        if (startDelay <1)
+        if (startDelay < 1)
         {
             gameStart = true;
-            //orb.SetActive(true);
+            countDown.SetActive(false);
+            orb.SetActive(true);
+            playersCanMove = true;
         }
         else {
             gameStart = false;

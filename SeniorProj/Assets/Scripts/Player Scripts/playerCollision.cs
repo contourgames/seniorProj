@@ -82,10 +82,13 @@ public class playerCollision : MonoBehaviour
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Player 2" || collision.gameObject.tag == "Player 3" || collision.gameObject.tag == "Player 4") { //Ignore player collisions
             Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
         }
-        if (collision.gameObject.tag == "Orb")
+        if (collision.gameObject.tag == "Orb") //Add player knockback when 
         {
-            _playerScript.AddKnockBack(collision.gameObject);
-            Debug.Log("A");
+            if (collision.gameObject.GetComponent<theOrb>().pulsing) {
+                _playerScript.AddKnockBack(collision.gameObject);
+                Debug.Log("A");
+            }
+
         }
         if (collision.gameObject.layer == 13) { //player collides with throwable obj
 

@@ -28,8 +28,9 @@ public class Bomb : MonoBehaviour
 
 
     public IEnumerator Explode() {
-       
+        
         yield return new WaitForSeconds(2f);
+
         _anim.Play("Explosion");
         yield return new WaitForSeconds(.1f);
         hasDetonated = true; 
