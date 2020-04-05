@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -79,10 +80,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private int numWallJumps = 1;
 
+    Scene currentScene;
+
     // Start is called before the first frame update
     void Start()
     {
-     
+
+        currentScene = SceneManager.GetActiveScene();
         //Assigns each player to a different controller by object name
         if (this.gameObject.name == "Player")
         {
@@ -212,10 +216,26 @@ public class PlayerMovement : MonoBehaviour
         joyStickX = player.GetAxis("Horizontal");
         joyStickY = player.GetAxis("Vertical");
         Vector2 walkDir = new Vector2(joyStickX, joyStickY);
-        if (!isWallSliding && canMove && _juggernautGM.playersCanMove)
+        if(currentScene.name == "SampleScene - Copy")
+        {
+            if (!isWallSliding && canMove && _juggernautGM.playersCanMove)
+            {
+                Move(walkDir);
+            }
+        }
+        else
         {
             Move(walkDir);
+            
+            if(transform.position.x >= 9.5f)
+            {
+                SceneManager.LoadScene("ReadyUp");
+            } else if(transform.position.x <= -9.5f)
+            {
+                SceneManager.LoadScene("SampleScene - Copy");
+            }
         }
+       
         prevYVel = currVel;
         currVel = _rb.velocity.y;
 
