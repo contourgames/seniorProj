@@ -271,7 +271,8 @@ PrefabInstance:
       propertyPath: _collScript
       value: 
       objectReference: {fileID: 867142941}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1298645251, guid: 19b70ab793c7928408e9131a83033cdb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 19b70ab793c7928408e9131a83033cdb, type: 3}
 --- !u!1 &128294736
 GameObject:
@@ -5844,10 +5845,6 @@ MonoBehaviour:
   playersCanMove: 0
   orbRespawn: 0
   countDown: {fileID: 0}
-  P1ScoreText: {fileID: 0}
-  P2ScoreText: {fileID: 0}
-  P3ScoreText: {fileID: 0}
-  P4ScoreText: {fileID: 0}
 --- !u!114 &2065466260
 MonoBehaviour:
   m_ObjectHideFlags: 0

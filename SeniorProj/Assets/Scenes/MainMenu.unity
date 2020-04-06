@@ -197,12 +197,12 @@ PrefabInstance:
     - target: {fileID: 7298959544746511386, guid: 51032f9a388d183479d229aa9e39ba5e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.383995
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7298959544746511386, guid: 51032f9a388d183479d229aa9e39ba5e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.68
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 7298959544746511386, guid: 51032f9a388d183479d229aa9e39ba5e,
         type: 3}
@@ -603,10 +603,6 @@ MonoBehaviour:
   playersCanMove: 0
   orbRespawn: 0
   countDown: {fileID: 0}
-  P1ScoreText: {fileID: 0}
-  P2ScoreText: {fileID: 0}
-  P3ScoreText: {fileID: 0}
-  P4ScoreText: {fileID: 0}
 --- !u!114 &378224345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1045,11 +1041,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.6
-  m_Text: 'Dope
-
-    Title
-
-    Card'
+  m_Text: Party Platformer
 --- !u!222 &1025682317
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1068,12 +1060,12 @@ PrefabInstance:
     - target: {fileID: 7298959544746511386, guid: d026d025e8a59a24a9c4bec285bc7e2a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.289058
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7298959544746511386, guid: d026d025e8a59a24a9c4bec285bc7e2a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.249177
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 7298959544746511386, guid: d026d025e8a59a24a9c4bec285bc7e2a,
         type: 3}
@@ -1241,12 +1233,12 @@ PrefabInstance:
     - target: {fileID: 7298959544746511386, guid: d6e208b1d91fc5c4db2f03a81896ad66,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.001662
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7298959544746511386, guid: d6e208b1d91fc5c4db2f03a81896ad66,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.6365387
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 7298959544746511386, guid: d6e208b1d91fc5c4db2f03a81896ad66,
         type: 3}
@@ -1479,12 +1471,12 @@ PrefabInstance:
     - target: {fileID: 7298959544746511386, guid: 19b70ab793c7928408e9131a83033cdb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.86
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 7298959544746511386, guid: 19b70ab793c7928408e9131a83033cdb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.709759
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 7298959544746511386, guid: 19b70ab793c7928408e9131a83033cdb,
         type: 3}

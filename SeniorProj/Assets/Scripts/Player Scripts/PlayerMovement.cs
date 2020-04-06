@@ -227,12 +227,15 @@ public class PlayerMovement : MonoBehaviour
         {
             Move(walkDir);
             
-            if(transform.position.x >= 9.5f)
+            if(transform.position.x >= 9.5f && currentScene.name =="MainMenu")
             {
                 SceneManager.LoadScene("ReadyUp");
-            } else if(transform.position.x <= -9.5f)
+            } else if(transform.position.x <= -9.5f && currentScene.name == "MainMenu")
             {
                 SceneManager.LoadScene("SampleScene - Copy");
+            } else if(transform.position.x <= -9.5f && currentScene.name == "ReadyUp")
+            {
+                SceneManager.LoadScene("MainMenu");
             }
         }
        
