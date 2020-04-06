@@ -32,10 +32,10 @@ public class gameManagerJuggernaut : MonoBehaviour
     public bool orbRespawn;
 
     public GameObject countDown;
-    public Text P1ScoreText;
-    public Text P2ScoreText;
-    public Text P3ScoreText;
-    public Text P4ScoreText;
+    //public Text P1ScoreText;
+    //public Text P2ScoreText;
+    //public Text P3ScoreText;
+    //public Text P4ScoreText;
 
     GameObject orb;
     // Start is called before the first frame update
@@ -83,14 +83,14 @@ public class gameManagerJuggernaut : MonoBehaviour
     void Update()
     {
         #region Score Text UI
-        if(SceneManager.GetActiveScene().name == "SampleScene - Copy")
-        {
+        //if(SceneManager.GetActiveScene().name == "SampleScene - Copy")
+        //{
 
-        P1ScoreText.text = "Player 1: " + P1Score.ToString("F0");
-        P2ScoreText.text = "Player 2: " + P2Score.ToString("F0");
-        P3ScoreText.text = "Player 3: " + P3Score.ToString("F0");
-        P4ScoreText.text = "Player 4: " + P4Score.ToString("F0");
-        }
+        //P1ScoreText.text = "Player 1: " + P1Score.ToString("F0");
+        //P2ScoreText.text = "Player 2: " + P2Score.ToString("F0");
+        //P3ScoreText.text = "Player 3: " + P3Score.ToString("F0");
+        //P4ScoreText.text = "Player 4: " + P4Score.ToString("F0");
+        //}
         #endregion
 
         _scoreList[0] = P1Score;
