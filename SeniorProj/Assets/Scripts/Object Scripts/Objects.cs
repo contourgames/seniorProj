@@ -169,6 +169,13 @@ public class Objects : MonoBehaviour
             Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
             
         }
+
+        if (collision.gameObject.tag == "Orb")
+        {
+            Debug.Log("deflected");
+            GetComponent<Rigidbody2D>().velocity = new Vector2(4 * (transform.position.x - collision.gameObject.transform.position.x), 4 * (transform.position.y - collision.gameObject.transform.position.y));
+            // GetComponent<Rigidbody2D>().velocity = new Vector2(20,20);
+        }
     }
 
     public IEnumerator isActiveTimer() {
@@ -183,11 +190,6 @@ public class Objects : MonoBehaviour
     public void OnTriggerEnter2D (Collider2D other)
     {
         
-        if (other.gameObject.tag == "Pulse")
-        {
-          
-             GetComponent<Rigidbody2D>().velocity = new Vector2( 4* (transform.position.x - other.gameObject.transform.position.x) , 4 * (transform.position.y - other.gameObject.transform.position.y));
-           // GetComponent<Rigidbody2D>().velocity = new Vector2(20,20);
-        }
+       
     }
 }
