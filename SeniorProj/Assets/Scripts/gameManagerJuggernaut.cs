@@ -210,9 +210,11 @@ public class gameManagerJuggernaut : MonoBehaviour
 
     public void RespawnOrb()
     {
-        Destroy(orb.gameObject);
-        GameObject neworb = Instantiate(orbPrefab);
-        neworb.transform.position = new Vector2(0, 0);
+       
+      //  Destroy(orb.gameObject);
+      //  GameObject neworb = Instantiate(orbPrefab);
+      //  neworb.transform.position = new Vector2(0, 0);
+        
     }
     public IEnumerator Respawn(GameObject playerObj, Vector2 spawnPoint) {
 

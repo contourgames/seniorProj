@@ -92,8 +92,9 @@ public class playerCollision : MonoBehaviour
         }
         if (collision.gameObject.layer == 13) { //player collides with throwable obj
 
-            if (_playerScript.holding && _playerScript.heldObject.transform.name == "Orb" && collision.gameObject.GetComponent<Objects>().isActive) { //if they're currently holding the orb
-
+         
+            if (_playerScript.holding && _playerScript.heldObject.tag == "Orb" && collision.gameObject.GetComponent<Objects>().isActive) { //if they're currently holding the orb
+                Debug.Log("juggernautDied");
                 if (GetComponent<PlayerMovement>().holding = true && GetComponent<PlayerMovement>().heldObject.tag == "Orb")
                 {
                     GetComponent<PlayerMovement>().heldObject.GetComponent<theOrb>().ownerDied = true;

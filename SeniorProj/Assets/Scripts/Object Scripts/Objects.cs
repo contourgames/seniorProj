@@ -170,10 +170,10 @@ public class Objects : MonoBehaviour
             
         }
 
-        if (collision.gameObject.tag == "Orb")
+        if (collision.gameObject.tag == "Orb" && collision.gameObject.GetComponent<theOrb>().pulsing)
         {
             Debug.Log("deflected");
-            GetComponent<Rigidbody2D>().velocity = new Vector2(4 * (transform.position.x - collision.gameObject.transform.position.x), 4 * (transform.position.y - collision.gameObject.transform.position.y));
+            GetComponent<Rigidbody2D>().velocity = new Vector2(15 * (transform.position.x - collision.gameObject.transform.position.x), 15 * (transform.position.y - collision.gameObject.transform.position.y));
             // GetComponent<Rigidbody2D>().velocity = new Vector2(20,20);
         }
     }

@@ -95,7 +95,7 @@ public class theOrb : MonoBehaviour
         
        if (ownerDied)
         {
-            Debug.Log(ownerDeathTimer);
+            //Debug.Log(ownerDeathTimer);
             ownerDeathTimer++;
         }
         if (ownerDeathTimer == 1)
@@ -106,10 +106,14 @@ public class theOrb : MonoBehaviour
            
             owner.GetComponent<PlayerMovement>().holding = false;
             owner.GetComponent<PlayerMovement>().heldObject = GameObject.Find("FakeObject");
-            transform.position = startPos;
+            transform.position = new Vector3(0, 0, 0);
             owner.GetComponent<PlayerMovement>().nearObject = false;
             owner = GameObject.Find("FakeObject");
             myCollider.enabled = true;
+        }
+        if (ownerDeathTimer >= 2)
+        {
+            ownerDied = false;
         }
         if (!ownerDied)
         {
@@ -150,6 +154,8 @@ public class theOrb : MonoBehaviour
             pulsing = false;
         }
     }
+
+   
     public void DetectPlayer()
     {
         RaycastHit2D hit2D;
