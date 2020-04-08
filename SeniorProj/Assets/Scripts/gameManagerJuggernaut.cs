@@ -32,6 +32,9 @@ public class gameManagerJuggernaut : MonoBehaviour
     public bool orbRespawn;
 
     public GameObject countDown;
+
+    public GameObject GameOverPanel;
+    public Text WinnerText;
     //public Text P1ScoreText;
     //public Text P2ScoreText;
     //public Text P3ScoreText;
@@ -52,6 +55,8 @@ public class gameManagerJuggernaut : MonoBehaviour
         orb.transform.position = new Vector2(0, 0);
 
         orb.SetActive(false);
+
+        GameOverPanel.SetActive(false);
 
         orbRespawn = false;
     }
@@ -165,24 +170,34 @@ public class gameManagerJuggernaut : MonoBehaviour
     }
     public void GameOver() {
         gameOver = true;
+        GameOverPanel.SetActive(true);
+
         Debug.Log("Game Over");
 
         for (int i = 0; i < _scoreList.Count; i++) {
 
             if (_scoreList[0] == maxScore) {
                 Debug.Log("Player 1 Wins");
+                WinnerText.color = new Color(1, 0.5255f, 0.5255f, 1);
+                WinnerText.text = "Player 1 Wins";
             }
             else if (_scoreList[1] == maxScore)
             {
                 Debug.Log("Player 2 Wins");
+                WinnerText.text = "Player 2 Wins";
+                WinnerText.color = new Color(0.5255f, .96078f, 1, 1);
             }
             else if(_scoreList[2] == maxScore)
             {
                 Debug.Log("Player 3 Wins");
+                WinnerText.text = "Player 3 Wins";
+                WinnerText.color = new Color(1, .8902f, .30588f, 1);
             }
             else if(_scoreList[3] == maxScore)
             {
                 Debug.Log("Player 4 Wins");
+                WinnerText.text = "Player 4 Wins";
+                WinnerText.color = new Color(.596078f, 1, .345098f, 1);
             }
         }
     }

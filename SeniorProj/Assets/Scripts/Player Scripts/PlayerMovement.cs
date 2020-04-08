@@ -173,6 +173,11 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+        if(_juggernautGM.gameOver == true && player.GetButtonUp("B/Circle"))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+
         #region Player jumping anf player grounded
         //Jump
         if (player.GetButtonDown("A/X") && canJump)
@@ -227,10 +232,11 @@ public class PlayerMovement : MonoBehaviour
         {
             Move(walkDir);
             
-            if(transform.position.x >= 9.5f && currentScene.name =="MainMenu")
-            {
-                SceneManager.LoadScene("ReadyUp");
-            } else if(transform.position.x <= -9.5f && currentScene.name == "MainMenu")
+            //if(transform.position.x >= 9.5f && currentScene.name =="MainMenu")
+            //{
+            //    SceneManager.LoadScene("ReadyUp");
+            //} else 
+            if(transform.position.x <= -9.5f && currentScene.name == "MainMenu")
             {
                 SceneManager.LoadScene("SampleScene - Copy");
             } else if(transform.position.x <= -9.5f && currentScene.name == "ReadyUp")
