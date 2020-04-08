@@ -107,6 +107,7 @@ public class theOrb : MonoBehaviour
             owner.GetComponent<PlayerMovement>().holding = false;
             owner.GetComponent<PlayerMovement>().heldObject = GameObject.Find("FakeObject");
             transform.position = new Vector3(0, 0, 0);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             owner.GetComponent<PlayerMovement>().nearObject = false;
             owner = GameObject.Find("FakeObject");
             myCollider.enabled = true;
