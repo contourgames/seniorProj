@@ -7,7 +7,7 @@ public class Bomb : MonoBehaviour
     public Animator _anim;
     public bool hasDetonated = false;
     public bool hasSpawned;
-
+    private Objects _objScript;
     public ExplosionParticles _ParticleMgr;
    
     // Start is called before the first frame update
@@ -18,6 +18,8 @@ public class Bomb : MonoBehaviour
         StartCoroutine(bombSpawnDel());
 
         _ParticleMgr = GameObject.Find("GameManager").GetComponent<ExplosionParticles>();
+
+        _objScript = GetComponent<Objects>();
     }
 
     // Update is called once per frame
@@ -26,10 +28,30 @@ public class Bomb : MonoBehaviour
         
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
 
-    public IEnumerator Explode() {
+        if (_objScript.isActive && collision.gameObject.layer == 9)
+        { //If bomb explodes close enough to another bomb
+            StartCoroutine("CollisionExplode");
+        }
+    }
+
+
+    public IEnumerator isActiveTimer() {
+        //Debug.Log("A");
+        yield return new WaitForSeconds(.5f);
         
-        yield return new WaitForSeconds(2f);
+        //yield return new WaitForSeconds(1.5f);
+
+    }
+    public IEnumerator Explode() {
+        Debug.Log("SA");
+        _anim.SetBool("Active", true);
+
+        yield return new WaitForSeconds(1.5f);
+        _objScript.isActive = true;
+        yield return new WaitForSeconds(.5f);
 
         _anim.Play("Explosion");
         yield return new WaitForSeconds(.1f);
@@ -39,7 +61,7 @@ public class Bomb : MonoBehaviour
         //when bomb spawns, destroy bomb;
         _ParticleMgr.animPos = new Vector2(transform.position.x, transform.position.y);
         StartCoroutine(_ParticleMgr.ActivatePrt());
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
     public IEnumerator CollisionExplode() {

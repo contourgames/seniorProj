@@ -148,8 +148,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-       // Debug.Log(holding);
-        Dash();
+        // Debug.Log(holding);
+        if (_juggernautGM.playersCanMove) {
+            Dash();
+
+        }
         Throw();
 
         if (heldObject != null && heldObject.tag == "Orb") { //Increase player score as long as they are holding orb
@@ -178,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
             SceneManager.LoadScene("MainMenu");
         }
 
-        #region Player jumping anf player grounded
+        #region Player jumping and player grounded
         //Jump
         if (player.GetButtonDown("A/X") && canJump)
         {
@@ -188,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
         if (player.GetButton("A/X") && canJump)
         {
           
-            if (_playerGrounded == true)
+            if (_playerGrounded == true && _juggernautGM.playersCanMove)
             {
                
                 Jump(Vector2.up);
@@ -468,11 +471,11 @@ public class PlayerMovement : MonoBehaviour
         if (holding == false)
         {
             
-                if (player.GetButtonUp("X/Square"))
-                {
-                    searching = true;
-                       
-                }
+             if (player.GetButtonUp("X/Square"))
+             {
+                 searching = true;
+                     
+             }
             
         } else if (holding == true && heldObject != null && heldObject.tag != "Orb")
         {
@@ -492,8 +495,11 @@ public class PlayerMovement : MonoBehaviour
                 //  Debug.Log("Y: " + throwY);
                 //  Debug.Log("X: " + throwX);
                 heldObject.GetComponent<Objects>().beingThrown = true;
-                heldObject.GetComponent<Objects>().StartCoroutine("isActiveTimer");
-                StartCoroutine(heldObject.GetComponent<Bomb>().Explode());
+                if (heldObject.tag == "Bomb") {
+                    //heldObject.GetComponent<Bomb>().StartCoroutine("isActiveTimer");
+                    StartCoroutine(heldObject.GetComponent<Bomb>().Explode());
+
+                }
                 //held obj needs to be reset after being thrown
                 heldObject = null;
                 holding = false;

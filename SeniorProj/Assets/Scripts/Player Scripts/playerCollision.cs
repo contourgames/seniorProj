@@ -35,6 +35,7 @@ public class playerCollision : MonoBehaviour
 
     PlayerMovement _playerScript;
     gameManagerJuggernaut _juggernautGM;
+    cameraShake _camScript;
     void Start()
     {
         spawnPosition = new Vector2(transform.position.x, transform.position.y);
@@ -43,7 +44,7 @@ public class playerCollision : MonoBehaviour
         _playerScript = GetComponent<PlayerMovement>();
 
         _juggernautGM = GameObject.Find("GameManager").GetComponent<gameManagerJuggernaut>();
-
+        _camScript = GameObject.FindObjectOfType<Camera>().GetComponent<cameraShake>();
     }
 
     // Update is called once per frame
@@ -82,18 +83,12 @@ public class playerCollision : MonoBehaviour
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Player 2" || collision.gameObject.tag == "Player 3" || collision.gameObject.tag == "Player 4") { //Ignore player collisions
             Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
         }
-        if (collision.gameObject.tag == "Orb") //Add player knockback when 
-        {
-            if (collision.gameObject.GetComponent<theOrb>().pulsing) {
-                _playerScript.AddKnockBack(collision.gameObject);
-                Debug.Log("A");
-            }
+        if (collision.gameObject.layer == 13)
+        { //player collides with throwable obj
 
-        }
-        if (collision.gameObject.layer == 13) { //player collides with throwable obj
-
-         
-            if (_playerScript.holding && _playerScript.heldObject.tag == "Orb" && collision.gameObject.GetComponent<Objects>().isActive) { //if they're currently holding the orb
+            Debug.Log("Colliding with throwable");
+            if (_playerScript.holding && _playerScript.heldObject.tag == "Orb" && collision.gameObject.GetComponent<Objects>().isActive)
+            { //if they're currently holding the orb
                 Debug.Log("juggernautDied");
                 if (GetComponent<PlayerMovement>().holding = true && GetComponent<PlayerMovement>().heldObject.tag == "Orb")
                 {
@@ -107,12 +102,31 @@ public class playerCollision : MonoBehaviour
                 _playerScript.holding = false;
                 _playerScript.nearObject = false;
             }
-            if (collision.gameObject.GetComponent<Objects>().isActive == true && _playerScript.enableHurt) {
+            if (collision.gameObject.GetComponent<Objects>().isActive == true && _playerScript.enableHurt)
+            {
                 Debug.Log("Kill");
                 audioSource.PlayOneShot(deathClip, 1.0f);
                 gotHit = true;
+                _camScript.StartCameraShake();
+
             }
+
         }
+        if (collision.gameObject.tag == "Orb") //Add player knockback when 
+        {
+            if (collision.gameObject.GetComponent<theOrb>().pulsing)
+            {
+                _playerScript.AddKnockBack(collision.gameObject);
+                Debug.Log("A");
+            }
+
+        }
+    }
+
+    public void OnCollisionStay2D(Collision2D collision)
+    {
+
+
     }
 
 }

@@ -41,7 +41,12 @@ public class Objects : MonoBehaviour
         _bombScript = GetComponent<Bomb>();
         wasThrown = false;
     }
-
+    private void Update()
+    {
+        if (isActive) {
+            Debug.Log("object is active");
+        }
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -159,10 +164,6 @@ public class Objects : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        if (isActive && collision.gameObject.layer == 9) { //If bomb explodes close enough to another bomb
-            _bombScript.StartCoroutine("CollisionExplode");
-        }
   
         if (!isActive && _grounded == true && collision.gameObject.layer == 9)
         {
@@ -178,14 +179,14 @@ public class Objects : MonoBehaviour
         }
     }
 
-    public IEnumerator isActiveTimer() {
-        //Debug.Log("A");
-        yield return new WaitForSeconds(.1f);
-        _bombScript.GetComponent<Animator>().SetBool("Active", true);
-        //yield return new WaitForSeconds(1.5f);
-        isActive = true;
+    //public IEnumerator isActiveTimer() {
+    //    //Debug.Log("A");
+    //    yield return new WaitForSeconds(.1f);
+    //    _bombScript.GetComponent<Animator>().SetBool("Active", true);
+    //    //yield return new WaitForSeconds(1.5f);
+    //    isActive = true;
 
-    }
+    //}
 
     public void OnTriggerEnter2D (Collider2D other)
     {
