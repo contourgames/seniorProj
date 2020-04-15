@@ -254,8 +254,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 3
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1792617779, guid: 51032f9a388d183479d229aa9e39ba5e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51032f9a388d183479d229aa9e39ba5e, type: 3}
 --- !u!1 &189216192
 GameObject:
@@ -900,18 +899,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1699695508}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &409493700 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7298959544746511387, guid: 19b70ab793c7928408e9131a83033cdb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1699695508}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409493696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6de0139f5f01614489fb286d42a2a00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &593559419
 GameObject:
   m_ObjectHideFlags: 0
@@ -1308,8 +1295,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 2
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1721055576, guid: d026d025e8a59a24a9c4bec285bc7e2a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d026d025e8a59a24a9c4bec285bc7e2a, type: 3}
 --- !u!1 &1282637669
 GameObject:
@@ -1560,8 +1546,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 4
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 688799267, guid: d6e208b1d91fc5c4db2f03a81896ad66, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6e208b1d91fc5c4db2f03a81896ad66, type: 3}
 --- !u!1 &1529137689
 GameObject:
@@ -1881,13 +1866,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7298959544746511390, guid: 19b70ab793c7928408e9131a83033cdb,
-        type: 3}
-      propertyPath: _collScript
-      value: 
-      objectReference: {fileID: 409493700}
-    m_RemovedComponents:
-    - {fileID: 1298645251, guid: 19b70ab793c7928408e9131a83033cdb, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19b70ab793c7928408e9131a83033cdb, type: 3}
 --- !u!1 &1899509230
 GameObject:

@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 7298959544746511390}
   - component: {fileID: 7298959544746511387}
   - component: {fileID: 6844769377556471145}
-  - component: {fileID: 1298645251}
   - component: {fileID: 1589909602}
   m_Layer: 9
   m_Name: Player
@@ -147,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8776f6172893fbd4487619395ba91434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isJuggernaut: 0
   facingRight: 0
   dashVelocity: 0
   dashing: 0
@@ -166,6 +166,7 @@ MonoBehaviour:
   pulseClip: {fileID: 8300000, guid: 50e88802ed841ec4f8ee7ecad5241905, type: 3}
   throwClip: {fileID: 8300000, guid: cd817290997bd1f4b8dd071bfb4a0407, type: 3}
   pickUpClip: {fileID: 8300000, guid: 920d47a3ccdccfc41afaba7d42d43933, type: 3}
+  _collScript: {fileID: 7298959544746511387}
   fallMultiplier: 3
   lowJumpMultiplier: 8
   _playerGrounded: 0
@@ -202,6 +203,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   spawnPosition: {x: 0, y: 0}
+  isJuggernaut: 0
   gotHit: 0
   onGround: 0
   onWall: 0
@@ -324,19 +326,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &1298645251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7298959544746511389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87e6d3a7c3f00af40a50bf992d077c67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerScript: {fileID: 7298959544746511390}
 --- !u!82 &1589909602
 AudioSource:
   m_ObjectHideFlags: 0
