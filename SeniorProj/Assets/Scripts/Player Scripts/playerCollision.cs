@@ -34,22 +34,29 @@ public class playerCollision : MonoBehaviour
     private Color debugColor = Color.red;
 
     PlayerMovement _playerScript;
-    gameManagerJuggernaut _juggernautGM;
-    cameraShake _camScript;
+
+    //respawn variables
+    public Vector2 startPos;
+    public int spawnTimer;
+    public Animator _animator;
     void Start()
     {
         spawnPosition = new Vector2(transform.position.x, transform.position.y);
 
         gotHit = false;
         _playerScript = GetComponent<PlayerMovement>();
+        _animator = GetComponent<Animator>();
+        startPos = transform.position;
+       
 
-        _juggernautGM = GameObject.Find("GameManager").GetComponent<gameManagerJuggernaut>();
-        _camScript = GameObject.FindObjectOfType<Camera>().GetComponent<cameraShake>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+
+        //Respawn animation
+        _animator.SetBool("dead", gotHit);
         onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffSet, radius, groundLayer);
         onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffSet, radius, groundLayer)
             || Physics2D.OverlapCircle((Vector2)transform.position + LeftOffSet, radius, groundLayer);
@@ -60,6 +67,37 @@ public class playerCollision : MonoBehaviour
         onTopGround = Physics2D.OverlapCircle((Vector2)transform.position + TopOffSet, radius, groundLayer);
         //onGroundBelow = Physics2D.OverlapCircle((Vector2)transform.position + GBOffset, radius, groundLayer);
         wallSlide = onRightWall ? -1 : 1;
+
+        if (gotHit == true)
+        {
+            spawnTimer++;
+            transform.position = startPos;
+            if (_playerScript.holding )
+            { //if they're currently holding the orb
+                if (_playerScript.heldObject.tag == "Orb")
+                {
+                    if (GetComponent<PlayerMovement>().holding == true && GetComponent<PlayerMovement>().heldObject.tag == "Orb")
+                    {
+                        GetComponent<PlayerMovement>().heldObject.GetComponent<theOrb>().ownerDied = true;
+                    }
+
+                    _playerScript.heldObject = null;
+                    _playerScript.holding = false;
+                    _playerScript.nearObject = false;
+                } else
+                {
+                    Object.Destroy(GetComponent<PlayerMovement>().heldObject);
+                    GetComponent<PlayerMovement>().heldObject = GameObject.Find("FakeObject");
+                    GetComponent<PlayerMovement>().holding = false;
+                }
+            }
+        }
+        //duration that player cannot act after death
+        if (spawnTimer >= 300)
+        {
+            gotHit = false;
+            spawnTimer = 0;
+        }
 
     }
 
@@ -80,53 +118,18 @@ public class playerCollision : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Player 2" || collision.gameObject.tag == "Player 3" || collision.gameObject.tag == "Player 4") { //Ignore player collisions
-            Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
-        }
-        if (collision.gameObject.layer == 13)
-        { //player collides with throwable obj
+       
+       
+        if (collision.gameObject.layer == 13) { //player collides with throwable obj
 
-            Debug.Log("Colliding with throwable");
-            if (_playerScript.holding && _playerScript.heldObject.tag == "Orb" && collision.gameObject.GetComponent<Objects>().isActive)
-            { //if they're currently holding the orb
-                Debug.Log("juggernautDied");
-                if (GetComponent<PlayerMovement>().holding = true && GetComponent<PlayerMovement>().heldObject.tag == "Orb")
-                {
-                    GetComponent<PlayerMovement>().heldObject.GetComponent<theOrb>().ownerDied = true;
-                }
-                gotHit = true;
-
-                _juggernautGM.RespawnOrb();
-                _juggernautGM.DecreasePlayerScore(gameObject);
-                _playerScript.heldObject = null;
-                _playerScript.holding = false;
-                _playerScript.nearObject = false;
-            }
-            if (collision.gameObject.GetComponent<Objects>().isActive == true && _playerScript.enableHurt)
-            {
-                Debug.Log("Kill");
+         
+           
+            if (collision.gameObject.GetComponent<Objects>().isActive == true && _playerScript.enableHurt) {
+               // Debug.Log("Kill");
                 audioSource.PlayOneShot(deathClip, 1.0f);
                 gotHit = true;
-                _camScript.StartCameraShake();
-
             }
-
         }
-        if (collision.gameObject.tag == "Orb") //Add player knockback when 
-        {
-            if (collision.gameObject.GetComponent<theOrb>().pulsing)
-            {
-                _playerScript.AddKnockBack(collision.gameObject);
-                Debug.Log("A");
-            }
-
-        }
-    }
-
-    public void OnCollisionStay2D(Collision2D collision)
-    {
-
-
     }
 
 }

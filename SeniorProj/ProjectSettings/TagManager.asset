@@ -16,6 +16,7 @@ TagManager:
   - Orb
   - Bomb
   - fakeObject
+  - knife
   layers:
   - Default
   - TransparentFX

@@ -159,11 +159,11 @@ public class theOrb : MonoBehaviour
    
     public void DetectPlayer()
     {
-        RaycastHit2D hit2D;
+        Collider2D hit2D;
 
-        //Debug.Log("nearPlayer: " + nearPlayer);
-        hit2D = Physics2D.BoxCast(gameObject.transform.position, new Vector2(1, 1), 50, new Vector2(1, 0), 1.0f, 1 << LayerMask.NameToLayer("Player"));
-        if (hit2D.collider != null)
+
+        hit2D = Physics2D.OverlapCircle(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 1.0f, 1 << LayerMask.NameToLayer("Player"));
+        if (hit2D != null)
         {
             nearbyPlayer = GameObject.Find(hit2D.transform.name);
 

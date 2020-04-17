@@ -28,6 +28,8 @@ public class Objects : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip pickUpClip;
 
+   
+
     LayerMask _layerMask;
     // Start is called before the first frame update
     void Start()
@@ -41,12 +43,7 @@ public class Objects : MonoBehaviour
         _bombScript = GetComponent<Bomb>();
         wasThrown = false;
     }
-    private void Update()
-    {
-        if (isActive) {
-            Debug.Log("object is active");
-        }
-    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -104,7 +101,16 @@ public class Objects : MonoBehaviour
        
         if (throwTimer > 1)
         {
-            Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), nearbyPlayer.GetComponent<BoxCollider2D>(), false);
+            if (gameObject.tag == "knife")
+            {
+               
+                Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), nearbyPlayer.GetComponent<BoxCollider2D>(), false);
+            }
+            else
+            {
+              //  Debug.Log("Nearby Player");
+                Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), nearbyPlayer.GetComponent<BoxCollider2D>(), false);
+            }
             throwTimer = 0;
             beingThrown = false;
             held = false;
@@ -113,16 +119,17 @@ public class Objects : MonoBehaviour
            
         }
 
+       
     }
+
 
     
     public void DetectPlayer()
     {
-        RaycastHit2D hit2D;
-      
-        //Debug.Log("nearPlayer: " + nearPlayer);
-        hit2D = Physics2D.BoxCast(gameObject.transform.position, new Vector2 (1,1), 50, new Vector2(1,0), 1.0f, 1 << LayerMask.NameToLayer("Player"));
-        if (hit2D.collider != null)
+        Collider2D hit2D;
+
+        hit2D = Physics2D.OverlapCircle(new Vector2 (gameObject.transform.position.x, gameObject.transform.position.y), 1.0f, 1 << LayerMask.NameToLayer("Player"));
+        if (hit2D!= null)
         {
            nearbyPlayer = GameObject.Find(hit2D.transform.name);
          
@@ -164,6 +171,8 @@ public class Objects : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+      
   
         if (!isActive && _grounded == true && collision.gameObject.layer == 9)
         {
@@ -179,14 +188,14 @@ public class Objects : MonoBehaviour
         }
     }
 
-    //public IEnumerator isActiveTimer() {
-    //    //Debug.Log("A");
-    //    yield return new WaitForSeconds(.1f);
-    //    _bombScript.GetComponent<Animator>().SetBool("Active", true);
-    //    //yield return new WaitForSeconds(1.5f);
-    //    isActive = true;
+    public IEnumerator isActiveTimer() {
+        //Debug.Log("A");
+        yield return new WaitForSeconds(.1f);
+        _bombScript.GetComponent<Animator>().SetBool("Active", true);
+        //yield return new WaitForSeconds(1.5f);
+        isActive = true;
 
-    //}
+    }
 
     public void OnTriggerEnter2D (Collider2D other)
     {

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    gameManagerJuggernaut _juggernautGM;
+
     [Space]
     [Header("Dashing")]
     //variables for dashing
@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-         _juggernautGM = GameObject.Find("GameManager").GetComponent<gameManagerJuggernaut>();
+        
 
         score = 0;
         #region Starting values
@@ -148,18 +148,15 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-        // Debug.Log(holding);
-        if (_juggernautGM.playersCanMove) {
-            Dash();
-
-        }
+       // Debug.Log(holding);
+        Dash();
         Throw();
 
-        if (heldObject != null && heldObject.tag == "Orb") { //Increase player score as long as they are holding orb
+       // if (heldObject != null && heldObject.tag == "Orb") { //Increase player score as long as they are holding orb
 
-            _juggernautGM.IncreasePlayerScore(gameObject);
+          //  _juggernautGM.IncreasePlayerScore(gameObject);
 
-        }
+      //  }
 
         if (_collScript.onWall && !_playerGrounded && player.GetButtonUp("A/X"))
         {
@@ -176,12 +173,12 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if(_juggernautGM.gameOver == true && player.GetButtonUp("B/Circle"))
-        {
-            SceneManager.LoadScene("MainMenu");
-        }
+     //   if(_juggernautGM.gameOver == true && player.GetButtonUp("B/Circle"))
+      //  {
+     //       SceneManager.LoadScene("MainMenu");
+      //  }
 
-        #region Player jumping and player grounded
+        #region Player jumping anf player grounded
         //Jump
         if (player.GetButtonDown("A/X") && canJump)
         {
@@ -191,7 +188,7 @@ public class PlayerMovement : MonoBehaviour
         if (player.GetButton("A/X") && canJump)
         {
           
-            if (_playerGrounded == true && _juggernautGM.playersCanMove)
+            if (_playerGrounded == true)
             {
                
                 Jump(Vector2.up);
@@ -226,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 walkDir = new Vector2(joyStickX, joyStickY);
         if(currentScene.name == "SampleScene - Copy")
         {
-            if (!isWallSliding && canMove && _juggernautGM.playersCanMove)
+            if (!isWallSliding && canMove)
             {
                 Move(walkDir);
             }
@@ -471,11 +468,11 @@ public class PlayerMovement : MonoBehaviour
         if (holding == false)
         {
             
-             if (player.GetButtonUp("X/Square"))
-             {
-                 searching = true;
-                     
-             }
+                if (player.GetButtonUp("X/Square"))
+                {
+                    searching = true;
+                       
+                }
             
         } else if (holding == true && heldObject != null && heldObject.tag != "Orb")
         {
@@ -495,11 +492,8 @@ public class PlayerMovement : MonoBehaviour
                 //  Debug.Log("Y: " + throwY);
                 //  Debug.Log("X: " + throwX);
                 heldObject.GetComponent<Objects>().beingThrown = true;
-                if (heldObject.tag == "Bomb") {
-                    //heldObject.GetComponent<Bomb>().StartCoroutine("isActiveTimer");
-                    StartCoroutine(heldObject.GetComponent<Bomb>().Explode());
-
-                }
+              
+               
                 //held obj needs to be reset after being thrown
                 heldObject = null;
                 holding = false;
