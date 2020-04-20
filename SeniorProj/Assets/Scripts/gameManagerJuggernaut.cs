@@ -11,6 +11,12 @@ public class gameManagerJuggernaut : MonoBehaviour
     public Player player2;
     public Player player3;
     public Player player4;
+
+    public int player1Score;
+    public int player2Score;
+    public int player3Score;
+    public int player4Score;
+
     [Header("Game Scores & floats")]
     public float startDelay = 4f;
     public float maxScore;
@@ -35,10 +41,10 @@ public class gameManagerJuggernaut : MonoBehaviour
 
     public GameObject GameOverPanel;
     public Text WinnerText;
-    //public Text P1ScoreText;
-    //public Text P2ScoreText;
-    //public Text P3ScoreText;
-    //public Text P4ScoreText;
+    public Text P1ScoreText;
+    public Text P2ScoreText;
+    public Text P3ScoreText;
+    public Text P4ScoreText;
 
     GameObject orb;
     // Start is called before the first frame update
@@ -59,6 +65,7 @@ public class gameManagerJuggernaut : MonoBehaviour
         GameOverPanel.SetActive(false);
 
         orbRespawn = false;
+
     }
 
     public void FixedUpdate()
@@ -88,14 +95,14 @@ public class gameManagerJuggernaut : MonoBehaviour
     void Update()
     {
         #region Score Text UI
-        //if(SceneManager.GetActiveScene().name == "SampleScene - Copy")
-        //{
+        if (SceneManager.GetActiveScene().name == "SampleScene - Copy")
+        {
 
-        //P1ScoreText.text = "Player 1: " + P1Score.ToString("F0");
-        //P2ScoreText.text = "Player 2: " + P2Score.ToString("F0");
-        //P3ScoreText.text = "Player 3: " + P3Score.ToString("F0");
-        //P4ScoreText.text = "Player 4: " + P4Score.ToString("F0");
-        //}
+            P1ScoreText.text = "Player 1: " + P1Score.ToString("F0");
+            P2ScoreText.text = "Player 2: " + P2Score.ToString("F0");
+            P3ScoreText.text = "Player 3: " + P3Score.ToString("F0");
+            P4ScoreText.text = "Player 4: " + P4Score.ToString("F0");
+        }
         #endregion
 
         _scoreList[0] = P1Score;

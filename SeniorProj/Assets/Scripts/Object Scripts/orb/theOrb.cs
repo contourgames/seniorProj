@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class theOrb : MonoBehaviour
 {
-    public GameObject player1;
-    public GameObject player2;
-    public GameObject player3;
-    public GameObject player4;
 
-    public int player1Score;
-    public int player2Score;
-    public int player3Score;
-    public int player4Score;
 
     //being held variables
     public bool held;
@@ -35,7 +27,6 @@ public class theOrb : MonoBehaviour
     public GameObject currPulse;
 
     //respawn variables
-    public Vector2 startPos;
     public bool ownerDied;
     public int ownerDeathTimer;
 
@@ -46,15 +37,6 @@ public class theOrb : MonoBehaviour
     {
         ownerDied = false;
         ownerDeathTimer = 0;
-        startPos = transform.position;
-        player1Score = 0;
-        player2Score = 0;
-        player3Score = 0;
-        player4Score = 0;
-
-        player1 = GameObject.Find("Player");
-
-        
         myCollider = GetComponent<Collider2D>();
         held = false;
         nearPlayer = false;

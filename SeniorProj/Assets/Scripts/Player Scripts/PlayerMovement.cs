@@ -75,19 +75,17 @@ public class PlayerMovement : MonoBehaviour
     public float wallSlidingSpeed;
     public float wallJumpVelocity;
     public float jumpVelocity = 30f;
-    float prevYVel = 0;
-    float currVel = 0;
     [Space]
     [Header("Ints")]
     [SerializeField]
     private int numWallJumps = 1;
 
     Scene currentScene;
-
+    gameManagerJuggernaut _GM;
     // Start is called before the first frame update
     void Start()
     {
-
+        _GM = GameObject.FindGameObjectWithTag("GameController").GetComponent<gameManagerJuggernaut>();
         currentScene = SceneManager.GetActiveScene();
         //Assigns each player to a different controller by object name
         if (this.gameObject.name == "Player")
@@ -252,9 +250,7 @@ public class PlayerMovement : MonoBehaviour
                 SceneManager.LoadScene("MainMenu");
             }
         }
-       
-        //prevYVel = currVel;
-        //currVel = _rb.velocity.y;
+      
 
         #region Dashing
         //Dash
@@ -377,7 +373,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_collScript.onWall && !_playerGrounded && player.GetButton("A/X"))
         {
-          //  Debug.Log("Prev: " + prevYVel + " Curr: " + currVel);
+
              isWallSliding = true;
         }
         else
@@ -509,8 +505,7 @@ public class PlayerMovement : MonoBehaviour
                 //  Debug.Log("Y: " + throwY);
                 //  Debug.Log("X: " + throwX);
                 heldObject.GetComponent<Objects>().beingThrown = true;
-              
-               
+
                 //held obj needs to be reset after being thrown
                 heldObject = null;
                 holding = false;
@@ -520,7 +515,7 @@ public class PlayerMovement : MonoBehaviour
             }
         } else
         {
-           
+            _GM.IncreasePlayerScore(gameObject);
             if (player.GetButtonUp("X/Square"))
             {
                 if (heldObject.GetComponent<theOrb>().pulsing == false)

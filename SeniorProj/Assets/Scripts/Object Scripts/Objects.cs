@@ -188,15 +188,6 @@ public class Objects : MonoBehaviour
         }
     }
 
-    public IEnumerator isActiveTimer() {
-        //Debug.Log("A");
-        yield return new WaitForSeconds(.1f);
-        _bombScript.GetComponent<Animator>().SetBool("Active", true);
-        //yield return new WaitForSeconds(1.5f);
-        isActive = true;
-
-    }
-
     public void OnTriggerEnter2D (Collider2D other)
     {
         

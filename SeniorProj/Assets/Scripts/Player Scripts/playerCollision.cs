@@ -34,23 +34,23 @@ public class playerCollision : MonoBehaviour
     private Color debugColor = Color.red;
 
     PlayerMovement _playerScript;
-
+    gameManagerJuggernaut _GM;
     //respawn variables
     public Vector2 startPos;
     public int spawnTimer;
     //public Animator _animator;
 
     public Animator _moveAnim;
-
+    public Camera _mainCam;
     void Start()
     {
         spawnPosition = new Vector2(transform.position.x, transform.position.y);
-
+        _GM = GameObject.FindGameObjectWithTag("GameController").GetComponent<gameManagerJuggernaut>();
         gotHit = false;
         _playerScript = GetComponent<PlayerMovement>();
         //_animator = GetComponent<Animator>();
         startPos = transform.position;
-       
+        
 
     }
 
@@ -73,8 +73,10 @@ public class playerCollision : MonoBehaviour
 
         if (gotHit == true)
         {
-            spawnTimer++;
-            transform.position = startPos;
+            Debug.Log("WTF");
+           // _mainCam.GetComponent<cameraShake>().StartCameraShake();
+            _GM.StartCoroutine(_GM.Respawn(gameObject, startPos));
+            _GM.DecreasePlayerScore(gameObject);
             if (_playerScript.holding )
             { //if they're currently holding the orb
                 if (_playerScript.heldObject.tag == "Orb")
@@ -94,12 +96,6 @@ public class playerCollision : MonoBehaviour
                     GetComponent<PlayerMovement>().holding = false;
                 }
             }
-        }
-        //duration that player cannot act after death
-        if (spawnTimer >= 300)
-        {
-            gotHit = false;
-            spawnTimer = 0;
         }
 
     }

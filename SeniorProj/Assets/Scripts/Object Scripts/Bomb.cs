@@ -25,7 +25,10 @@ public class Bomb : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (_objScript.wasThrown) {
+            StartCoroutine(Explode());
+            _objScript.wasThrown = false;        
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
