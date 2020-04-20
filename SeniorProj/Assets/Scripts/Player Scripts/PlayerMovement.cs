@@ -217,6 +217,11 @@ public class PlayerMovement : MonoBehaviour
         #region Animation Triggers
         _moveAnim.SetFloat("AirVelocity", _rb.velocity.y);
         //Debug.Log(_rb.velocity.y);
+        if (Input.GetKeyDown("m"))
+        {
+            _moveAnim.SetTrigger("Throw");
+        }
+        _moveAnim.SetFloat("Running", Mathf.Abs(_rb.velocity.x));
         #endregion
 
     }
@@ -367,7 +372,7 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.localScale = new Vector2(0.05f, transform.localScale.y);
         }
-        _moveAnim.SetFloat("Running", Mathf.Abs(_rb.velocity.x));
+        
     }
     void CheckForWallSlide()
     {
