@@ -155,7 +155,7 @@ public class playerCollision : MonoBehaviour
                // Debug.Log("Kill");
                 audioSource.PlayOneShot(deathClip, 1.0f);
                 gotHit = true;
-                _moveAnim.SetTrigger("Hit");
+                
             }
         }
     }
