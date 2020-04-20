@@ -42,6 +42,9 @@ public class playerCollision : MonoBehaviour
 
     public Animator _moveAnim;
     public Camera _mainCam;
+
+    public bool isSliding = false;
+    public bool isFlipped = false;
     void Start()
     {
         spawnPosition = new Vector2(transform.position.x, transform.position.y);
@@ -102,9 +105,26 @@ public class playerCollision : MonoBehaviour
 
     public void Update()
     {
+      
         if (onGround)
         {
             _moveAnim.SetTrigger("Grounded");
+        }
+
+        if (isSliding)
+        {
+            _moveAnim.SetBool("Wallsliding", true);
+            if(isFlipped == false)
+            {
+                transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+                isFlipped = true;
+            }
+            
+        } else
+        {
+            isFlipped = false;
+            _moveAnim.SetBool("Wallsliding", false);
+
         }
     }
 
@@ -135,8 +155,10 @@ public class playerCollision : MonoBehaviour
                // Debug.Log("Kill");
                 audioSource.PlayOneShot(deathClip, 1.0f);
                 gotHit = true;
+                _moveAnim.SetTrigger("Hit");
             }
         }
     }
+
 
 }

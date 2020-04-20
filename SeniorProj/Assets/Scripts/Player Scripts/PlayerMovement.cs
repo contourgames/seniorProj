@@ -219,7 +219,8 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log(_rb.velocity.y);
         if (Input.GetKeyDown("m"))
         {
-            _moveAnim.SetTrigger("Throw");
+            //_moveAnim.SetTrigger("Throw");
+            _moveAnim.SetTrigger("Hit");
         }
         _moveAnim.SetFloat("Running", Mathf.Abs(_rb.velocity.x));
         #endregion
@@ -283,13 +284,14 @@ public class PlayerMovement : MonoBehaviour
         //pressing the dash button activates this booleon, which causes a timer to go up
         if (dashing && canDash)
         {
+            _moveAnim.SetBool("Dashing", true);
             dashTimer++;
             //this time is the duration of the dash
             if (dashTimer == 1)
             {
                 audioSource.PlayOneShot(dashClip, 1.0f);
             }
-            if (dashTimer <= 10)
+            if (dashTimer <= 30)
             {
                 _rb.velocity = new Vector2(dashVelocity, 0);
             }
@@ -304,6 +306,10 @@ public class PlayerMovement : MonoBehaviour
                 dashing = false;
                 canDash = false;
             }
+        } else if (!dashing)
+        {
+            _moveAnim.SetBool("Dashing", false);
+
         }
         #endregion
 
@@ -323,6 +329,7 @@ public class PlayerMovement : MonoBehaviour
                 canJump = false;
 
             }
+               _collScript.isSliding = false;
         }
         CheckForWallSlide();
 
@@ -341,7 +348,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 _rb.velocity = new Vector2(_rb.velocity.x, -wallSlidingSpeed * .095f);
             }
-
+            _collScript.isSliding = true;
         }
         #endregion
 
@@ -516,8 +523,8 @@ public class PlayerMovement : MonoBehaviour
                 heldObject = null;
                 holding = false;
                 nearObject = false;
-              
 
+                _moveAnim.SetTrigger("Throw");
             }
         } else
         {
