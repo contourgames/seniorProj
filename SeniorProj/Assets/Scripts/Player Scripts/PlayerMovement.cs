@@ -49,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
     int whichSide;
     float xSpeed;
 
+    public Animator _moveAnim;
+
     private Vector2 forcePerFrame = Vector2.zero;
 
     [Space]
@@ -213,6 +215,12 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
 
+
+        #region Animation Triggers
+        _moveAnim.SetFloat("AirVelocity", _rb.velocity.y);
+        //Debug.Log(_rb.velocity.y);
+        #endregion
+
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -245,8 +253,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
        
-        prevYVel = currVel;
-        currVel = _rb.velocity.y;
+        //prevYVel = currVel;
+        //currVel = _rb.velocity.y;
 
         #region Dashing
         //Dash
@@ -355,6 +363,15 @@ public class PlayerMovement : MonoBehaviour
             _rb.velocity = new Vector2(_rb.velocity.x - _rb.velocity.x / 10, _rb.velocity.y);
         }
 
+        if(_rb.velocity.x < 0)
+        {
+            transform.localScale = new Vector2(-0.05f, transform.localScale.y);
+        }
+        else if(_rb.velocity.x > 0)
+        {
+            transform.localScale = new Vector2(0.05f, transform.localScale.y);
+        }
+        _moveAnim.SetFloat("Running", Mathf.Abs(_rb.velocity.x));
     }
     void CheckForWallSlide()
     {

@@ -38,14 +38,17 @@ public class playerCollision : MonoBehaviour
     //respawn variables
     public Vector2 startPos;
     public int spawnTimer;
-    public Animator _animator;
+    //public Animator _animator;
+
+    public Animator _moveAnim;
+
     void Start()
     {
         spawnPosition = new Vector2(transform.position.x, transform.position.y);
 
         gotHit = false;
         _playerScript = GetComponent<PlayerMovement>();
-        _animator = GetComponent<Animator>();
+        //_animator = GetComponent<Animator>();
         startPos = transform.position;
        
 
@@ -56,7 +59,7 @@ public class playerCollision : MonoBehaviour
     {
 
         //Respawn animation
-        _animator.SetBool("dead", gotHit);
+        //_animator.SetBool("dead", gotHit);
         onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffSet, radius, groundLayer);
         onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffSet, radius, groundLayer)
             || Physics2D.OverlapCircle((Vector2)transform.position + LeftOffSet, radius, groundLayer);
@@ -99,6 +102,14 @@ public class playerCollision : MonoBehaviour
             spawnTimer = 0;
         }
 
+    }
+
+    public void Update()
+    {
+        if (onGround)
+        {
+            _moveAnim.SetTrigger("Grounded");
+        }
     }
 
     private void OnDrawGizmos()
