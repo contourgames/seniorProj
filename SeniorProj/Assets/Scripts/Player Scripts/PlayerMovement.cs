@@ -224,6 +224,7 @@ public class PlayerMovement : MonoBehaviour
         _moveAnim.SetFloat("Running", Mathf.Abs(_rb.velocity.x));
         #endregion
 
+        //Time.timeScale = 0.05f;
     }
     // Update is called once per frame
     void FixedUpdate()
