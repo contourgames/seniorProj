@@ -113,15 +113,32 @@ public class playerCollision : MonoBehaviour
         if (isSliding)
         {
             _moveAnim.SetBool("Wallsliding", true);
-            if(isFlipped == false)
+
+            if (onRightWall)
             {
-                transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
-                isFlipped = true;
+                //transform.localScale = new Vector2(-0.05f, transform.localScale.y);
+
+            } else if (onLeftWall)
+            {
+                transform.localScale = new Vector2(0.05f, transform.localScale.y);
             }
+
+            //if (isFlipped == false)
+            //{
+            //    if(transform.localScale.x == 0.05f)
+            //    {
+            //    }
+            //    else
+            //    {
+
+            //    }
+            //    //transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+            //    isFlipped = true;
+            //}
             
         } else
         {
-            isFlipped = false;
+            //isFlipped = false;
             _moveAnim.SetBool("Wallsliding", false);
 
         }

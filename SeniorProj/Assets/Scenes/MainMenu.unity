@@ -1054,7 +1054,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 635287775}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -357, y: 70, z: -9720}
+  m_LocalPosition: {x: -357, y: 6, z: -9720}
   m_LocalScale: {x: 21.6, y: 21.6, z: 21.6}
   m_Children: []
   m_Father: {fileID: 1535195874}
@@ -1857,8 +1857,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -43.25, y: 155}
-  m_SizeDelta: {x: 363.5, y: 132.65}
+  m_AnchoredPosition: {x: -25.4, y: 155}
+  m_SizeDelta: {x: 399.2, y: 132.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1400070736
 MonoBehaviour:
@@ -2003,8 +2003,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -43.25, y: -11.325}
-  m_SizeDelta: {x: 363.5, y: 132.65}
+  m_AnchoredPosition: {x: -25.4, y: -11.325}
+  m_SizeDelta: {x: 399.2, y: 132.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1438151832
 MonoBehaviour:
@@ -2037,7 +2037,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Knife: Run into opponents to stab them. Only dangerous when fast'
+  m_Text: 'Knife: Throw or Run into opponents to stab them. Only dangerous when fast'
 --- !u!222 &1438151833
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2187,10 +2187,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.6
-  m_Text: "Jump -  Hold & Release to Wall-jump\n\nPick Up / Thorw\n\nDash\n\nGoal:
-    Pick up the orb and hold onto it to fill up your meter. Use weapons to kill the
-    orb-holder and reset the orb. The orb-holder can use the Pick Up button to deflect
-    incoming weapons.\n  \nFirst to fill their meter wins!"
+  m_Text: "Jump -  Hold & Release to Wall-jump\n\nPick Up / Throw - Tap to lob in
+    an arch Hold & release to throw straight & fast\n\nDash\n\nGoal: Pick up the
+    orb and hold onto it to fill up your meter. Use weapons to kill the orb-holder
+    and reset the orb. The orb-holder can use the Pick Up button to deflect incoming
+    weapons.\n  \nFirst to fill their meter wins!"
 --- !u!222 &1535195876
 CanvasRenderer:
   m_ObjectHideFlags: 0

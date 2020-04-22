@@ -158,7 +158,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -20
-  m_Sprite: {fileID: 21300000, guid: fae7b5da2a70d0f4e8bf4e651f57a319, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 920b5511bb2ef544abd251aad5131276, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -218,14 +218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a120d40ae1ad3841a12e20f98eb75b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 0}
-  player2: {fileID: 0}
-  player3: {fileID: 0}
-  player4: {fileID: 0}
-  player1Score: 0
-  player2Score: 0
-  player3Score: 0
-  player4Score: 0
   held: 0
   nearPlayer: 0
   owner: {fileID: 0}
@@ -238,7 +230,6 @@ MonoBehaviour:
   pulseAttack: {fileID: 2039624923142341169, guid: 8449d16362f7e69488b717a5916b12ef,
     type: 3}
   currPulse: {fileID: 0}
-  startPos: {x: 0, y: 0}
   ownerDied: 0
   ownerDeathTimer: 0
   audioSource: {fileID: 233136293}
