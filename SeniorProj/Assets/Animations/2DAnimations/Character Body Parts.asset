@@ -1,0 +1,281 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf7c34a0dc4e6348bea04faa70406ee, type: 3}
+  m_Name: Character Body Parts
+  m_EditorClassIdentifier: 
+  m_Labels:
+  - m_Name: Head
+    m_Hash: 130111906
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: -1371518378799707438, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: -2466825440888334394, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: -7354988485399408002, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: -9118854657925757798, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
+  - m_Name: Chest
+    m_Hash: 981834931
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: -7195455428457404902, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: 966717166155247135, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: 8845288373107164439, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: 7431058361269812061, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
+  - m_Name: Left Bicep
+    m_Hash: 519322502
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: 5991431996698284936, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: 3660056888336139188, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: 9107041569191593153, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: 275884142233234751, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
+  - m_Name: Left Foot
+    m_Hash: -1219945761
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: -9109013967714752651, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: 2813652001575678982, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: -170135383252491231, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: 7340138796065421570, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
+  - m_Name: Left Forearm
+    m_Hash: -780964856
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: 7622642041863013106, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: 2385444899541481778, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: 3766733933290186222, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: 2777349010840081535, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
+  - m_Name: Left Hand
+    m_Hash: 1503945155
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: -3874829336490021460, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: 5001052518903052523, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: 4739679211012992313, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: 4279090048102231515, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
+  - m_Name: Left Leg
+    m_Hash: 42955074
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: 7657217394061274400, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: 113483672565999500, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: -2909921180819050851, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: -8879768346129397238, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
+  - m_Name: Left Shoulder
+    m_Hash: 1850674898
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: -2507259987388705833, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: 8543236269200634293, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: 5420944546102074812, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: -708796559363263018, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
+  - m_Name: Right Bicep
+    m_Hash: 606303449
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: -4973245657737624194, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: 7193623886191633742, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: -133576791488921534, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: -1309666055607422366, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
+  - m_Name: Right Foot
+    m_Hash: -715682882
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: 3195016506482319202, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: 4373530070463218178, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: 1582666096005712618, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: 4454960648810362312, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
+  - m_Name: Right Forearm
+    m_Hash: 171133765
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: -7580446390000869024, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: -8881871889226508718, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: -2399624630504347752, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: -5908893733165960935, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
+  - m_Name: Right Hand
+    m_Hash: 1002107042
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: -3838225711154024872, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: -4473874917276713896, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: 6747007831659656017, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: -3979259083957696937, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
+  - m_Name: Right Leg
+    m_Hash: -1056714978
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: -5097272243833185697, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: -214564626547124272, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: 7636233444127249353, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: 6368129039355427275, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
+  - m_Name: Right Shoulder
+    m_Hash: 1727624152
+    m_CategoryList:
+    - m_Name: 1
+      m_Hash: -2082672713
+      m_Sprite: {fileID: 190087227436402724, guid: 5bbed200f2a0b0548a2ed1cd5b88b035,
+        type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: -8203102135435524063, guid: a43ac7735373bc041a51cbf932c16da4,
+        type: 3}
+    - m_Name: 3
+      m_Hash: 1842515611
+      m_Sprite: {fileID: 4438992536311386626, guid: c1cb2b4ed98783742a7ea370c16af5ce,
+        type: 3}
+    - m_Name: 4
+      m_Hash: -206169288
+      m_Sprite: {fileID: 2436503675736916001, guid: 9f7f0238fef8b154b9bb686889d1aa12,
+        type: 3}
