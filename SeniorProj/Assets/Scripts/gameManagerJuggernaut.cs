@@ -47,6 +47,10 @@ public class gameManagerJuggernaut : MonoBehaviour
     public Text P4ScoreText;
 
     GameObject orb;
+
+    public bool gamePaused;
+
+    public GameObject pausePanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -65,7 +69,7 @@ public class gameManagerJuggernaut : MonoBehaviour
         GameOverPanel.SetActive(false);
 
         orbRespawn = false;
-
+        Time.timeScale = 1f;
     }
 
     public void FixedUpdate()
@@ -128,9 +132,23 @@ public class gameManagerJuggernaut : MonoBehaviour
                 
             }
         }
-        
+
         #region Player Menu Controls
+        for (int i = 0; i < playerControls.Count; i++) {
+
+        }
         #endregion
+    }
+    public void Paused() {
+        pausePanel.SetActive(true);
+        gamePaused = true;
+        Time.timeScale = 0f;
+    }
+    public void Resume() {
+        pausePanel.SetActive(false);
+
+        Time.timeScale = 1f;
+        gamePaused = false;
     }
     public void IncreasePlayerScore(GameObject player) {
 

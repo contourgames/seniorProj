@@ -55,6 +55,7 @@ public class Bomb : MonoBehaviour
 
         yield return new WaitUntil(() => hasSpawned == true);
         //when bomb spawns, destroy bomb;
+        _anim.Play("Explosion");
         _spr.enabled = false;
         _ParticleMgr.animPos = new Vector2(transform.position.x, transform.position.y);
         StartCoroutine(_ParticleMgr.ActivatePrt());

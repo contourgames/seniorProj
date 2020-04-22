@@ -9327,6 +9327,8 @@ MonoBehaviour:
   P2ScoreText: {fileID: 1884746326}
   P3ScoreText: {fileID: 182035000}
   P4ScoreText: {fileID: 376437528}
+  gamePaused: 0
+  pausePanel: {fileID: 384652808}
 --- !u!4 &765000211
 Transform:
   m_ObjectHideFlags: 0

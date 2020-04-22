@@ -222,6 +222,41 @@ public class PlayerMovement : MonoBehaviour
         }
         _moveAnim.SetFloat("Running", Mathf.Abs(_rb.velocity.x));
         #endregion
+        #region Pause Menu Controls
+        if (player.GetButtonDown("Start"))
+        {
+            if (_GM.gamePaused == false)
+            {
+                _GM.Paused();
+            }
+            else if (_GM.gamePaused)
+            {
+                if (player.GetButtonDown("Start"))
+                {
+                    _GM.Resume();
+                }
+            }
+        }
+
+        if (_GM.gamePaused)
+        {
+            if (player.GetButtonDown("B/Circle"))
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+
+            if (player.GetButtonDown("X/Square"))
+            {
+                Scene currScene = SceneManager.GetActiveScene(); SceneManager.LoadScene(currScene.name);
+
+            }
+        }
+        if (_GM.gameOver && player.GetButtonDown("B/Circle"))
+        {
+            SceneManager.LoadScene("MainMenu");
+
+        }
+        #endregion
 
         //Time.timeScale = 0.05f;
     }
