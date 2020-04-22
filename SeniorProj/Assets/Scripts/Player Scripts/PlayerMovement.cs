@@ -49,13 +49,13 @@ public class PlayerMovement : MonoBehaviour
     int whichSide;
     float xSpeed;
 
-    public Animator _moveAnim;
+    private Animator _moveAnim;
 
     private Vector2 forcePerFrame = Vector2.zero;
 
     [Space]
     [Header("Bools")]
-    [SerializeField] private bool _playerGrounded;
+    public bool _playerGrounded;
     public bool isWallSliding = false;
     public bool canWallJump;
     public bool canMove;
@@ -106,9 +106,7 @@ public class PlayerMovement : MonoBehaviour
             player = ReInput.players.GetPlayer(3);
 
         }
-
-        
-
+        _moveAnim = GetComponent<Animator>();
         score = 0;
         #region Starting values
 
@@ -178,13 +176,13 @@ public class PlayerMovement : MonoBehaviour
      //       SceneManager.LoadScene("MainMenu");
       //  }
 
-        #region Player jumping anf player grounded
-        //Jump
-        if (player.GetButtonDown("A/X") && canJump)
-        {
-            audioSource.PlayOneShot(jump, 1.0f);
+        #region Player jumping and player grounded
+        ////Jump
+        //if (player.GetButtonDown("A/X") && canJump)
+        //{
+        //    //audioSource.PlayOneShot(jump, 1.0f);
             
-        }
+        //}
         if (player.GetButton("A/X") && canJump)
         {
           
@@ -196,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (player.GetButtonUp("A/X") && !canJump || _playerGrounded && !player.GetButton("A/X"))
+        if ((player.GetButtonUp("A/X") && !canJump || _playerGrounded && !player.GetButton("A/X")) && _GM.playersCanMove)
         {
             
             canJump = true;
@@ -236,7 +234,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 walkDir = new Vector2(joyStickX, joyStickY);
         if(currentScene.name == "SampleScene - Copy")
         {
-            if (!isWallSliding && canMove)
+            if (!isWallSliding && canMove && _GM.playersCanMove)
             {
                 Move(walkDir);
             }
@@ -472,7 +470,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Dash()
     {
-        if (player.GetButtonDown("LT/L2") || player.GetButtonDown("RT/R2"))
+        if ((player.GetButtonDown("LT/L2") || player.GetButtonDown("RT/R2")) && _GM.playersCanMove)
         {
            //Debug.Log("Presse");
             dashing = true;
@@ -570,21 +568,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+
         if (_collScript.onGround && collision.gameObject.tag == "Ground") //Tell if player's grounded
         {
             _playerGrounded = true;
             canDash = true;
-            canMove = true;
-           // Debug.Log("Player grounded");
+           canMove = true;
+            // Debug.Log("Player grounded");
         }
-
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
-            _playerGrounded = false;
+           _playerGrounded = false;
         }
     }
     IEnumerator canMoveDelay() {

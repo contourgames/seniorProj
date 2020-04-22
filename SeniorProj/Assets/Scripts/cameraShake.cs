@@ -37,6 +37,6 @@ public class cameraShake : MonoBehaviour
     }
 
     public void StartCameraShake() {
-        shakeDuration = .5f;
+        shakeDuration = .3f;
     }
 }

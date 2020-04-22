@@ -176,8 +176,7 @@ public class Objects : MonoBehaviour
   
         if (!isActive && _grounded == true && collision.gameObject.layer == 9)
         {
-            Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
-            
+           // Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
         }
 
         if (collision.gameObject.tag == "Orb" && collision.gameObject.GetComponent<theOrb>().pulsing)

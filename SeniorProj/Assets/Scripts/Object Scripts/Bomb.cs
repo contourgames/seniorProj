@@ -9,7 +9,7 @@ public class Bomb : MonoBehaviour
     public bool hasSpawned;
     private Objects _objScript;
     public ExplosionParticles _ParticleMgr;
-   
+    private SpriteRenderer _spr;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +20,10 @@ public class Bomb : MonoBehaviour
         _ParticleMgr = GameObject.Find("GameManager").GetComponent<ExplosionParticles>();
 
         _objScript = GetComponent<Objects>();
+
+        _spr = GetComponent<SpriteRenderer>();
+        _spr.enabled = true;
+
     }
 
     // Update is called once per frame
@@ -36,42 +40,35 @@ public class Bomb : MonoBehaviour
 
         if (_objScript.isActive && collision.gameObject.layer == 9)
         { //If bomb explodes close enough to another bomb
-            StartCoroutine("CollisionExplode");
+            StartCoroutine("Explode");
         }
     }
-
-
-    public IEnumerator isActiveTimer() {
-        //Debug.Log("A");
-        yield return new WaitForSeconds(.5f);
-        
-        //yield return new WaitForSeconds(1.5f);
-
-    }
     public IEnumerator Explode() {
-        Debug.Log("SA");
         _anim.SetBool("Active", true);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.9f);
         _objScript.isActive = true;
-        yield return new WaitForSeconds(.5f);
-
-        _anim.Play("Explosion");
         yield return new WaitForSeconds(.1f);
+        
+
         hasDetonated = true; 
 
         yield return new WaitUntil(() => hasSpawned == true);
         //when bomb spawns, destroy bomb;
+        _spr.enabled = false;
         _ParticleMgr.animPos = new Vector2(transform.position.x, transform.position.y);
         StartCoroutine(_ParticleMgr.ActivatePrt());
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
     public IEnumerator CollisionExplode() {
-        _anim.Play("Explosion");
+        _anim.SetBool("Active", true);
+
         yield return new WaitForSeconds(.1f);
         hasDetonated = true;
         yield return new WaitUntil(() => hasSpawned == true);
+        _spr.enabled = false;
+
         _ParticleMgr.animPos = new Vector2(transform.position.x, transform.position.y);
         StartCoroutine(_ParticleMgr.ActivatePrt());
         yield return new WaitForSeconds(0.5f);

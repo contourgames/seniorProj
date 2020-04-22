@@ -40,7 +40,7 @@ public class playerCollision : MonoBehaviour
     public int spawnTimer;
     //public Animator _animator;
 
-    public Animator _moveAnim;
+    Animator _moveAnim;
     public Camera _mainCam;
 
     public bool isSliding = false;
@@ -53,8 +53,8 @@ public class playerCollision : MonoBehaviour
         _playerScript = GetComponent<PlayerMovement>();
         //_animator = GetComponent<Animator>();
         startPos = transform.position;
-        
 
+        _moveAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -76,8 +76,6 @@ public class playerCollision : MonoBehaviour
 
         if (gotHit == true)
         {
-            Debug.Log("WTF");
-           // _mainCam.GetComponent<cameraShake>().StartCameraShake();
             _GM.StartCoroutine(_GM.Respawn(gameObject, startPos));
             _GM.DecreasePlayerScore(gameObject);
             if (_playerScript.holding )
@@ -143,21 +141,28 @@ public class playerCollision : MonoBehaviour
 
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionStay2D(Collision2D collision)
     {
        
        
         if (collision.gameObject.layer == 13) { //player collides with throwable obj
 
-         
+            Debug.Log("Colliding");
            
-            if (collision.gameObject.GetComponent<Objects>().isActive == true && _playerScript.enableHurt) {
-               // Debug.Log("Kill");
+            if (collision.gameObject.GetComponent<Objects>().isActive == true) {
+                Debug.Log("Kill");
                 audioSource.PlayOneShot(deathClip, 1.0f);
                 gotHit = true;
-                
+                _mainCam.GetComponent<cameraShake>().StartCameraShake();
+
             }
         }
+
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+
     }
 
 
