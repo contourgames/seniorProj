@@ -103,6 +103,7 @@ public class playerCollision : MonoBehaviour
 
     public void Update()
     {
+     
       
         if (onGround)
         {

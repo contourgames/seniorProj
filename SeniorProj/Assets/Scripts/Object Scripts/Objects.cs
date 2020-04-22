@@ -15,7 +15,8 @@ public class Objects : MonoBehaviour
     bool _ignoreColl;
     [Space]
     [Header("Floats & Ints")]
-    public float offset;
+    public float offsetx;
+ 
     public int throwTimer;
     [Space]
     public GameObject owner;
@@ -62,12 +63,15 @@ public class Objects : MonoBehaviour
         {
             if (nearbyPlayer.layer == 9 && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
             {
-                offset = .5f;
+               
+                offsetx = .5f;
             }
             else if(nearbyPlayer.layer == 9 && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight == false) {
-                offset = -.5f;
+                offsetx = -.5f;
             }
-            gameObject.transform.position = new Vector2(owner.transform.position.x + offset, owner.transform.position.y);
+            
+                gameObject.transform.position = new Vector2(owner.transform.position.x + offsetx, owner.transform.position.y + 0.5f);
+            
             Physics2D.IgnoreCollision(myCollider, ownerCollider, true);
             
         }

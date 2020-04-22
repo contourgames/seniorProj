@@ -64,7 +64,7 @@ public class theOrb : MonoBehaviour
         if (held)
         {
 
-            gameObject.transform.position = owner.transform.position;
+            gameObject.transform.position = new Vector2( owner.transform.position.x, owner.transform.position.y + .5f);
             Physics2D.IgnoreCollision(myCollider, ownerCollider, true);
 
         }
