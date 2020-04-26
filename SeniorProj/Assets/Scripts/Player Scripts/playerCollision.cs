@@ -92,9 +92,12 @@ public class playerCollision : MonoBehaviour
                     _playerScript.nearObject = false;
                 } else
                 {
-                    Object.Destroy(GetComponent<PlayerMovement>().heldObject);
+                    GameObject tempObject = GetComponent<PlayerMovement>().heldObject;
                     GetComponent<PlayerMovement>().heldObject = GameObject.Find("FakeObject");
+                    Object.Destroy(tempObject);
+                    _playerScript.nearObject = false;
                     GetComponent<PlayerMovement>().holding = false;
+                    
                 }
             }
         }
@@ -165,10 +168,10 @@ public class playerCollision : MonoBehaviour
        
         if (collision.gameObject.layer == 13) { //player collides with throwable obj
 
-            Debug.Log("Colliding");
+           // Debug.Log("Colliding");
            
             if (collision.gameObject.GetComponent<Objects>().isActive == true) {
-                Debug.Log("Kill");
+              //  Debug.Log("Kill");
                 audioSource.PlayOneShot(deathClip, 1.0f);
                 gotHit = true;
                 _mainCam.GetComponent<cameraShake>().StartCameraShake();

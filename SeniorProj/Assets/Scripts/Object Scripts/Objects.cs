@@ -46,6 +46,13 @@ public class Objects : MonoBehaviour
     }
 
     // Update is called once per frame
+    void Update()
+    {
+        if (held)
+        {
+            gameObject.transform.position = new Vector2(owner.transform.position.x + offsetx, owner.transform.position.y + 0.5f);
+        }
+    }
     void FixedUpdate()
     {
       
@@ -70,7 +77,7 @@ public class Objects : MonoBehaviour
                 offsetx = -.5f;
             }
             
-                gameObject.transform.position = new Vector2(owner.transform.position.x + offsetx, owner.transform.position.y + 0.5f);
+                
             
             Physics2D.IgnoreCollision(myCollider, ownerCollider, true);
             

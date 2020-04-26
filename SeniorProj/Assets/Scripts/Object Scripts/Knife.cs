@@ -27,7 +27,7 @@ public class Knife : MonoBehaviour
         
         if (_RB.velocity.x <= 0.5f && _RB.velocity.y <= 0.5f)
         {
-            Debug.Log(_Objects.isActive);
+           // Debug.Log(_Objects.isActive);
             isActive = false;
         } else if (_Objects._grounded == false)
         {
@@ -39,11 +39,13 @@ public class Knife : MonoBehaviour
 
         if (_Objects.held == true)
         {
-            if (_Objects.nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
+            if (_Objects.nearbyPlayer != null && _Objects.nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
             {
+              GetComponent<SpriteRenderer>().flipX = true;
                 transform.rotation = Quaternion.Euler(0, 0, 300);
             } else
             {
+                GetComponent<SpriteRenderer>().flipX = false;
                 transform.rotation = Quaternion.Euler(0, 0, 60);
             }
         } else if (_Objects._grounded == true && isActive == false)
