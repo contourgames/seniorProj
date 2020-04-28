@@ -110,7 +110,11 @@ public class playerCollision : MonoBehaviour
       
         if (onGround)
         {
-            _moveAnim.SetTrigger("Grounded");
+            _moveAnim.SetBool("Grounded", true);
+        } else
+        {
+            _moveAnim.SetBool("Grounded", false);
+
         }
 
         if (isSliding)
