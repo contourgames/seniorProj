@@ -9,6 +9,7 @@ public class Knife : MonoBehaviour
     Objects _Objects;
     public Rigidbody2D _RB;
     public Quaternion startRotation;
+    BoxCollider2D _bColl;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,7 @@ public class Knife : MonoBehaviour
         isActive = true;
         timer = 0;
         _Objects = GetComponent<Objects>();
-
+        _bColl = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -48,9 +49,15 @@ public class Knife : MonoBehaviour
                 GetComponent<SpriteRenderer>().flipX = false;
                 transform.rotation = Quaternion.Euler(0, 0, 60);
             }
+            _bColl.enabled = false;
         } else if (_Objects._grounded == true && isActive == false)
         {
+
             transform.rotation = startRotation;
+        }
+
+        if (_Objects.held == false) {
+            _bColl.enabled = true;
         }
      
     }

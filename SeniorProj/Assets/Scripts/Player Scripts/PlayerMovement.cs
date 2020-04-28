@@ -183,10 +183,10 @@ public class PlayerMovement : MonoBehaviour
         //    //audioSource.PlayOneShot(jump, 1.0f);
             
         //}
-        if (player.GetButton("A/X") && canJump)
+        if (canJump || currentScene.name != "SampleScene - Copy")
         {
           
-            if (_playerGrounded == true)
+            if ((player.GetButton("A/X") && _playerGrounded == true))
             {
                
                 Jump(Vector2.up);
@@ -505,10 +505,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Dash()
     {
-        if ((player.GetButtonDown("LT/L2") || player.GetButtonDown("RT/R2")) && _GM.playersCanMove)
+        if (player.GetButtonDown("LT/L2") || player.GetButtonDown("RT/R2"))
         {
-           //Debug.Log("Presse");
-            dashing = true;
+            if (_GM.playersCanMove || currentScene.name != "SampleScene - Copy")
+            {
+                //Debug.Log("Presse");
+                dashing = true;
+            }
           
         }
     }

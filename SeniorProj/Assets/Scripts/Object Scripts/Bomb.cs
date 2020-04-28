@@ -10,6 +10,7 @@ public class Bomb : MonoBehaviour
     private Objects _objScript;
     public ExplosionParticles _ParticleMgr;
     private SpriteRenderer _spr;
+    CircleCollider2D _cColl;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,7 @@ public class Bomb : MonoBehaviour
 
         _spr = GetComponent<SpriteRenderer>();
         _spr.enabled = true;
-
+        _cColl = GetComponent <CircleCollider2D> ();
     }
 
     // Update is called once per frame
@@ -32,6 +33,14 @@ public class Bomb : MonoBehaviour
         if (_objScript.wasThrown) {
             StartCoroutine(Explode());
             _objScript.wasThrown = false;        
+        }
+
+        if (_objScript.held)
+        {
+            _cColl.enabled = false;
+        }
+        else {
+            _cColl.enabled = true;
         }
     }
 

@@ -194,8 +194,8 @@ public class theOrb : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-
-        if (_grounded == true && !held && collision.gameObject.layer == 9)
+        //_grounded == true &&
+        if (!held && collision.gameObject.layer == 9)
         {
             Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
 

@@ -29,8 +29,6 @@ public class Objects : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip pickUpClip;
 
-   
-
     LayerMask _layerMask;
     // Start is called before the first frame update
     void Start()
@@ -76,16 +74,13 @@ public class Objects : MonoBehaviour
             else if(nearbyPlayer.layer == 9 && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight == false) {
                 offsetx = -.5f;
             }
-            
-                
-            
+
             Physics2D.IgnoreCollision(myCollider, ownerCollider, true);
             
         }
         else
         {
             gameObject.SetActive(true);
-           
         }
 
         if (beingThrown)

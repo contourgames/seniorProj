@@ -168,7 +168,9 @@ public class playerCollision : MonoBehaviour
 
     public void OnCollisionStay2D(Collision2D collision)
     {
-       
+        if (collision.gameObject.layer == 9) { //ignore other player collisions
+            Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
+        }
        
         if (collision.gameObject.layer == 13) { //player collides with throwable obj
 
