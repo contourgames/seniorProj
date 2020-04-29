@@ -54,6 +54,45 @@ public class gameManagerJuggernaut : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        #region PlayerPrefs/ Player spawning
+        if (PlayerPrefs.GetInt("P1Spawn") == 1)
+        {
+            playerList[0].SetActive(true);
+        }
+        else
+        {
+            playerList[0].SetActive(false);
+
+        }
+        if (PlayerPrefs.GetInt("P2Spawn") == 1)
+        {
+            playerList[1].SetActive(true);
+        }
+        else
+        {
+            playerList[1].SetActive(false);
+
+        }
+        if (PlayerPrefs.GetInt("P3Spawn") == 1)
+        {
+            playerList[2].SetActive(true);
+        }
+        else
+        {
+            playerList[2].SetActive(false);
+
+        }
+        if (PlayerPrefs.GetInt("P4Spawn") == 1)
+        {
+            playerList[3].SetActive(true);
+        }
+        else
+        {
+            playerList[3].SetActive(false);
+
+        }
+        #endregion
+
         _scoreList.Add(P1Score);
         _scoreList.Add(P2Score);
         _scoreList.Add(P3Score);
