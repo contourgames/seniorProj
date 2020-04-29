@@ -10,6 +10,7 @@ public class Knife : MonoBehaviour
     public Rigidbody2D _RB;
     public Quaternion startRotation;
     BoxCollider2D _bColl;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -25,21 +26,26 @@ public class Knife : MonoBehaviour
     void Update()
     {
         _Objects.isActive = isActive;
+
         
-        if (_RB.velocity.x <= 0.5f && _RB.velocity.y <= 0.5f)
+        if (_Objects.held == false && Mathf.Abs(_RB.velocity.x) <= 0.5 )
         {
-           // Debug.Log(_Objects.isActive);
+            Debug.Log("inactive");
             isActive = false;
-        } else if (_Objects._grounded == false)
+                _Objects.wasThrown = false;
+           
+        }
+        else if (_Objects.wasThrown)
+        {
+            // Debug.Log(_Objects.isActive);
+            isActive = true;
+        } else if (_Objects.held)
         {
             isActive = true;
-        } else
-        {
-            isActive = false;
         }
-
         if (_Objects.held == true)
         {
+          
             if (_Objects.nearbyPlayer != null && _Objects.nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
             {
               GetComponent<SpriteRenderer>().flipX = true;
@@ -49,16 +55,13 @@ public class Knife : MonoBehaviour
                 GetComponent<SpriteRenderer>().flipX = false;
                 transform.rotation = Quaternion.Euler(0, 0, 60);
             }
-            _bColl.enabled = false;
-        } else if (_Objects._grounded == true && isActive == false)
+          
+        } else if (_Objects._grounded == true && isActive == false && _RB.velocity.x <= 1.0f && _RB.velocity.y <= 1.0f)
         {
 
             transform.rotation = startRotation;
         }
 
-        if (_Objects.held == false) {
-            _bColl.enabled = true;
-        }
      
     }
 }
