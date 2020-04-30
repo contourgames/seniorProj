@@ -104,7 +104,7 @@ public class gameManagerJuggernaut : MonoBehaviour
         gameOver = false;
         playersCanMove = false;
         orb = Instantiate(orbPrefab);
-        orb.transform.position = new Vector2(0, 0);
+        orb.transform.position = new Vector2(0, 3);
 
         orb.SetActive(false);
 

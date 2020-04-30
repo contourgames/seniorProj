@@ -33,8 +33,11 @@ public class ObjectSpawner : MonoBehaviour
                 bombSpawner[i].GetComponent<Bomb>().hasSpawned = true;
                 bombSpawner.Insert(bombSpawner.IndexOf(bombSpawner[i]), newBomb);
                 bombSpawner.RemoveAt(bombSpawner.IndexOf(bombSpawner[i]) + 1);
+                
                 newBomb.transform.position = new Vector3(spawnPos[i].x, spawnPos[i].y, spawnPos[i].z);
-              
+                //spawnPos[Random.Range(0, spawnPos.Count)];
+                //new Vector3(spawnPos[i].x, spawnPos[i].y, spawnPos[i].z);
+                
             }
         }
     }
