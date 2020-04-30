@@ -145,7 +145,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
        // Debug.Log(holding);
         Dash();
         Throw();
@@ -267,7 +266,7 @@ public class PlayerMovement : MonoBehaviour
         joyStickX = player.GetAxis("Horizontal");
         joyStickY = player.GetAxis("Vertical");
         Vector2 walkDir = new Vector2(joyStickX, joyStickY);
-        if(currentScene.name == "SampleScene - Copy")
+        if (currentScene.name == "SampleScene - Copy" || currentScene.name == "NewReadyUp")
         {
             if (!isWallSliding && canMove && _GM.playersCanMove)
             {
@@ -277,7 +276,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             Move(walkDir);
-            
+        }
             //if(transform.position.x >= 9.5f && currentScene.name =="MainMenu")
             //{
             //    SceneManager.LoadScene("ReadyUp");
@@ -285,11 +284,20 @@ public class PlayerMovement : MonoBehaviour
             if(transform.position.x <= -9.5f && currentScene.name == "MainMenu")
             {
                 SceneManager.LoadScene("SampleScene - Copy");
-            } else if(transform.position.x <= -9.5f && currentScene.name == "ReadyUp")
+            } else if(transform.position.x >= 9.5f && currentScene.name == "MainMenu")
+        {
+            SceneManager.LoadScene("NewReadyUp");
+
+        }
+
+        if (transform.position.x <= -9.5f && currentScene.name == "NewReadyUp")
+            {
+                SceneManager.LoadScene("MainMenu");
+            } else if(transform.position.x >= 9.5f && currentScene.name == "NewReadyUp")
             {
                 SceneManager.LoadScene("MainMenu");
             }
-        }
+        
       
 
         #region Dashing

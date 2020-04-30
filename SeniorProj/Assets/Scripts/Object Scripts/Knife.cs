@@ -30,7 +30,7 @@ public class Knife : MonoBehaviour
         
         if (_Objects.held == false && Mathf.Abs(_RB.velocity.x) <= 0.5 )
         {
-            Debug.Log("inactive");
+            //Debug.Log("inactive");
             isActive = false;
                 _Objects.wasThrown = false;
            

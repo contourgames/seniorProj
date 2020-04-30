@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene - Copy.unity
     guid: b69c69e71a4da414a9e916c7320ba077
+  - enabled: 1
+    path: Assets/Scenes/NewReadyUp.unity
+    guid: 31eb51d1f89f435469782556b6b07d89
   m_configObjects: {}

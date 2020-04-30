@@ -51,6 +51,9 @@ public class gameManagerJuggernaut : MonoBehaviour
     public bool gamePaused;
 
     public GameObject pausePanel;
+
+    Scene currentScene;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -109,26 +112,42 @@ public class gameManagerJuggernaut : MonoBehaviour
 
         orbRespawn = false;
         Time.timeScale = 1f;
+        currentScene = SceneManager.GetActiveScene();
+        //currentScene.name = "SampleScene - Copy";
     }
 
     public void FixedUpdate()
     {
+       
+        //Debug.Log(currentScene.name);
         //3 second countdown
-        startDelay -= Time.deltaTime;
-        countDown.GetComponent<Text>().text = "" +(int)startDelay;
-        if (startDelay <= 0) {
-            startDelay = 0;
-        }
-
-        if (startDelay < 1)
+        if (currentScene.name == "SampleScene - Copy")
         {
-            gameStart = true;
-            countDown.SetActive(false);
-            orb.SetActive(true);
-            playersCanMove = true;
+            //Debug.Log("GameScene");
+            startDelay -= Time.deltaTime;
+            countDown.GetComponent<Text>().text = "" + (int)startDelay;
+            if (startDelay <= 0)
+            {
+                startDelay = 0;
+            }
+
+            if (startDelay < 1)
+            {
+                gameStart = true;
+                countDown.SetActive(false);
+                orb.SetActive(true);
+                playersCanMove = true;
+            }
+            else
+            {
+                gameStart = false;
+            }
         }
-        else {
-            gameStart = false;
+        else if(currentScene.name == "NewReadyUp")
+        {
+            //Debug.Log("TutScene");
+            //gameStart = true;
+            playersCanMove = true;
         }
 
         //Debug.Log((int)startDelay);
@@ -287,9 +306,14 @@ public class gameManagerJuggernaut : MonoBehaviour
 
         _playerObj.SetActive(false);
         _playerObj.transform.position = spawnPoint;
-
-        yield return new WaitForSeconds(2f);
-
+        if (currentScene.name == "SampleScene - Copy")
+        {
+            yield return new WaitForSeconds(2f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
         _playerObj.SetActive(true);
         StartCoroutine(Iframes(_movementSc));
     }

@@ -185,6 +185,11 @@ public class playerCollision : MonoBehaviour
             }
         }
 
+        if (collision.gameObject.tag == "Death")
+        {
+            _GM.StartCoroutine(_GM.Respawn(gameObject, startPos));
+        }
+
     }
 
     public void OnCollisionExit2D(Collision2D collision)
