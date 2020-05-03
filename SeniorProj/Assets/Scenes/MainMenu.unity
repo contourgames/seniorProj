@@ -2954,6 +2954,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   spawnPos: []
+  spawnPoints: []
   bombPrefab: {fileID: 1305896899669993515, guid: 79317dad59cc08a46a144c7d63a3f539,
     type: 3}
   hasSpawned: 0
@@ -8226,7 +8227,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Knife: Throw or Run into opponents to stab them. Only dangerous when fast'
+  m_Text: 'Knife: Throw or Run into opponents to stab them. '
 --- !u!222 &1438151833
 CanvasRenderer:
   m_ObjectHideFlags: 0

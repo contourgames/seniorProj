@@ -11,6 +11,7 @@ public class Bomb : MonoBehaviour
     public ExplosionParticles _ParticleMgr;
     private SpriteRenderer _spr;
     CircleCollider2D _cColl;
+    public bool hasBeenPickedUp;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,8 @@ public class Bomb : MonoBehaviour
         _spr = GetComponent<SpriteRenderer>();
         _spr.enabled = true;
         _cColl = GetComponent <CircleCollider2D> ();
+
+        hasBeenPickedUp = false;
     }
 
     // Update is called once per frame
@@ -37,10 +40,20 @@ public class Bomb : MonoBehaviour
 
         if (_objScript.held)
         {
+            hasBeenPickedUp = true;
             _cColl.enabled = false;
         }
         else {
             _cColl.enabled = true;
+        }
+        if (!hasBeenPickedUp)
+        {
+            _cColl.enabled = false;
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+        } else
+        {
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         }
     }
 
