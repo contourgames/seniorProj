@@ -29,10 +29,13 @@ public class Objects : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip pickUpClip;
 
+    public GameObject oldOwner;
+
     LayerMask _layerMask;
     // Start is called before the first frame update
     void Start()
     {
+        oldOwner = GameObject.Find("FakeObject");
         myCollider = GetComponent<Collider2D>();
         held = false;
         nearPlayer = false;
@@ -85,8 +88,10 @@ public class Objects : MonoBehaviour
 
         if (beingThrown)
         {
+            oldOwner = owner;
             throwTimer++;
             wasThrown = true;
+            
             if (nearbyPlayer.layer == 9 && nearbyPlayer != null && nearbyPlayer.GetComponent<PlayerMovement>().facingRight)
             {
                  //forceAdded = new Vector2(owner.GetComponent<PlayerMovement>().throwX, owner.GetComponent<PlayerMovement>().throwY);

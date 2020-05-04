@@ -10,10 +10,13 @@ public class Knife : MonoBehaviour
     public Rigidbody2D _RB;
     public Quaternion startRotation;
     BoxCollider2D _bColl;
+
+    
     
     // Start is called before the first frame update
     void Start()
     {
+      
         startRotation = transform.rotation;
         _RB = GetComponent<Rigidbody2D>();
         isActive = true;
@@ -21,14 +24,27 @@ public class Knife : MonoBehaviour
         _Objects = GetComponent<Objects>();
         _bColl = GetComponent<BoxCollider2D>();
     }
-
+    
     // Update is called once per frame
+
+    void FixedUpdate()
+    {
+
+        if (_Objects.oldOwner.GetComponent<BoxCollider2D>() != _Objects.owner.GetComponent<BoxCollider2D>())
+        {
+            Physics2D.IgnoreCollision(_bColl, _Objects.oldOwner.GetComponent<BoxCollider2D>(), false);
+        }
+
+        Physics2D.IgnoreCollision(_bColl, _Objects.owner.GetComponent<BoxCollider2D>(), true);
+
+
+    }
     void Update()
     {
         _Objects.isActive = isActive;
 
-        
-        if (_Objects.held == false && Mathf.Abs(_RB.velocity.x) <= 0.5 )
+            
+        if (_Objects.held == false && Mathf.Abs(_RB.velocity.x) <= 0 )
         {
             //Debug.Log("inactive");
             isActive = false;
@@ -38,10 +54,11 @@ public class Knife : MonoBehaviour
         else if (_Objects.wasThrown)
         {
             // Debug.Log(_Objects.isActive);
-            StartCoroutine(ActiveBuffer());
+          
         } else if (_Objects.held)
         {
-            //isActive = true;
+
+            isActive = true;
         }
         if (_Objects.held == true)
         {
@@ -65,11 +82,5 @@ public class Knife : MonoBehaviour
      
     }
 
-    IEnumerator ActiveBuffer() {
-        isActive = false;
-        Debug.Log("Object is inactive");
-        yield return new WaitForSeconds(4f);
-        Debug.Log("Object is active");
-        isActive = true;
-    }
+ 
 }

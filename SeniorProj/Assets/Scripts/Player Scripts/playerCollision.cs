@@ -182,6 +182,10 @@ public class playerCollision : MonoBehaviour
            
             if (collision.gameObject.GetComponent<Objects>().isActive == true) {
               //  Debug.Log("Kill");
+              if (collision.gameObject.tag == "knife")
+                {
+                    Debug.Log("knifedeteccc");
+                }
                 audioSource.PlayOneShot(deathClip, 1.0f);
                 gotHit = true;
                 _mainCam.GetComponent<cameraShake>().StartCameraShake();
