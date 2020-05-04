@@ -137,7 +137,6 @@ public class PlayerMovement : MonoBehaviour
         maxVel = 9;
         acceleration = 1.1f;
         canWallJump = true;
-
         transform.GetComponent<TrailRenderer>().enabled = false;
         #endregion
 

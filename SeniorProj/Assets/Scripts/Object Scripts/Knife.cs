@@ -38,10 +38,10 @@ public class Knife : MonoBehaviour
         else if (_Objects.wasThrown)
         {
             // Debug.Log(_Objects.isActive);
-            isActive = true;
+            StartCoroutine(ActiveBuffer());
         } else if (_Objects.held)
         {
-            isActive = true;
+            //isActive = true;
         }
         if (_Objects.held == true)
         {
@@ -63,5 +63,13 @@ public class Knife : MonoBehaviour
         }
 
      
+    }
+
+    IEnumerator ActiveBuffer() {
+        isActive = false;
+        Debug.Log("Object is inactive");
+        yield return new WaitForSeconds(4f);
+        Debug.Log("Object is active");
+        isActive = true;
     }
 }

@@ -75,33 +75,32 @@ public class theOrb : MonoBehaviour
         }
         //checks if player died
         
-       if (ownerDied)
-        {
-            //Debug.Log(ownerDeathTimer);
-            ownerDeathTimer++;
-        }
-        if (ownerDeathTimer == 1)
-        {
+       //if (ownerDied)
+       // {
+       //     //Debug.Log(ownerDeathTimer);
+       //     ownerDeathTimer++;
+       // }
+       //if (ownerDeathTimer == 1)
+       // {
       
-           // Debug.Log(owner.transform.name);
-            held = false;
-           
-            owner.GetComponent<PlayerMovement>().holding = false;
-            owner.GetComponent<PlayerMovement>().heldObject = GameObject.Find("FakeObject");
-            transform.position = new Vector3(0, 0, 0);
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            owner.GetComponent<PlayerMovement>().nearObject = false;
-            owner = GameObject.Find("FakeObject");
-            myCollider.enabled = true;
-        }
-        if (ownerDeathTimer >= 2)
-        {
-            ownerDied = false;
-        }
-        if (!ownerDied)
-        {
-            ownerDeathTimer = 0;
-        }
+       //    // Debug.Log(owner.transform.name);
+       //     held = false;           
+       //     owner.GetComponent<PlayerMovement>().holding = false;
+       //     owner.GetComponent<PlayerMovement>().heldObject = GameObject.Find("FakeObject");
+       //     transform.position = new Vector3(0, 0, 0);
+       //     GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+       //     owner.GetComponent<PlayerMovement>().nearObject = false;
+       //     owner = GameObject.Find("FakeObject");
+       //     myCollider.enabled = true;
+       // }
+       //if (ownerDeathTimer >= 2)
+       // {
+       //     ownerDied = false;
+       // }
+       //if (!ownerDied)
+       // {
+       //     ownerDeathTimer = 0;
+       // }
     }
 
     public void Pulse()

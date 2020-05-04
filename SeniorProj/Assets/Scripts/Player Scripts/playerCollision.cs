@@ -76,15 +76,16 @@ public class playerCollision : MonoBehaviour
 
         if (gotHit == true)
         {
-            _GM.StartCoroutine(_GM.Respawn(gameObject, startPos));
-            _GM.DecreasePlayerScore(gameObject);
+
             if (_playerScript.holding )
             { //if they're currently holding the orb
                 if (_playerScript.heldObject.tag == "Orb")
                 {
-                    if (GetComponent<PlayerMovement>().holding == true && GetComponent<PlayerMovement>().heldObject.tag == "Orb")
+                    if (_playerScript.holding == true && _playerScript.heldObject.tag == "Orb")
                     {
-                        GetComponent<PlayerMovement>().heldObject.GetComponent<theOrb>().ownerDied = true;
+
+                        _GM.RespawnOrb();
+                        //_playerScript.heldObject.GetComponent<theOrb>().ownerDied = true;
                     }
 
                     _playerScript.heldObject = null;
@@ -100,6 +101,9 @@ public class playerCollision : MonoBehaviour
                     
                 }
             }
+
+            _GM.StartCoroutine(_GM.Respawn(gameObject, startPos));
+            _GM.DecreasePlayerScore(gameObject);
         }
 
     }
