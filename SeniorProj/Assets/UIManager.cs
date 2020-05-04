@@ -22,9 +22,9 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        P1Bar.GetComponent<Image>().fillAmount = (_scoreScript.P1Score / 20f) ;
-        P2Bar.GetComponent<Image>().fillAmount = (_scoreScript.P2Score / 20f) ;
-        P3Bar.GetComponent<Image>().fillAmount = (_scoreScript.P3Score / 20f) ;
-        P4Bar.GetComponent<Image>().fillAmount = (_scoreScript.P4Score / 20f) ;
+        P1Bar.GetComponent<Image>().fillAmount = (_scoreScript.P1Score / 100f) ;
+        P2Bar.GetComponent<Image>().fillAmount = (_scoreScript.P2Score / 100f) ;
+        P3Bar.GetComponent<Image>().fillAmount = (_scoreScript.P3Score / 100f) ;
+        P4Bar.GetComponent<Image>().fillAmount = (_scoreScript.P4Score / 100f) ;
     }
 }
